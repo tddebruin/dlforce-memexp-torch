@@ -148,6 +148,7 @@ function main()
 	reload_experiments()
 	
 	while true do
+		os.execute('git pull')
 		check_command_messages()
 		while not experiments do
 			reload_experiments()
