@@ -1,0 +1,155 @@
+--[[
+
+		Tim de Bruin 2016
+		deepRL-torch
+		experience database - distribution class.
+		Uses SxA samples to train a classifier that determines the probability that a sample is from the policy distribution.
+		
+--]]
+
+require 'nn'
+require 'nngraph'
+
+local classifier = torch.class('drl_experience_classifier')
+
+function classifier:__init( experience_memory, settings )
+	assert(settings, 'No settings given')
+
+end
+
+local makeClassifierNetworks = function ( settings )
+	assert(settings,'No settings given ')
+	self.networks = {}
+	if (settings.stateaction) then
+		self.networks.stateaction = create_distribution_classifier_network(true, true, settings)
+	end	
+	if (settings.state) then
+		self.networks.stateaction = create_distribution_classifier_network(true, true, settings)
+	end	
+	if (settings.action) then
+		self.networks.stateaction = create_distribution_classifier_network(true, true, settings)
+	end	
+	self.networks.criterion 	= nn.BCECriterion()
+end
+
+local create_distribution_classifier_network = function(useState, useAction, settings)
+	assert(settings,"No settings given")
+	local nonlinearity	= settings.nonlinearity or nn.ReLU
+	assert(settings.hsizes,"size of hidden layer(s) not given")
+	assert(torch.type(settings.hsizes)=="table","hsize should be a table array with the number of hidden units per layer") 
+	local hiddensizes	= settings.hsizes
+	local batchnorm						= nn.Identity
+	if settings.actor.batchnorm	then
+		batchnorm = nn.BatchNormalization
+	end
+	local input_table = {}
+	if useState then 
+	  local s                 = nn.Identity()()
+	  assert(settings.statesize,"No state size given")
+	  table.insert(input_table,s)
+	end
+	if useAction then
+		local a                 = nn.Identity()()
+		assert(settings.actionsize,"No action size given")
+		table.insert(input_table,a)
+	end
+
+	local hiddenlayers 			= {}
+	local layersizes				= {}
+	
+	if ( useState and useAction) then 
+		hiddenlayers[0] 				= nn.JoinTable(2)({batchnorm(settings.statesize)(s), batchnorm(settings.actionsize)(a)})
+		layersizes[0] 					= settings.statesize	+ settings.actionsize	
+	elseif (useState) then
+		hiddenlayers[0] 				= batchnorm(settings.statesize)(s)
+		layersizes[0] 					= settings.statesize		
+	else
+		assert(useAction,'Both useState and useAction are false or nil, the sample classification should be based on something...')
+		hiddenlayers[0] 				= batchnorm(settings.actionsize)(a)
+		layersizes[0] 					= settings.actionsize			
+	end
+
+	local layerindex = 0
+	while layerindex < #hiddensizes do 
+		layerindex 								= layerindex + 1
+		hiddenlayers[layerindex] 	= nonlinearity()(nn.Linear(layersizes[layerindex-1],hiddensizes[layerindex])(batchnorm(layersizes[layerindex-1])(hiddenlayers[layerindex-1])))
+		layersizes[layerindex] 		= hiddensizes[layerindex]
+	end 
+
+  local h2c              = nn.Linear(layersizes[layerindex], 1)(hiddenlayers[layerindex])
+  local pred             = nn.Sigmoid()(h2c())
+
+  local module           = nn.gModule(input_table, 
+                                      {pred})
+  return module
+end
+
+-- settings should contain: classifier, dbInideces
+local train_classifier = function( network, settings )
+	
+
+
+
+end
+
+-- bounds: Tensor{2 x n}
+local generate_uniform_samples = function(numberOfSamples, bounds)
+	synth = torch.Tensor(numberOfSamples, bounds:size(2))
+	for i=1,bounds:size(2) do
+		synth[{{},i}]:copy( torch.rand(numberOfSamples)*(bounds[2][i]-bounds[1][i]) - bounds[1][i] )
+	end
+end
+
+local sw = torch.class('drl_sliding_window')
+
+function sw:__init( experience_memory, statebounds, actionbounds  )
+	self.statedim = statebounds:size(2)
+	self.actiondim = actionbounds:size(2)
+	self.experience_memory = experience_memory
+	self.dimensions = self.statedim + self.actiondim
+	self.update = 0
+	self.state = self.statedim > 0
+	self.action = self.actiondim > 0
+	self.uniform_states = generate_uniform_samples(experience_memory.time_indices:nElement(),statebounds)
+	self.uniform_actions = generate_uniform_samples(experience_memory.time_indices:nElement(),actionbounds)
+	
+
+
+end 
+
+function sw:update_distributions( nrsamples )
+	self.sigmadb = { state = {}, action = {}}
+	self.sigmaid = { state = {}, action = {}}
+	local realnrsamples = math.min(nrsamples,self.experience_memory.last_write_index)
+	self.dbstates = self.experience_memory.state[1][{{1,realnrsamples},{}}]
+	self.dbactions = self.experience_memory.action[1][{{1,realnrsamples},{}}]
+	self.unistates = self.uniform_states[{1,realnrsamples},{}}]
+	self.uniactions = self.uniform_actions[{1,realnrsamples},{}}]
+	for s=1,self.statedim do
+		table.insert(self.sigmadb.state,self:calculate_stdv(self.dbstates))
+		table.insert(self.sigmaid.state,self:calculate_stdv(self.unistates))
+	end
+	for s=1,self.actiondim do
+		table.insert(self.sigmadb.action,self:calculate_stdv(self.dbactions))
+		table.insert(self.sigmaid.action,self:calculate_stdv(self.uniactions))
+	end
+	--print(self.dbstates)	
+end
+
+function sw:calculate_stdv( vector )
+	local v = vector:view(-1)
+	local mu = torch.Tensor(v:size()):fill(v:mean())
+	local dsq = ((v:add(-1,mu)):pow(2)):mean()
+	return math.sqrt(dsq)
+end
+
+function sw:check_point( state, action )
+		-- take the exponential in place
+		-- sum after
+
+		-- fn = 1/n sum e^-((x-x0)^2/2*sigmadim^2 + (y-y0....)
+		
+		
+end
+
+

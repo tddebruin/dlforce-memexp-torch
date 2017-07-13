@@ -1,0 +1,31 @@
+th> b = a.experience_database
+                                                                      [0.0000s]
+th> b
+{
+  observation : 
+    {
+      1 						: DoubleTensor - size: 1000x3x3
+      2 						: DoubleTensor - size: 1000x5
+    }
+  action : 
+    {
+      1 						: DoubleTensor - size: 1000x2
+    }
+  next_state : 
+    {
+      1 						: DoubleTensor - size: 1000x6
+    }
+  next_action : 
+    {
+      1 						: DoubleTensor - size: 1000x2
+    }
+  time_indices 			: DoubleTensor - size: 1000
+  sequence_indices 	: DoubleTensor - size: 1000
+  reward 						: DoubleTensor - size: 1000
+  current_write_index : 100
+  state : 
+    {
+      1 						: DoubleTensor - size: 1000x6
+    }
+  last_write_index : 1000
+}

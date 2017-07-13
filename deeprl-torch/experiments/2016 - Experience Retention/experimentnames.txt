@@ -1,0 +1,166 @@
+Magman 50Hz, full DB
+magman 50Hz, full DB, prioritized replay
+Swingup 50Hz, full DB
+Swingup 50Hz, full DB, prioritized replay
+magman 50Hz, full DB, STOCHASTIC prioritized replay
+magman 50Hz, full DB, STOCHASTIC prioritized replay, importance sampling
+Swingup 50Hz, full DB, STOCHASTIC prioritized replay
+Swingup 50Hz, full DB, STOCHASTIC prioritized replay, importance sampling
+magman 50Hz, full DB, FASTER STOCHASTIC prioritized replay
+magman 50Hz, full DB, FASTER STOCHASTIC prioritized replay, importance sampling
+Swingup 50Hz, full DB, FASTER STOCHASTIC prioritized replay
+Swingup 50Hz, full DB, FASTER STOCHASTIC prioritized replay, importance sampling
+Magman 50Hz, 10k xp, FIFO, Uniform
+Magman 50Hz, 10k xp, FIFO, PER
+Magman 50Hz, 10k xp, FIFO, PER+IS
+Magman 50Hz, 10k xp, EXPL a=0.25, Uniform
+Magman 50Hz, 10k xp, EXPL a=0.25, PER
+Magman 50Hz, 10k xp, EXPL a=0.25, PER+IS
+Magman 50Hz, 10k xp, EXPL a=0.5, Uniform
+Magman 50Hz, 10k xp, EXPL a=0.5, PER
+Magman 50Hz, 10k xp, EXPL a=0.5, PER+IS
+Magman 50Hz, 10k xp, EXPL a=1.2, Uniform
+Magman 50Hz, 10k xp, EXPL a=1.2, PER
+Magman 50Hz, 10k xp, EXPL a=1.2, PER+IS
+Swingup 50Hz, 10k xp, FIFO, Uniform
+Swingup 50Hz, 10k xp, FIFO, PER
+Swingup 50Hz, 10k xp, FIFO, PER+IS
+Swingup 50Hz, 10k xp, EXPL a=0.25, Uniform
+Swingup 50Hz, 10k xp, EXPL a=0.25, PER
+Swingup 50Hz, 10k xp, EXPL a=0.25, PER+IS
+Swingup 50Hz, 10k xp, EXPL a=0.5, Uniform
+Swingup 50Hz, 10k xp, EXPL a=0.5, PER
+Swingup 50Hz, 10k xp, EXPL a=0.5, PER+IS
+Swingup 50Hz, 10k xp, EXPL a=1.2, Uniform
+Swingup 50Hz, 10k xp, EXPL a=1.2, PER
+Swingup 50Hz, 10k xp, EXPL a=1.2, PER+IS
+HSR Swingup 100 Hz, 10k xp, FIFO, Uniform
+HSR Swingup 100 Hz, 10k xp, FIFO, PER+IS
+HSR Swingup 100 Hz, 10k xp, EXPL a1.0, Uniform
+HSR Swingup 100 Hz, 10k xp, EXPL a1.0, PER+IS
+HSR Swingup 100 Hz, 10k xp, EXPL a2.0, Uniform
+HSR Swingup 100 Hz, 10k xp, EXPL a2.0, PER+IS
+HSR Magman 100 Hz, 10k xp, FIFO, Uniform
+HSR Magman 100 Hz, 10k xp, FIFO, PER+IS
+HSR Magman 100 Hz, 10k xp, EXPL 1.0, Uniform
+HSR Magman 100 Hz, 10k xp, EXPL 1.0, PER+IS
+HSR Magman 100 Hz, 10k xp, EXPL 2.0, Uniform
+HSR Magman 100 Hz, 10k xp, EXPL 2.0, PER+IS
+HLR Swingup 50 Hz, 10k xp, FIFO, Uniform
+HLR Swingup 50 Hz, 10k xp, FIFO, PER+IS
+HLR Swingup 50 Hz, 10k xp, EXPL 1.0, Uniform
+HLR Swingup 50 Hz, 10k xp, EXPL 1.0, PER+IS
+HLR Magman 50 Hz, 10k xp, FIFO, Uniform
+HLR Magman 50 Hz, 10k xp, FIFO, PER+IS
+HLR Magman 50 Hz, 10k xp, EXPL 1.0, Uniform
+HLR Magman 50 Hz, 10k xp, EXPL 1.0, PER+IS
+UHSR Magman 200 Hz, 10k xp, FIFO, Uniform
+UHSR Magman 200 Hz, 10k xp, EXPL 1.0, Uniform
+Magman 50Hz, 10k xp, EXPL a=1.2, PER+FIS
+Swingup 50Hz, 10k xp, EXPL a=1.2, PER+FIS
+UHSR Magman 200Hz, 10k xp, FIFO, PER+FIS
+UHSR Magman 200Hz, 10k xp, EXPL 1.0, PER+FIS
+Swingup 50Hz, 10k xp, TDE a=1.2, Uniform
+Swingup 50Hz, 10k xp, TDE a=1.2, PER+FIS
+Magman 50Hz, 10k xp, TDE a=1.2, Uniform
+Magman 50Hz, 10k xp, TDE a=1.2, PER+FIS
+HSR Swingup 100 Hz, 10k xp, EXPL a1.0, PER+FIS
+HSR Swingup 100 Hz, 10k xp, TDE a1.0, PER+FIS
+UHSR Magman 200Hz, 10k xp, TDE 1.0, PER+FIS
+Noise Magman 0.02, 10k xp, FIFO, Uniform
+Noise Magman 0.02, 10k xp, FIFO, PER+FIS
+Noise Magman 0.02, 10k xp, EXPL a1.0, Uniform
+Noise Magman 0.02, 10k xp, EXPL a1.0, PER+FIS
+Noise Magman 0.02, 10k xp, TDE a1.0, Uniform
+Noise Magman 0.02, 10k xp, TDE a1.0, PER+FIS
+Noise Swingup 0.02, 10k xp, FIFO, Uniform
+Noise Swingup 0.02, 10k xp, FIFO, PER+FIS
+Noise Swingup 0.02, 10k xp, EXPL a1.0, Uniform
+Noise Swingup 0.02, 10k xp, EXPL a1.0, PER+FIS
+Noise Swingup 0.02, 10k xp, TDE a1.0, Uniform
+Noise Swingup 0.02, 10k xp, TDE a1.0, PER+FIS
+Noise Magman 0.05, 10k xp, FIFO, Uniform
+Noise Magman 0.05, 10k xp, FIFO, PER+FIS
+Noise Magman 0.05, 10k xp, EXPL a1.0, Uniform
+Noise Magman 0.05, 10k xp, EXPL a1.0, PER+FIS
+Noise Magman 0.05, 10k xp, TDE a1.0, Uniform
+Noise Magman 0.05, 10k xp, TDE a1.0, PER+FIS
+Noise Swingup 0.05, 10k xp, FIFO, Uniform
+Noise Swingup 0.05, 10k xp, FIFO, PER+FIS
+Noise Swingup 0.05, 10k xp, EXPL a1.0, Uniform
+Noise Swingup 0.05, 10k xp, EXPL a1.0, PER+FIS
+Noise Swingup 0.05, 10k xp, TDE a1.0, Uniform
+Noise Swingup 0.05, 10k xp, TDE a1.0, PER+FIS
+HSR Swingup 100 Hz, 10k xp, TDE a1.0, Uniform
+HSR Swingup 100 Hz, 10k xp, OFFPOL, Uniform
+HSR Swingup 100 Hz, 10k xp, OFFPOL, PER+FIS
+UHSR Magman 200 Hz, 10k xp, OFFPOL, Uniform
+UHSR Magman 200 Hz, 10k xp, OFFPOL, PER+FIS
+HSR+noise Swingup 100 Hz, 10k xp, FIFO, Uniform
+HSR+noise Swingup 100 Hz, 10k xp, OFFPOL, Uniform
+HSR+noise Swingup 100 Hz, 10k xp, TDE, Uniform
+HSR+noise Swingup 100 Hz, 10k xp, EXPL, Uniform
+Magman 50Hz, 10k xp, 10% synth S 
+Magman 50Hz, 10k xp, 10% synth A 
+Magman 50Hz, 10k xp, 10% synth S A 
+Swingup 50Hz, 10k xp, 10% synth S 
+Swingup 50Hz, 10k xp, 10% synth A 
+Swingup 50Hz, 10k xp, 10% synth S A 
+HSR Magman 200Hz, 10k xp, 10% synth S 
+HSR Magman 200Hz, 10k xp, 10% synth A 
+HSR Magman 200Hz, 10k xp, 10% synth S A 
+HSR Swingup 100Hz, 10k xp, 10% synth S 
+HSR Swingup 100Hz, 10k xp, 10% synth A 
+HSR Swingup 100Hz, 10k xp, 10% synth S A 
+Noise Magman 50Hz, 10k xp, 10% synth S 
+Noise Magman 50Hz, 10k xp, 10% synth A 
+Noise Magman 50Hz, 10k xp, 10% synth S A 
+Noise Swingup 50Hz, 10k xp, 10% synth S 
+Noise Swingup 50Hz, 10k xp, 10% synth A 
+Noise Swingup 50Hz, 10k xp, 10% synth S A 
+HSR Swingup 100 Hz, 10k xp, FIFO, Uniform SAMPLEDROPOUT
+UHSR Magman 200 Hz, 10k xp, FIFO, Uniform SAMPLEDROPOUT
+UHSR Magman 200Hz, 10k xp, TDE 1.0, Uniform
+HSR Swingup 100 Hz, 10k xp, FIFO, PER+FIS
+HSR Swingup 100 Hz, 10k xp, FIFO, Uniform SAMPLEDROPOUT gammacorrected
+UHSR Magman 200 Hz, 10k xp, FIFO, Uniform SAMPLEDROPOUT gammacorrected
+HSR Magman 200Hz, 10k xp, 10% synth S SAMPLEDROPOUT
+HSR Magman 200Hz, 10k xp, 10% synth A SAMPLEDROPOUT
+HSR Magman 200Hz, 10k xp, 10% synth S A SAMPLEDROPOUT
+HSR Swingup 100Hz, 10k xp, 10% synth S SAMPLEDROPOUT
+HSR Swingup 100Hz, 10k xp, 10% synth A SAMPLEDROPOUT
+HSR Swingup 100Hz, 10k xp, 10% synth S A SAMPLEDROPOUT
+UHSR Magman 200Hz, 10k xp, EXPL 1.0, PER+FIS SAMPLEDROPOUT
+HSR Swingup 100 Hz, 10k xp, EXPL a1.0, PER+FIS SAMPLEDROPOUT
+Swingup 50Hz, 10k xp, EXPL a=1.2, Uniform FIS
+Magman 50Hz, 10k xp, EXPL a=1.2, Uniform FIS
+Swingup 50Hz, 10k xp, TDE a=1.2, Uniform FIS
+Magman 50Hz, 10k xp, TDE a=1.2, Uniform FIS
+Swingup 50Hz, 10k xp, EXPL a=1.2, Uniform FIS-light
+Magman 50Hz, 10k xp, EXPL a=1.2, Uniform FIS-light
+Swingup 50Hz, 10k xp, EXPL a=1.2, PER+FIS-light
+Magman 50Hz, 10k xp, EXPL a=1.2, PER+FIS-light
+Swingup 50Hz, 10k xp, TDE a=1.2, PER+FIS-light
+Magman 50Hz, 10k xp, TDE a=1.2, PER+FIS-light
+Swingup 50Hz, full DB BWD
+Swingup 50Hz, full DB 
+Swingup 50Hz, full DB ALTREW BWD
+Swingup 50Hz, full DB ALTREW
+Swingup 50Hz, full DB OU half freq
+Swingup 50Hz, full DB no action penalty
+Swingup 50Hz, 10k xp, 5% synth S 
+Swingup 50Hz, 10k xp, 20% synth S 
+Swingup 50Hz, 10k xp, 50% synth S 
+Swingup 50Hz, 10k xp, 100% synth S 
+Magman 50Hz, 10k xp, 5% synth S 
+Magman 50Hz, 10k xp, 20% synth S 
+Magman 50Hz, 10k xp, 50% synth S 
+Magman 50Hz, 10k xp, 100% synth S 
+Swingup 50Hz, 10k xp, 5% synth A 
+Swingup 50Hz, 10k xp, 20% synth A 
+Swingup 50Hz, 10k xp, 50% synth A 
+Swingup 50Hz, 10k xp, 100% synth A 
+Magman 50Hz, 10k xp, 5% synth A 
+Magman 50Hz, 10k xp, 20% synth A 
+Magman 50Hz, 10k xp, 50% synth A 
+Magman 50Hz, 10k xp, 100% synth A 
