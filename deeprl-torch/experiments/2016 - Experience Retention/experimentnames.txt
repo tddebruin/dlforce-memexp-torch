@@ -164,3 +164,23 @@ Magman 50Hz, 10k xp, 5% synth A
 Magman 50Hz, 10k xp, 20% synth A 
 Magman 50Hz, 10k xp, 50% synth A 
 Magman 50Hz, 10k xp, 100% synth A 
+Swingup 50Hz, 1k xp
+Swingup 50Hz, 1k xp, 50% synth S 
+Swingup 50Hz, 1k xp, 100% synth S 
+Magman 50Hz, 1k xp
+Magman 50Hz, 1k xp, 50% synth S 
+Magman 50Hz, 1k xp, 100% synth S 
+Swingup 50Hz, 1k xp, 50% synth A 
+Swingup 50Hz, 1k xp, 100% synth A 
+Magman 50Hz, 1k xp, 50% synth A 
+Magman 50Hz, 1k xp, 100% synth A 
+Swingup 50Hz, 100k xp
+Swingup 50Hz, 100k xp, 50% synth S 
+Swingup 50Hz, 100k xp, 100% synth S 
+Magman 50Hz, 100k xp
+Magman 50Hz, 100k xp, 50% synth S 
+Magman 50Hz, 100k xp, 100% synth S 
+Swingup 50Hz, 100k xp, 50% synth A 
+Swingup 50Hz, 100k xp, 100% synth A 
+Magman 50Hz, 100k xp, 50% synth A 
+Magman 50Hz, 100k xp, 100% synth A 
