@@ -184,3 +184,21 @@ Swingup 50Hz, 100k xp, 50% synth A
 Swingup 50Hz, 100k xp, 100% synth A 
 Magman 50Hz, 100k xp, 50% synth A 
 Magman 50Hz, 100k xp, 100% synth A 
+Swingup 50Hz, noise 0.01
+Magman 50Hz, noise 0.01
+Swingup 50Hz, noise 0.01, 50% synth S 
+Magman 50Hz, noise 0.01, 50% synth S 
+Swingup 50Hz, noise 0.01, 50% synth A 
+Magman 50Hz, noise 0.01, 50% synth A 
+Swingup 50Hz, noise 0.02
+Magman 50Hz, noise 0.02
+Swingup 50Hz, noise 0.02, 50% synth S 
+Magman 50Hz, noise 0.02, 50% synth S 
+Swingup 50Hz, noise 0.02, 50% synth A 
+Magman 50Hz, noise 0.02, 50% synth A 
+Swingup 50Hz, noise 0.05
+Magman 50Hz, noise 0.05
+Swingup 50Hz, noise 0.05, 50% synth S 
+Magman 50Hz, noise 0.05, 50% synth S 
+Swingup 50Hz, noise 0.05, 50% synth A 
+Magman 50Hz, noise 0.05, 50% synth A 
