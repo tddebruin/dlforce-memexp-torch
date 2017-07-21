@@ -154,6 +154,7 @@ function main()
 			reload_experiments()
 		end
 		load_data()
+		reload_experiments()
 		local nextExperiment = first_experiment_with_least_results()
 		if nextExperiment then
 			perform_experiment(nextExperiment)
