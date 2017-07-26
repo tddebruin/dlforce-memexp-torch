@@ -202,3 +202,27 @@ Swingup 50Hz, noise 0.05, 50% synth S
 Magman 50Hz, noise 0.05, 50% synth S 
 Swingup 50Hz, noise 0.05, 50% synth A 
 Magman 50Hz, noise 0.05, 50% synth A 
+Swingup 50Hz, 10k xp, 10% synth S synthRefreshProb 10%
+Swingup 50Hz, 10k xp, 50% synth S synthRefreshProb 10%
+Swingup 50Hz, 10k xp, 10% synth A synthRefreshProb 10%
+Swingup 50Hz, 10k xp, 50% synth A synthRefreshProb 10%
+Magman 50Hz, 10k xp, 10% synth S synthRefreshProb 10%
+Magman 50Hz, 10k xp, 50% synth S synthRefreshProb 10%
+Magman 50Hz, 10k xp, 10% synth A synthRefreshProb 10%
+Magman 50Hz, 10k xp, 50% synth A synthRefreshProb 10%
+Swingup 50Hz, 10k xp, 10% synth S synthRefreshProb 1%
+Swingup 50Hz, 10k xp, 50% synth S synthRefreshProb 1%
+Swingup 50Hz, 10k xp, 10% synth A synthRefreshProb 1%
+Swingup 50Hz, 10k xp, 50% synth A synthRefreshProb 1%
+Magman 50Hz, 10k xp, 10% synth S synthRefreshProb 1%
+Magman 50Hz, 10k xp, 50% synth S synthRefreshProb 1%
+Magman 50Hz, 10k xp, 10% synth A synthRefreshProb 1%
+Magman 50Hz, 10k xp, 50% synth A synthRefreshProb 1%
+Swingup 50Hz, 10k xp, 10% synth S synthRefreshProb 0%
+Swingup 50Hz, 10k xp, 50% synth S synthRefreshProb 0%
+Swingup 50Hz, 10k xp, 10% synth A synthRefreshProb 0%
+Swingup 50Hz, 10k xp, 50% synth A synthRefreshProb 0%
+Magman 50Hz, 10k xp, 10% synth S synthRefreshProb 0%
+Magman 50Hz, 10k xp, 50% synth S synthRefreshProb 0%
+Magman 50Hz, 10k xp, 10% synth A synthRefreshProb 0%
+Magman 50Hz, 10k xp, 50% synth A synthRefreshProb 0%

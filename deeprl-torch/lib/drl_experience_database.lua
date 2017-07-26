@@ -3,9 +3,9 @@
 		Tim de Bruin 2015
 		deepRL-torch
 		experience database class.
-		Constructs the full RL state from its parts and / or 
+		Constructs the full RL state from its parts and / or
 		maintains the experience database for training,
-		
+
 --]]
 if USEGPU then
 	require "cunn"
@@ -19,22 +19,22 @@ function em:__init(short_term_memory,long_term_memory,settings)
 	self.send_OSAR_function 				= settings.send_OSAR_function
 	if short_term_memory then -- for full RL state reconstruction from partial info
 		self.short_term_memory_size 	= settings.short_term_memory_size or 10000
-		self.full_state_parts 			  = {} -- the partial state objects including memory and functions 
+		self.full_state_parts 			  = {} -- the partial state objects including memory and functions
     self.current_full_state       = {} -- the last full state tensor table
     for i = 1,#settings.full_state_dimension do -- number of full states (1 unless multi-modal non concatinated input)
       table.insert(self.full_state_parts,{})
-      table.insert(self.current_full_state, torch.Tensor(settings.full_state_dimension[i]):zero()) 	
+      table.insert(self.current_full_state, torch.Tensor(settings.full_state_dimension[i]):zero())
     end
     if (settings.observation_dimension) then
-		  self.observation_parts 			 	= {} -- the observation objects including memory and functions 
+		  self.observation_parts 			 	= {} -- the observation objects including memory and functions
 		  self.current_observation 			= {}
 		  for i = 1,#settings.observation_dimension do -- number of observation tensors (1 unless multi-modal non concatinated input)
-		    table.insert(self.current_observation, torch.Tensor(settings.observation_dimension[i]):zero()) 	
-		  end   
+		    table.insert(self.current_observation, torch.Tensor(settings.observation_dimension[i]):zero())
+		  end
 		end
 	end
-  
-	if long_term_memory then 
+
+	if long_term_memory then
 		self.state_to_add = { current = {}, previous = {}} -- remember state action and reward of the last time step
 		assert(settings.experience_replay_size,"settings.experience_replay_size not set")
 		self.experience_replay_size 	= settings.experience_replay_size -- number of experiences
@@ -53,9 +53,9 @@ function em:__init(short_term_memory,long_term_memory,settings)
 				assert(type(state.default_value)=="number","Only numbers supported for now.")
 				table.insert(self.experience_database.extra_info , {name = state.name, values = torch.Tensor(self.experience_replay_size):fill(state.default_value), default_value = state.default_value})
 			end
-		end	
-			
-		
+		end
+
+
 		-- TODO: maybe store every seperate observation/state in 1D and resize() at the last moment?
 		if settings.RL_state_parts.state then
 			self.experience_database.state = {}
@@ -65,8 +65,8 @@ function em:__init(short_term_memory,long_term_memory,settings)
 				for j = 2,#size do
 					size[j] = settings.full_state_dimension[i][j-1]
 				end
-				table.insert(self.experience_database.state, torch.Tensor(size):zero()) 	
-			end		
+				table.insert(self.experience_database.state, torch.Tensor(size):zero())
+			end
 		end
 		if settings.RL_state_parts.next_state then
 			self.experience_database.next_state = {}
@@ -76,8 +76,8 @@ function em:__init(short_term_memory,long_term_memory,settings)
 				for j = 2,#size do
 					size[j] = settings.full_state_dimension[i][j-1]
 				end
-				table.insert(self.experience_database.next_state, torch.Tensor(size):zero()) 	
-			end		
+				table.insert(self.experience_database.next_state, torch.Tensor(size):zero())
+			end
 		end
 		if settings.RL_state_parts.action then
 			self.experience_database.action = {}
@@ -87,8 +87,8 @@ function em:__init(short_term_memory,long_term_memory,settings)
 				for j = 2,#size do
 					size[j] = settings.action_dimension[i][j-1]
 				end
-				table.insert(self.experience_database.action, torch.Tensor(size):zero()) 	
-			end		
+				table.insert(self.experience_database.action, torch.Tensor(size):zero())
+			end
 		end
 		if settings.RL_state_parts.next_action then
 			self.experience_database.next_action = {}
@@ -98,15 +98,15 @@ function em:__init(short_term_memory,long_term_memory,settings)
 				for j = 2,#size do
 					size[j] = settings.action_dimension[i][j-1]
 				end
-				table.insert(self.experience_database.next_action, torch.Tensor(size):zero()) 	
-			end		
+				table.insert(self.experience_database.next_action, torch.Tensor(size):zero())
+			end
 		end
 		if settings.RL_state_parts.reward then
-			self.experience_database.reward = torch.Tensor(self.experience_replay_size)			
-		end   
+			self.experience_database.reward = torch.Tensor(self.experience_replay_size)
+		end
 		if settings.RL_state_parts.terminal then
-			self.experience_database.terminal = torch.Tensor(self.experience_replay_size)			
-		end   		 
+			self.experience_database.terminal = torch.Tensor(self.experience_replay_size)
+		end
 		if settings.RL_state_parts.observation then
 				self.experience_database.observation = {}
 				for i = 1,#settings.observation_dimension do
@@ -115,24 +115,24 @@ function em:__init(short_term_memory,long_term_memory,settings)
 					for j = 2,#size do
 						size[j] = settings.observation_dimension[i][j-1]
 					end
-					table.insert(self.experience_database.observation, torch.Tensor(size):zero()) 	
-				end		
-		end	
+					table.insert(self.experience_database.observation, torch.Tensor(size):zero())
+				end
+		end
 	end
-		
+
 end
 
 function em:reset()
-	if self.experience_database then 
-		
+	if self.experience_database then
+
 		if self.experience_database.extra_info then
 			for i,state in ipairs(self.experience_database.extra_info) do
 				state.values:fill(state.default_value)
 			end
 		end
-		
+
 		self.state_to_add = { current = {}, previous = {}} -- remember state action and reward of the last time step
-		self.experience_database.current_write_index = 1 
+		self.experience_database.current_write_index = 1
 		self.experience_database.last_write_index = 0
 		self.experience_database.time_indices:fill(-1)
 		self.experience_database.sequence_indices:fill(-1)
@@ -144,8 +144,8 @@ function em:reset()
 				for j = 2,#size do
 					size[j] = self.expm_settings.full_state_dimension[i][j-1]
 				end
-				table.insert(self.experience_database.state, torch.Tensor(size):zero()) 	
-			end		
+				table.insert(self.experience_database.state, torch.Tensor(size):zero())
+			end
 		end
 		if self.expm_settings.RL_state_parts.next_state then
 			self.experience_database.next_state = {}
@@ -155,8 +155,8 @@ function em:reset()
 				for j = 2,#size do
 					size[j] = self.expm_settings.full_state_dimension[i][j-1]
 				end
-				table.insert(self.experience_database.next_state, torch.Tensor(size):zero()) 	
-			end		
+				table.insert(self.experience_database.next_state, torch.Tensor(size):zero())
+			end
 		end
 		if self.expm_settings.RL_state_parts.action then
 			self.experience_database.action = {}
@@ -166,8 +166,8 @@ function em:reset()
 				for j = 2,#size do
 					size[j] = self.expm_settings.action_dimension[i][j-1]
 				end
-				table.insert(self.experience_database.action, torch.Tensor(size):zero()) 	
-			end		
+				table.insert(self.experience_database.action, torch.Tensor(size):zero())
+			end
 		end
 		if self.expm_settings.RL_state_parts.next_action then
 			self.experience_database.next_action = {}
@@ -177,15 +177,15 @@ function em:reset()
 				for j = 2,#size do
 					size[j] = self.expm_settings.action_dimension[i][j-1]
 				end
-				table.insert(self.experience_database.next_action, torch.Tensor(size):zero()) 	
-			end		
+				table.insert(self.experience_database.next_action, torch.Tensor(size):zero())
+			end
 		end
 		if self.expm_settings.RL_state_parts.reward then
-			self.experience_database.reward = torch.Tensor(self.experience_replay_size):zero()			
+			self.experience_database.reward = torch.Tensor(self.experience_replay_size):zero()
 		end
 		if self.expm_settings.RL_state_parts.terminal then
-			self.experience_database.terminal = torch.Tensor(self.experience_replay_size):zero()			
-		end    
+			self.experience_database.terminal = torch.Tensor(self.experience_replay_size):zero()
+		end
 		if self.expm_settings.RL_state_parts.observation then
 				self.experience_database.observation = {}
 				for i = 1,#self.expm_settings.observation_dimension do
@@ -194,9 +194,9 @@ function em:reset()
 					for j = 2,#size do
 						size[j] = self.expm_settings.observation_dimension[i][j-1]
 					end
-					table.insert(self.experience_database.observation, torch.Tensor(size):zero()) 	
-				end		
-		end	
+					table.insert(self.experience_database.observation, torch.Tensor(size):zero())
+				end
+		end
 	end
 collectgarbage()
 end
@@ -207,14 +207,14 @@ function em:reset_getfunctions()
 	print("FIX THIS! (experiencedb:reset_getfunctions needs settings")
   --[[for i = 1,#settings.full_state_dimension do -- number of full states (1 unless multi-modal non concatinated input)
     table.insert(self.full_state_parts,{})
-    table.insert(self.current_full_state, torch.Tensor(settings.full_state_dimension[i]):zero()) 	
+    table.insert(self.current_full_state, torch.Tensor(settings.full_state_dimension[i]):zero())
   end
   if (settings.observation_dimension) then
-	  self.observation_parts 			 	= {} -- the observation objects including memory and functions 
+	  self.observation_parts 			 	= {} -- the observation objects including memory and functions
 	  self.current_observation 			= {}
 	  for i = 1,#settings.observation_dimension do -- number of observation tensors (1 unless multi-modal non concatinated input)
-	    table.insert(self.current_observation, torch.Tensor(settings.observation_dimension[i]):zero()) 	
-	  end   
+	    table.insert(self.current_observation, torch.Tensor(settings.observation_dimension[i]):zero())
+	  end
 	end
 	]]
 	self.full_state_parts[1] = {}
@@ -225,7 +225,7 @@ function em:addPartialState(full_state_index,partial_state)
     table.insert(self.full_state_parts[full_state_index],partial_state)
 end
 
--- each observation is independent 
+-- each observation is independent
 function em:addObservation(observation)
     table.insert(self.observation_parts,observation)
 end
@@ -239,7 +239,7 @@ end
 
 function em:setReward(reward, extra_information)
 		self.reward_state = reward
-		self.cost 				= extra_information.cost 
+		self.cost 				= extra_information.cost
 		if extra_information then
 			-- deal with it, probably in a child class
 			self.reward_delay = extra_information.delay
@@ -259,7 +259,7 @@ function em:construct_full_state(time_index,sequence_index)
   -- update the partial states
   for idx1, full_state_part in ipairs(self.full_state_parts) do
     for indx2, partial_state in ipairs(full_state_part) do
-      partial_state:receive_for_time(time_index,sequence_index)	
+      partial_state:receive_for_time(time_index,sequence_index)
     end
   end
   -- construct the full state
@@ -269,11 +269,11 @@ function em:construct_full_state(time_index,sequence_index)
     for idx1, partial_state in ipairs(full_state_part) do
       for i = 0,partial_state.prevPerFullState do
         local state_part    = partial_state:get_value_for_timestep(time_index - i,sequence_index)
-        
+
         local state_length  = state_part:size(1)
         self.current_full_state[fsi][{{index,index+state_length-1}}] = state_part
         index = index + state_length
-      end 
+      end
     end
   end
 	return self.current_full_state
@@ -283,7 +283,7 @@ function em:collect_observations(time_index,sequence_index)
   -- update the observations states
   assert(time_index and sequence_index,"provide the time and sequence indices")
   for idx1, observation in ipairs(self.observation_parts) do
-      observation:receive_for_time(time_index,sequence_index)	
+      observation:receive_for_time(time_index,sequence_index)
       self.current_observation[idx1] = observation:get_value_for_timestep(time_index,sequence_index)
   end
 	return self.current_observation
@@ -310,7 +310,7 @@ function em:receive_OSAR(time_index)
 	-- receive function
   self:get_OSAR_function()
 end
-  
+
 
 -- send the observations state action and reward to another module
 function em:send_OSAR(time_index)
@@ -337,17 +337,17 @@ function em:get_OSAR_copy()
 		osarcopy.terminal      	= self.OSAR.terminal:clone()
 	else
 		osarcopy.terminal      	= self.OSAR.terminal
-	end	
+	end
 	if torch.isTensor(self.OSAR.observation) then
 		osarcopy.observation      	= self.OSAR.observation:clone()
 	else
 		osarcopy.observation      	= self.OSAR.observation
-	end	
+	end
 	return osarcopy
 end
 
 --- Write the experience to the database
-function em:add_RL_state_to_db()	
+function em:add_RL_state_to_db()
   assert(self.OSAR ,"No OSAR to set")
 
   local time_index  = self.OSAR.time_index
@@ -366,10 +366,10 @@ function em:add_RL_state_to_db()
       if(torch.type(object)=="table")then
           for idx,fsp in ipairs(object) do
             db[idx][index]:copy(fsp)
-          end      
+          end
       else
         db[1][index]:copy(object)
-      end    
+      end
     end
 
   if (time_index and sequence_index and full_state and action and reward) then
@@ -382,29 +382,29 @@ function em:add_RL_state_to_db()
 		  self.state_to_add.previous.reward 					= self.state_to_add.current.reward
 		  self.state_to_add.previous.terminal					= self.state_to_add.current.terminal
 		  self.state_to_add.previous.observation 			= self.state_to_add.current.observation
-		  
+
 		  self.state_to_add.current.state   					= full_state
 		  self.state_to_add.current.action  					= action
 		  self.state_to_add.current.reward  					= reward
 		  self.state_to_add.current.terminal  				= terminal
-		  self.state_to_add.current.observation 			= observation        
+		  self.state_to_add.current.observation 			= observation
 		  self.state_to_add.current.time_index 				=	time_index
 		  self.state_to_add.current.sequence_index 		= sequence_index
-		  
+
 		  -- write to the DB
 		  self.experience_database.time_indices[self.experience_database.current_write_index] = self.state_to_add.previous.time_index
-		  
+
 		  self.experience_database.sequence_indices[self.experience_database.current_write_index] = self.state_to_add.previous.sequence_index
-		  
+
 			if self.experience_database.extra_info then
 				for i,state in ipairs(self.experience_database.extra_info) do
 					state.values[self.experience_database.current_write_index] = (state.default_value)
 				end
 			end
-				
+
 		  if self.experience_database.state then
 		    write_to_db(self.experience_database.state,self.experience_database.current_write_index,self.state_to_add.previous.state)
-		  end  
+		  end
 		  if self.experience_database.next_state then
 		    write_to_db(self.experience_database.next_state,self.experience_database.current_write_index,self.state_to_add.current.state)
 		  end
@@ -426,14 +426,14 @@ function em:add_RL_state_to_db()
 			end
 			if self.experience_database.observation then
 		    write_to_db(self.experience_database.observation,self.experience_database.current_write_index,self.state_to_add.previous.observation)
-		  end  
-		  
+		  end
+
 		  -- advance DB write index
 		  local writenidx = self.experience_database.current_write_index
 		  if(self.experience_database.current_write_index > self.experience_database.last_write_index) then
 		    self.experience_database.last_write_index = self.experience_database.current_write_index
-		  end    
-		  
+		  end
+
 		  self:advance_db_write_index()
 		  return writenidx
 		else -- no previous experience
@@ -442,12 +442,77 @@ function em:add_RL_state_to_db()
 		  self.state_to_add.current.action 	 					= action
 		  self.state_to_add.current.reward  					= reward
 		  self.state_to_add.current.observation 			= observation
-		  self.state_to_add.current.time_index				= time_index 
+		  self.state_to_add.current.time_index				= time_index
 		  self.state_to_add.current.sequence_index 		= sequence_index
 		end
 	else
 		print("WARNING NO EXPERIENCE TO ADD TO THE DATABASE")
-		if not (time_index) then print("time_index not set") end 
+		if not (time_index) then print("time_index not set") end
+		if not (sequence_index) then print("sequence_index not set") end
+		if not (full_state) then print("full_state not set") end
+		if not (action) then print ("action not set") end
+		if not (reward) then print ("reward not set") end
+	end
+end
+
+--- DUMMY - same side effects as add state, without adding to the db.
+function em:dont_add_RL_state_to_db()
+  assert(self.OSAR ,"No OSAR to set")
+
+  local time_index  = self.OSAR.time_index
+  local sequence_index = self.OSAR.sequence_index
+  self.last_sequence_index = sequence_index
+  local full_state  = {}
+  for i = 1,#self.OSAR.state do
+  	full_state[i] = self.OSAR.state[i]:clone()
+  end
+  local action      = self.OSAR.action:clone()
+  local reward      = self.OSAR.reward
+  local terminal 		= self.OSAR.terminal
+  local observation = self.OSAR.observation
+
+  if (time_index and sequence_index and full_state and action and reward) then
+		if self.state_to_add.current.time_index and self.state_to_add.current.time_index == time_index - 1 and self.state_to_add.current.sequence_index == sequence_index then
+		  -- prev state = current state, current state = new state, save to DB
+		  self.state_to_add.previous.time_index 			= self.state_to_add.current.time_index
+		  self.state_to_add.previous.sequence_index 	= self.state_to_add.current.sequence_index
+		  self.state_to_add.previous.state 						= self.state_to_add.current.state
+		  self.state_to_add.previous.action 					= self.state_to_add.current.action
+		  self.state_to_add.previous.reward 					= self.state_to_add.current.reward
+		  self.state_to_add.previous.terminal					= self.state_to_add.current.terminal
+		  self.state_to_add.previous.observation 			= self.state_to_add.current.observation
+
+		  self.state_to_add.current.state   					= full_state
+		  self.state_to_add.current.action  					= action
+		  self.state_to_add.current.reward  					= reward
+		  self.state_to_add.current.terminal  				= terminal
+		  self.state_to_add.current.observation 			= observation
+		  self.state_to_add.current.time_index 				=	time_index
+		  self.state_to_add.current.sequence_index 		= sequence_index
+
+		  -- write to the DB
+		  -- deleted
+
+		  -- advance DB write index
+		  local writenidx = self.experience_database.current_write_index
+		  if(self.experience_database.current_write_index > self.experience_database.last_write_index) then
+		    self.experience_database.last_write_index = self.experience_database.current_write_index
+		  end
+
+		  self:advance_db_write_index()
+		  return writenidx
+		else -- no previous experience
+		  -- current state = new state
+		  self.state_to_add.current.state   					= full_state
+		  self.state_to_add.current.action 	 					= action
+		  self.state_to_add.current.reward  					= reward
+		  self.state_to_add.current.observation 			= observation
+		  self.state_to_add.current.time_index				= time_index
+		  self.state_to_add.current.sequence_index 		= sequence_index
+		end
+	else
+		print("WARNING NO EXPERIENCE TO ADD TO THE DATABASE")
+		if not (time_index) then print("time_index not set") end
 		if not (sequence_index) then print("sequence_index not set") end
 		if not (full_state) then print("full_state not set") end
 		if not (action) then print ("action not set") end
@@ -457,30 +522,30 @@ end
 
 --- WARNING!
 --- This function should not be used in general! Use the one above instead.
-function em:direct_RL_state_insert(rlstate)	
+function em:direct_RL_state_insert(rlstate)
 	local write_to_db = function(db,index,object)
 	  if(torch.type(object)=="table")then
 	      for idx,fsp in ipairs(object) do
 	        db[idx][index]:copy(fsp)
-	      end      
+	      end
 	  else
 	    db[1][index]:copy(object)
-	  end    
+	  end
 	end
 
   -- write to the DB
   self.experience_database.time_indices[self.experience_database.current_write_index] = rlstate.time_index
   self.experience_database.sequence_indices[self.experience_database.current_write_index] = rlstate.sequence_index
-  
+
 	if self.experience_database.extra_info then
 		for i,state in ipairs(self.experience_database.extra_info) do
 			state.values[self.experience_database.current_write_index] = (state.default_value)
 		end
 	end
-		
+
   if self.experience_database.state then
     write_to_db(self.experience_database.state,self.experience_database.current_write_index,rlstate.state)
-  end  
+  end
   if self.experience_database.next_state then
     write_to_db(self.experience_database.next_state,self.experience_database.current_write_index,rlstate.next_state)
   end
@@ -498,16 +563,16 @@ function em:direct_RL_state_insert(rlstate)
 	end
 	if self.experience_database.observation then
     write_to_db(self.experience_database.observation,self.experience_database.current_write_index,rlstate.observation)
-  end  
-  
+  end
+
   -- advance DB write index
-  
+
   if(self.experience_database.current_write_index > self.experience_database.last_write_index) then
     self.experience_database.last_write_index = self.experience_database.current_write_index
-  end    
-  self:advance_db_write_index()    
+  end
+  self:advance_db_write_index()
 end
-  
+
 
 function em:advance_db_write_index()
 	self.experience_database.previous_write_index = self.experience_database.current_write_index
@@ -522,7 +587,7 @@ function em:advance_db_write_index()
 		  self.experience_database.current_write_index = math.floor(self.experience_database.last_write_index/2)
 		end
 	elseif self.expm_settings.overwrite_policy == 'TDE' then
-		if self.experience_database.last_write_index < self.experience_replay_size then 
+		if self.experience_database.last_write_index < self.experience_replay_size then
 			self.experience_database.current_write_index = self.experience_database.current_write_index + 1
 		else
 			-- find the sample with the lowest TDE
@@ -533,7 +598,7 @@ function em:advance_db_write_index()
 					end
 				end
 				assert(info_state, "TDE state not found in the extra_info database")
-						
+
 			local currentLowestTDE 	= math.huge
 			local currentIndex 			= 1
 			for index = 1,self.experience_replay_size do
@@ -545,7 +610,7 @@ function em:advance_db_write_index()
 			self.experience_database.current_write_index = currentIndex
 		end
 	elseif self.expm_settings.overwrite_policy == 'DISTRIBUTION' then
-		if self.experience_database.last_write_index < self.experience_replay_size then 
+		if self.experience_database.last_write_index < self.experience_replay_size then
 			self.experience_database.current_write_index = self.experience_database.current_write_index + 1
 		else
 			if not(self.lastDistributionRefresh) or self.lastDistributionRefresh < self.last_sequence_index then
@@ -555,7 +620,7 @@ function em:advance_db_write_index()
       		self.experience_database.current_write_index = self.distribution_index()
 		end
 	elseif self.expm_settings.overwrite_policy == 'DISTRIBUTION_FAST' then
-		if self.experience_database.last_write_index < self.experience_replay_size then 
+		if self.experience_database.last_write_index < self.experience_replay_size then
 			self.experience_database.current_write_index = self.experience_database.current_write_index + 1
 		else
 			if not(self.lastDistributionRefresh) or self.lastDistributionRefresh < self.last_sequence_index then
@@ -565,7 +630,7 @@ function em:advance_db_write_index()
   		self.experience_database.current_write_index = self.distribution_index()
 		end
 	elseif self.expm_settings.overwrite_policy == 'OFFPOL' then
-		if self.experience_database.last_write_index < self.experience_replay_size then 
+		if self.experience_database.last_write_index < self.experience_replay_size then
 			self.experience_database.current_write_index = self.experience_database.current_write_index + 1
 		else
 			if not(self.lastDistributionRefresh) or self.lastDistributionRefresh < self.last_sequence_index then
@@ -573,14 +638,14 @@ function em:advance_db_write_index()
 				self.updateDistributions()
 			end
   		self.experience_database.current_write_index = self.distribution_index()
-		end	
+		end
 	elseif self.expm_settings.overwrite_policy == 'STOCHRANK' then
-		if self.experience_database.last_write_index < self.experience_replay_size then 
+		if self.experience_database.last_write_index < self.experience_replay_size then
 			self.experience_database.current_write_index = self.experience_database.current_write_index + 1
 		else
-			if not(self.lastDistributionRefresh) or self.lastDistributionRefresh < self.last_sequence_index then	
+			if not(self.lastDistributionRefresh) or self.lastDistributionRefresh < self.last_sequence_index then
 				if not(self.overwrite_policy_buckets) then
-					local nrbuckets = opt.seqlength*opt.samplefreq--math.max(2,math.min(math.ceil((self.experience_replay_size)/200),100))  				
+					local nrbuckets = opt.seqlength*opt.samplefreq--math.max(2,math.min(math.ceil((self.experience_replay_size)/200),100))
 					--
 					local temp_indices = torch.linspace(1,self.experience_replay_size,self.experience_replay_size)
 					local sampling_probabilities = torch.cumsum(torch.ones(self.experience_replay_size):cdiv(temp_indices):pow(self.expm_settings.overwrite_alpha))
@@ -596,8 +661,8 @@ function em:advance_db_write_index()
 							first_index = 0
 						end
 						self.overwrite_policy_buckets[bb+1] = math.max(self.overwrite_policy_buckets[bb]+1,
-							first_index)	
-					end	
+							first_index)
+					end
 				end
 				-- higher values are more desirable and will have >= probability of being kept in memory
 				local desvals = self:get_extra_info(self.expm_settings.overwrite_metric)
@@ -639,7 +704,7 @@ function em:get_mini_batch(batch_settings)
 	local one_batch 			= batch_settings.one_batch or false
 	-- rank based stochatsic prioritized experience replay with optional weighted importance sampling ( https://arxiv.org/pdf/1511.05952v4.pdf )
 	local prioritized				= batch_settings.prioritized
-	local prioritized_alpha = batch_settings.prioritized_alpha 
+	local prioritized_alpha = batch_settings.prioritized_alpha
 	local prioritized_beta  = batch_settings.prioritized_beta or 0
 	local countbasedis 			= batch_settings.countbasedimpsamp
 
@@ -657,12 +722,12 @@ function em:get_mini_batch(batch_settings)
 			table.insert(dimensions,1,seq_properties.length)
 			table.insert(dimensions,1,-1)
 			returnTensor 				= returnTensor:view(torch.LongStorage(dimensions))
-			
+
 			return returnTensor:type(returntensortype)
 		end
-		
+
 		if object then
-			if type(object)=="table" then 
+			if type(object)=="table" then
 				local returntable = {}
 				for i,j in ipairs(object) do
 					returntable[i] = tensorcopy(j,indexes,returntensortype)
@@ -675,7 +740,7 @@ function em:get_mini_batch(batch_settings)
 			return nil
 		end
 	end
-	
+
 	local db = self.experience_database
 	local requestedTensorType = torch.getdefaulttensortype()
 	local batch = {}
@@ -706,7 +771,7 @@ function em:get_mini_batch(batch_settings)
 				seqId = db.sequence_indices[i]
 				startidx = i
 			end
-			lastTI 	= db.time_indices[i]	
+			lastTI 	= db.time_indices[i]
 		end
 		local nrsequences = #startindices
 		randomseqorder = torch.randperm(nrsequences)
@@ -732,15 +797,15 @@ function em:get_mini_batch(batch_settings)
 			batchIndices:resize(batches,batch_size,seq_properties.length)
 			batchIndices = batchIndices:transpose(2,3)
 			batchIndices = batchIndices:reshape(batchIndices:nElement())
-			if reqp.observation then batch.observation 	= indexedcopy(db.observation,batchIndices,requestedTensorType) end 
-			if reqp.state then batch.state 							= indexedcopy(db.state,batchIndices,requestedTensorType) end 
+			if reqp.observation then batch.observation 	= indexedcopy(db.observation,batchIndices,requestedTensorType) end
+			if reqp.state then batch.state 							= indexedcopy(db.state,batchIndices,requestedTensorType) end
 			if reqp.action then	batch.action						= indexedcopy(db.action,batchIndices,requestedTensorType) end
 			if reqp.next_state then batch.next_state		= indexedcopy(db.next_state,batchIndices,requestedTensorType) end
 			if reqp.next_action then batch.next_action	= indexedcopy(db.next_action,batchIndices,requestedTensorType) end
 			if reqp.reward then batch.reward 						= indexedcopy(db.reward,batchIndices,requestedTensorType) end
 			if reqp.terminal then batch.terminal 				= indexedcopy(db.terminal,batchIndices,requestedTensorType) end
 			batch.time_indices 													= indexedcopy(db.time_indices,batchIndices,requestedTensorType)
-			batch.db_indices														= indexedcopy(db.db_indices,batchIndices,requestedTensorType)		
+			batch.db_indices														= indexedcopy(db.db_indices,batchIndices,requestedTensorType)
 	    return batch
 		else
 			print(db.time_indices[{{1,db.last_write_index}}])
@@ -749,30 +814,30 @@ function em:get_mini_batch(batch_settings)
 			print(endindices)
 
 			print("No sequences of size " .. seq_properties.length .. " found.")
-			
+
 			return nil
 		end
 
-	else -- no sequence		
+	else -- no sequence
 		local availableIndices
 		local batches = maxbatches
 		if trainvaltest or surprises then
 			local samplenumberstouse
-			if trainvaltest then 
+			if trainvaltest then
 				assert(self.splitindices, "The function setsplitfractions should be called to devide the database before a batch is requested of the train, validation or test parts.")
 				if trainvaltest == 'train'	then --trainvaltest = nil, "train" , "validate" , "test"
 					samplenumberstouse = self.splitindices.train:clone()
 					batch.type = 'train data'
 				elseif trainvaltest == 'validate' then
-					samplenumberstouse = self.splitindices.validate:clone()	
+					samplenumberstouse = self.splitindices.validate:clone()
 					batch.type = 'validation data'
 				elseif trainvaltest == 'test' then
-					samplenumberstouse = self.splitindices.test:clone()	
+					samplenumberstouse = self.splitindices.test:clone()
 					batch.type = 'test data'
 				else
 					print('trainvaltest was: ')
 					print(trainvaltest)
-					assert(false,'trainvaltest should be either nil, false, "train", "validate" or "test".')	
+					assert(false,'trainvaltest should be either nil, false, "train", "validate" or "test".')
 				end
 			else
 				assert(self.surprising_memories,"Surprising memories not indicated yet")
@@ -787,13 +852,13 @@ function em:get_mini_batch(batch_settings)
 				samplenumberstouse = samplenumberstouse:repeatTensor(math.ceil(batch_size/samplenumberstouse:nElement()))
 			end
 			availableIndices 			= samplenumberstouse[samplenumberstouse:le(db.last_write_index)]
-		else -- in most rl cases there is no need to split train and validation data as the dataset keeps changing.	
+		else -- in most rl cases there is no need to split train and validation data as the dataset keeps changing.
 			batch.type = 'any data'
 			availableIndices 						= torch.linspace(1,db.last_write_index,db.last_write_index)
 		end
-		if prioritized and availableIndices:nElement() > batch_size*batches then -- rank based prioritized experience replay ( https://arxiv.org/abs/1511.05952 )			
+		if prioritized and availableIndices:nElement() > batch_size*batches then -- rank based prioritized experience replay ( https://arxiv.org/abs/1511.05952 )
 			--assert(batches==1,'prioritized experience replay returns only 1 batch since the priorities are updated for every TDE calculation')
-			if not(self.per and self.per.indices and self.per.indices == availableIndices:nElement() and self.per.alpha == prioritized_alpha) then 
+			if not(self.per and self.per.indices and self.per.indices == availableIndices:nElement() and self.per.alpha == prioritized_alpha) then
 				self.per = {}
 				self.per.availableIndices = availableIndices
 				local temp_indices = torch.linspace(1,availableIndices:nElement(),availableIndices:nElement())
@@ -813,7 +878,7 @@ function em:get_mini_batch(batch_settings)
 						first_index = 0
 					end
 					self.per.bucket_boundaries[bb+1] = math.max(self.per.bucket_boundaries[bb]+1,
-						first_index)	
+						first_index)
 				end
 			end
 
@@ -821,10 +886,10 @@ function em:get_mini_batch(batch_settings)
 			for bb = 1,batch_size*batches do
 				chosen_idcs[bb] = math.random(self.per.bucket_boundaries[bb]+1,self.per.bucket_boundaries[bb+1])
 				if countbasedis then
-					self.per.is_weights[bb] = 1		
+					self.per.is_weights[bb] = 1
 					self.per.counts = self:get_extra_info('USECOUNT')
 				else
-					self.per.is_weights[bb] = (batch_size*batches)/self.per.indices * (self.per.bucket_boundaries[bb+1] - self.per.bucket_boundaries[bb])						
+					self.per.is_weights[bb] = (batch_size*batches)/self.per.indices * (self.per.bucket_boundaries[bb+1] - self.per.bucket_boundaries[bb])
 				end
 			end
 			local tdevals = self:get_extra_info('TDE')
@@ -833,7 +898,7 @@ function em:get_mini_batch(batch_settings)
 			local sorted_indices
 			sorted_tdevals, sorted_indices = torch.sort(tdevals,true)
 			local availableIndices = self.per.availableIndices:index(1,sorted_indices:index(1,chosen_idcs:long()):long()):long()
-			
+
 			-- make sure each batch has spread out samples (devision in batches is done in indexedcopy)
 			batchIndices = torch.LongTensor(batch_size*batches)
 			local is_weight_indices = torch.LongTensor(batch_size*batches)
@@ -841,7 +906,7 @@ function em:get_mini_batch(batch_settings)
 			for i = 1,batchIndices:nElement() do
 				batchIndices[i] = availableIndices:view(batch_size,batches)[1+((i-1)%batch_size)][math.ceil(i/batch_size)]
 				if countbasedis then
-					self.per.is_weights[i] = self.bintab[self.per.counts[batchIndices[i]]+1] or self.bintab[#self.bintab]						
+					self.per.is_weights[i] = self.bintab[self.per.counts[batchIndices[i]]+1] or self.bintab[#self.bintab]
 					--print(self.per.is_weights[i])
 				end
 				is_weight_indices[i] = temp_indices:view(batch_size,batches)[1+((i-1)%batch_size)][math.ceil(i/batch_size)]
@@ -850,7 +915,7 @@ function em:get_mini_batch(batch_settings)
 			if prioritized_beta > 0 then
 				self.per.is_weights:pow(prioritized_beta)
 				self.per.is_weights:div(self.per.is_weights:max())
-				batch.is_weights =  indexedcopy(self.per.is_weights,is_weight_indices,requestedTensorType) 
+				batch.is_weights =  indexedcopy(self.per.is_weights,is_weight_indices,requestedTensorType)
 			end
 
 		else
@@ -860,8 +925,8 @@ function em:get_mini_batch(batch_settings)
 			if (one_batch) then -- TODO remove
 				batchIndices 					= ShuffledIndices[{{1 ,  batch_size }}]:long()
 			else
-				batchIndices 					= ShuffledIndices[{{1 ,  batch_size*math.min(math.floor(availableIndices:nElement()/batch_size),batches) }}]:long()	
-			end	
+				batchIndices 					= ShuffledIndices[{{1 ,  batch_size*math.min(math.floor(availableIndices:nElement()/batch_size),batches) }}]:long()
+			end
 			-- should be merged with above! Situation of no PER but FIS
 			if countbasedis then
 				local allcounts = self:get_extra_info('USECOUNT')
@@ -869,27 +934,27 @@ function em:get_mini_batch(batch_settings)
 				self.is_weight_indices = batchIndices:clone()
 				for i = 1,self.is_weights:nElement() do
 					self.is_weight_indices[i] = i
-					self.is_weights[i] =  self.bintab[(allcounts[batchIndices[i]]+1)] or self.bintab[#self.bintab]						
+					self.is_weights[i] =  self.bintab[(allcounts[batchIndices[i]]+1)] or self.bintab[#self.bintab]
 				end
 			end
 		end
 
-		if reqp.observation then batch.observation 	= indexedcopy(db.observation,batchIndices,requestedTensorType) end 
-		if reqp.state then batch.state 							= indexedcopy(db.state,batchIndices,requestedTensorType) end 
+		if reqp.observation then batch.observation 	= indexedcopy(db.observation,batchIndices,requestedTensorType) end
+		if reqp.state then batch.state 							= indexedcopy(db.state,batchIndices,requestedTensorType) end
 		if reqp.action then	batch.action						= indexedcopy(db.action,batchIndices,requestedTensorType) end
 		if reqp.next_state then batch.next_state		= indexedcopy(db.next_state,batchIndices,requestedTensorType) end
 		if reqp.next_action then batch.next_action	= indexedcopy(db.next_action,batchIndices,requestedTensorType) end
 		if reqp.reward then batch.reward 						= indexedcopy(db.reward,batchIndices,requestedTensorType) end
 		if reqp.terminal then batch.terminal 				= indexedcopy(db.terminal,batchIndices,requestedTensorType) end
 		batch.time_indices 													= indexedcopy(db.time_indices,batchIndices,requestedTensorType)
-		batch.db_indices														= indexedcopy(db.db_indices,batchIndices,requestedTensorType)		
+		batch.db_indices														= indexedcopy(db.db_indices,batchIndices,requestedTensorType)
 		if countbasedis and not(batch.is_weights) then
-			
+
 			self.is_weights:pow(prioritized_beta)
 			self.is_weights:div(self.is_weights:max())
-			
-			batch.is_weights =  indexedcopy(self.is_weights,self.is_weight_indices,requestedTensorType) 
-			
+
+			batch.is_weights =  indexedcopy(self.is_weights,self.is_weight_indices,requestedTensorType)
+
 		end
     return batch
   end
@@ -915,7 +980,7 @@ end
 function em:update_extra_info(name,values,indices,special)
 	assert(name and type(name=="string"),"No name provided")
 	assert(values and indices,"Provide the new values and their database idices")
-	if torch.isTensor(indices) then 
+	if torch.isTensor(indices) then
 		values = values:double()
 		indices = indices:double()
 	end
@@ -927,7 +992,7 @@ function em:update_extra_info(name,values,indices,special)
 		end
 	end
 	assert(info_state, "info_state: " .. name .. " not found in the extra_info database")
-	if torch.isTensor(values) then   
+	if torch.isTensor(values) then
 		assert(values:nElement()==indices:nElement(),"Sizes of the values and indices do not match")
 		local indx = indices:double():view(-1)
 		local vals = values:double():view(-1)
@@ -958,8 +1023,8 @@ function em:get_extra_info(name)
 			info_state = state
 		end
 	end
-	assert(info_state, "info_state: " .. name .. " not found in the extra_info database") 
-  return info_state.values:clone()  
+	assert(info_state, "info_state: " .. name .. " not found in the extra_info database")
+  return info_state.values:clone()
 end
 
 function em:update_surprise_flags(stats_to_use, verbal)
@@ -968,39 +1033,39 @@ function em:update_surprise_flags(stats_to_use, verbal)
 	local existing_experiences = torch.ByteTensor(self.experience_replay_size):zero()
 	existing_experiences[{{1,self.experience_database.last_write_index}}]:fill(1)
 	if stats_to_use.DYNERROR and stats_to_use.RELDYNERROR then
-		local dyne 					= self:get_extra_info('DYNERROR')			
+		local dyne 					= self:get_extra_info('DYNERROR')
 		local dynerv 				= dyne[dyne:lt(math.huge)]
 		local dynemean 			= dynerv:mean()
-		local reldyne 			= self:get_extra_info('RELDYNERROR')	
+		local reldyne 			= self:get_extra_info('RELDYNERROR')
 		local highrelerror	= reldyne:gt(1):cmul(reldyne:lt(math.huge))
 		highrelerror = highrelerror:cmul(existing_experiences)
 		local baddyn = highrelerror:cmul(dyne:gt(dynemean))
 		table.insert(cats, baddyn)
 		table.insert(catnames, 'Bad dynamics predictions')
-		if (not cats[0]) then 
+		if (not cats[0]) then
 			cats[0] 		= dyne:ge(math.huge):cmul(existing_experiences)
 			catnames[0] = 'Not used to train models yet'
-		end	
+		end
 	end
 	if stats_to_use.REWERROR then
-		local rewe 				= self:get_extra_info('REWERROR')			
+		local rewe 				= self:get_extra_info('REWERROR')
 		local rewerv 			= rewe[rewe:lt(math.huge)]
 		local rewemean 		= rewerv:mean()
 		local rewestd	 		= rewerv:std()
 
 		table.insert(cats, (rewe:gt(rewemean+rewestd)):cmul(existing_experiences))
 		table.insert(catnames, 'bad reward predictions')
-		if (not cats[0]) then 
+		if (not cats[0]) then
 			cats[0] 		= rewe:ge(math.huge):cmul(existing_experiences)
 			catnames[0] = 'Not used to train models yet'
-		end	
+		end
 	end
 
 	if stats_to_use.STATEUNLIKELINESS then
 		-- !!!! PARAMETER  TODO
 		local UNLIKELINESS_THRESHOLD = 0.75
 		local STDVWARN = 1e-2
-		local unlike			= self:get_extra_info('STATEUNLIKELINESS')			
+		local unlike			= self:get_extra_info('STATEUNLIKELINESS')
 		local unlikerv 		= unlike[unlike:lt(math.huge)]
 		if unlikerv:std() < STDVWARN then
 			print("--------------------- WARNING -----------------------")
@@ -1009,10 +1074,10 @@ function em:update_surprise_flags(stats_to_use, verbal)
 		end
 		table.insert(cats, (unlike:gt(UNLIKELINESS_THRESHOLD):cmul(existing_experiences)))
 		table.insert(catnames, 'States unlikely to be fantasized about')
-		if (not cats[0]) then 
+		if (not cats[0]) then
 			cats[0] 		= unlike:ge(math.huge):cmul(existing_experiences)
 			catnames[0] = 'Not used to train models yet'
-		end	
+		end
 	end
 
 	local sm = cats[1]:clone()
@@ -1081,9 +1146,9 @@ function em:getComponentProperty(component, property)
 	if component == 'state' then
 		comp = self.experience_database.state[1][{{1, self.experience_database.last_write_index}}]
 	elseif component == 'action' then
-		comp = self.experience_database.action[1][{{1, self.experience_database.last_write_index}}]		
+		comp = self.experience_database.action[1][{{1, self.experience_database.last_write_index}}]
 	elseif component == 'reward' then
-		comp = self.experience_database.reward[{{1, self.experience_database.last_write_index}}]		
+		comp = self.experience_database.reward[{{1, self.experience_database.last_write_index}}]
 	end
 	if property == 'min' then
 		return( comp:min(1) )
@@ -1117,19 +1182,19 @@ function gs:__init(state_properties)
 	end
 	self.TimeIndices 			    = torch.Tensor(self.state_memory_dimension[1]):fill(-1)
 	self.SequenceIndices 			=	torch.Tensor(self.state_memory_dimension[1]):fill(-1)
-	self.currentWriteIndex 		= 1 
-	self.statetype 				    = state_properties.statetype 
-	self.prevPerFullState 		= state_properties.prev_per_fullstate or 0	
+	self.currentWriteIndex 		= 1
+	self.statetype 				    = state_properties.statetype
+	self.prevPerFullState 		= state_properties.prev_per_fullstate or 0
 	self.getFunction 			    = state_properties.getFunction
 	self.extrapolation 			  = state_properties.extrap
-	
+
 	if self.statetype == "torch.DoubleTensor" then
 		self.state_memory   = torch.Tensor(self.state_memory_dimension)
 	elseif self.statetype == "torch.CudaTensor" then
 		self.state_memory   = torch.CudaTensor(self.state_memory_dimension)
 	elseif self.statetype == "number" then
 		self.state_memory   = torch.Tensor(self.state_memory_dimension)
-	else 
+	else
 		self.state_memory = {}
 		for i = 1,self.state_memory_dimension[1] do
 			self.state_memory[i] = {}
@@ -1143,10 +1208,10 @@ function gs:ordered_seq(sequence_index)
 	local memIndices = torch.linspace(1,nrIndices,nrIndices)
 	local selectionMask = torch.eq(self.SequenceIndices,sequence_index)
 	if selectionMask:sum() == 0 then
-		print( self.state_name .. " : no information found for sequence " .. sequence_index ) 
+		print( self.state_name .. " : no information found for sequence " .. sequence_index )
 		return nil
 	end
-	
+
 	local relevantMemIndices = memIndices:maskedSelect(selectionMask)
 	local relevantTimeIndices = self.TimeIndices:maskedSelect(selectionMask)
 	local ti,ai = torch.sort(relevantTimeIndices)
@@ -1156,7 +1221,7 @@ end
 
 
 
-function gs:receive_for_time(time_index,sequence_index,extra)	
+function gs:receive_for_time(time_index,sequence_index,extra)
 	assert(time_index,sequence_index,"provide the time and sequence indices")
 	if (time_index <= self.lastTimeIndex) then
 		return
@@ -1169,11 +1234,11 @@ function gs:receive_for_time(time_index,sequence_index,extra)
 			self.TimeIndices[self.currentWriteIndex] = time_index
 			self.SequenceIndices[self.currentWriteIndex] = sequence_index
 			if type(newstate)=="number" then
-				self.state_memory[self.currentWriteIndex] = newstate	
+				self.state_memory[self.currentWriteIndex] = newstate
 			else
 				self.state_memory[self.currentWriteIndex]:copy(newstate)
 			end
-			
+
 			self.currentWriteIndex = self.currentWriteIndex + 1
       if self.currentWriteIndex > self.TimeIndices:size(1) then
         self.currentWriteIndex = 1
@@ -1182,11 +1247,11 @@ function gs:receive_for_time(time_index,sequence_index,extra)
   else
     if (self.TimeIndices[self.currentWriteIndex] ~= -1) then
         self.TimeIndices[self.currentWriteIndex] = -1
-    end 
+    end
   end
 end
 
--- obtain a value from the short term memory, assumes the value is already in the memory. Use receive_for_time to obtain the value for the current time index. 
+-- obtain a value from the short term memory, assumes the value is already in the memory. Use receive_for_time to obtain the value for the current time index.
 function gs:get_value_for_timestep(time_index,sequence_index,extra)
 
 	local returnvalue = function(state,index)
@@ -1194,9 +1259,9 @@ function gs:get_value_for_timestep(time_index,sequence_index,extra)
 				return state.state_memory[index]:clone()
 			else
 				return state.state_memory[index]
-			end 
+			end
 	end
-	
+
 	if (time_index > self.lastTimeIndex) then
 		self:receive_for_time(time_index,sequence_index,extra)
 	end
@@ -1204,11 +1269,11 @@ function gs:get_value_for_timestep(time_index,sequence_index,extra)
 
 
   -- shortcut for the most common case of having just received the required value.
-  if (self.currentWriteIndex-1 > 0 and self.TimeIndices[self.currentWriteIndex-1] == time_index) then 
+  if (self.currentWriteIndex-1 > 0 and self.TimeIndices[self.currentWriteIndex-1] == time_index) then
     return  returnvalue(self,self.currentWriteIndex-1)
   end
 -- start looking from current value, go back to start, resume from end untill current value
--- if not found use the extrapolation policy.	
+-- if not found use the extrapolation policy.
 	--self.extrapolation
   local arrayIndex      = self.currentWriteIndex
   local closestindex    = self.currentWriteIndex
@@ -1253,8 +1318,3 @@ end
 --function gs:__index(time_index)
 --	return 0 --self:get_value_for_timestep(time_index)
 --end
-
-
-
-
-

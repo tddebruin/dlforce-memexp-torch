@@ -3,7 +3,7 @@ package.path = "../../lib/?.lua;" .. package.path
 require 'drl_communicatorPB'
 require 'drl_experience_database'
 require 'drl_experience_classifier'
-require 'drl_policy' 
+require 'drl_policy'
 require 'drl_dqn'
 require 'drl_ddpg'
 require 'drl_diagnostics'
@@ -29,13 +29,13 @@ function setup()
 	-- settings through command line
 	local cmd = torch.CmdLine()
 	-- note torch cant deal with passing booleans, therefore these options are false unless the program is called with their flags and no arguments.
-	
+
 	-- Software details
 	cmd:option('-noexec',false, 'This module does not interact with the environment.')
 	cmd:option('-notrain',false, 'This module does not train the networks.')
 	cmd:option('-deterministic',false,'Use a fixed seed.')
 	cmd:option('-resultfile', './data/CartPole.res','The path and name of the file where the results will be stored.')
-	
+
 	-- Experiment settings
 	cmd:option('-env','SwingupSimC') -- MagmanSimC
 	cmd:option('-episodes',3000)
@@ -51,7 +51,7 @@ function setup()
 	cmd:option('-overwrite','FIFO','Overwrite policy for the experience database: FIFO, TDE, DISTRIBUTION HYBRID')
 	cmd:option('-overwrite_alpha',0.5,'alpha parameter of the overwrite policy')
 	cmd:option('-overwrite_metric','OFFPOL','Metric to base the overwrite policy on')
-	cmd:option('-hybridrate',1)	
+	cmd:option('-hybridrate',1)
 	cmd:option('-prioritized_experience_replay',false,'Use rank based prioritized experience replay')
 	cmd:option('-prioritized_alpha',0.7,'Alpha constant for rank based probabalistic experience replay. 0 = uniform, 1 = strongly rank based, 0.7 = per paper')
 	cmd:option('-prioritized_beta_0',0.5,'Initial prioritized experience replay imprtance sampling constant (0 = no IS, 1 = full correction)')
@@ -61,12 +61,12 @@ function setup()
 
 	cmd:option('-logusecount',true,'track how often each experience is used')
 	cmd:option('-savedbsnaps',false,'save snapshots of the state of the database')
-	
+
 	-- Synthetic experiences
 	cmd:option('-synthS',false,'Add synthetic state experiences')
 	cmd:option('-synthA',false,'Use uniform actions for the experiences')
-	cmd:option('-synthFrac',0.0,'Fraction of experiences that are replaced with synthetic experiences')	
-
+	cmd:option('-synthFrac',0.0,'Fraction of experiences that are replaced with synthetic experiences')
+	cmd:option('-synthRefreshProb',1.0,'probability of refreshing a synthetic experience, as opposed to keeping it the same when the experience is updated. Also keeps the db indices for synth exp fixed when smaller than 1.')
 
 
 	-- RL SPECIFIC
@@ -80,7 +80,7 @@ function setup()
 	-- Critic only specific
 	cmd:option('-lr',0.00025,'')
 	cmd:option('-l2',0.00001,'')
-	-- Actor-critic specific 
+	-- Actor-critic specific
 	cmd:option('-criticl2',0.005,'')
 	cmd:option('-lowpass',1e-2,'')
 	cmd:option('-lractor',1e-4,'')
@@ -89,7 +89,7 @@ function setup()
 
 	opt = cmd:parse(arg)
 	opt.exec 	= not(opt.noexec)
-	opt.train = not(opt.notrain)	
+	opt.train = not(opt.notrain)
 	opt.batchupdates = math.floor((1 - opt.ignorefrac) * opt.seqlength * opt.samplefreq * opt.samplereuse / opt.batchsize)
 	if not opt.deterministic then
 		math.randomseed( os.time() )
@@ -105,37 +105,37 @@ function setup()
 
 	if not communicator then
 		communicator 		= communicatorPB({sampling_time = -1},true)
-		
+
 		if opt.env == 'MagmanSimD' or opt.env == 'MagmanSimC' or opt.env == 'SwingupSimD' or opt.env == 'SwingupSimC' then
 			require 'drl_experiment' -- includes the lua version of the swingup and magman code.
 			local experiment_def = {}
-			if opt.env == 'MagmanSimD' then 
+			if opt.env == 'MagmanSimD' then
 				experiment_def = {environment = 'magman', magnets = 3, discrete = true, ts = 1/opt.samplefreq}
-			elseif opt.env == 'MagmanSimC' then 
+			elseif opt.env == 'MagmanSimC' then
 				experiment_def = {environment = 'magman', magnets = 4, discrete = false, ts = 1/opt.samplefreq}
 			elseif opt.env == 'SwingupSimC' then
 				experiment_def = {environment = 'pendulum', discrete = false, ts = 1/opt.samplefreq, bwddiff=opt.bwd, altrew = opt.altrew}
 			end
 			local channelsettings = {
 				internal  	= true,
-				name 				= "benchmark", 
+				name 				= "benchmark",
 				experiment 	= drl_experiment(experiment_def)
 			}
 			channel 				= communicator:add_channel(channelsettings)
-			localexperiment = drl_experiment(experiment_def)	
-		else 
+			localexperiment = drl_experiment(experiment_def)
+		else
 			channel 				= communicator:add_channel(
 				{
-					name 			= "openaigym", 
-					bindpub 	= "tcp://*:5555", 
+					name 			= "openaigym",
+					bindpub 	= "tcp://*:5555",
 					bindsub		= "tcp://*:5556"
 				})
-			communicator.envcommand = 'gnome-terminal -x bash -c "python ../gymzmqmin.py ' .. opt.env .. '"' 
+			communicator.envcommand = 'gnome-terminal -x bash -c "python ../gymzmqmin.py ' .. opt.env .. '"'
 		end
 	end
-	
 
-	communicator:reset_clock()	
+
+	communicator:reset_clock()
 	communicator:cleanstart()
 
 ------------------ Experience Memory -----------------------------------------
@@ -143,8 +143,8 @@ function setup()
 
 	em_settings = {
 		full_state_dimension 		= {channel.statedimension},
-		observation_dimension 	= nil, -- multimodal example: for a 50x50 rgbd image where the d is seperate: 	
-		--{torch.LongStorage({50,50,3}) , torch.LongStorage({50,50}}				  
+		observation_dimension 	= nil, -- multimodal example: for a 50x50 rgbd image where the d is seperate:
+		--{torch.LongStorage({50,50,3}) , torch.LongStorage({50,50}}
 		short_term_memory_size 	= 5000,
 		experience_replay_size 	= opt.xpmsize,
 		overwrite_policy 				= opt.overwrite or ' FIFO',--'DISTRIBUTION',
@@ -153,23 +153,23 @@ function setup()
 		extra_info 							= {
 			{
 				name = "TDE",
-				default_value = math.huge, 
+				default_value = math.huge,
 			},
 			{
 				name = "OFFPOL",
-				default_value = -1, 
+				default_value = -1,
 			},
 			{
 				name = "STATEDESIRABILITY",
-				default_value = math.huge, 
+				default_value = math.huge,
 			},
 			{
 				name = "STATENOISE",
-				default_value = 0, 
+				default_value = 0,
 			},
 			{
 				name = "ACTIONNOISE",
-				default_value = 0, 
+				default_value = 0,
 			},
       {
         name = "UPDATE", -- last nn update for which this datapoint has been used
@@ -180,7 +180,7 @@ function setup()
         default_value = 0,
       },
       {
-        name = "QPRED", -- 
+        name = "QPRED", --
         default_value = 0,
       },
       {
@@ -189,24 +189,24 @@ function setup()
       },
 		},
 		RL_state_parts 	= {
-			observation = false, 
-			state 			= true, 
-			action 			= true, 
-			next_state	= true, 
+			observation = false,
+			state 			= true,
+			action 			= true,
+			next_state	= true,
 			reward 			= true,
-			terminal 		= true, 
+			terminal 		= true,
 			next_action = false
 		},
 		action_dimension 	= {channel.actiondimension},
 		get_OSAR_function = function(self,time_index)
-			return -- Empty function for the policy executor  
+			return -- Empty function for the policy executor
 		end,
 		send_OSAR_function = function(self,time_index)
 			return -- Empty function for the training function
-		end,  
+		end,
 	}
 
-  xpm 						= experience_memory(true,true,em_settings) 
+  xpm 						= experience_memory(true,true,em_settings)
   xpm_learn 			= xpm
 
   -- no factorial in torch or lua?
@@ -230,7 +230,7 @@ function setup()
 
   factorial = Y(F)   -- factorial is the fixed point of F
 
-  
+
   xpm.bintab = {}
   xpm.bintab[0] = 1
 	local epsinmem = math.floor(opt.xpmsize / ((1-opt.ignorefrac)*(opt.samplefreq * opt.seqlength)))
@@ -240,19 +240,19 @@ function setup()
 			return 0
 		else
 			return (factorial(epsinmem)/(factorial(i)*factorial(epsinmem-(i)))*sampprob^(i) * (1-sampprob)^(epsinmem-(i)))
-		end	
+		end
 	end
 	for i = 1,20 do
 		xpm.bintab[i] = xpm.bintab[i-1] - prob_sampled_i_times(i)
 	end
 
 
-  
+
   if opt.overwrite == 'OFFPOL' then
 		POLDISTcriterion = nn.AbsCriterion()
 		POLdistances = torch.Tensor(em_settings.experience_replay_size):fill(math.huge)
 	  xpm.distribution_index = function()
-			local minpold, index 
+			local minpold, index
 			minpold, index = torch.min(POLdistances,1)
 			POLdistances[index[1]] = math.huge
 			return index[1]
@@ -265,14 +265,14 @@ function setup()
 			POLdistances:copy(torch.sum(delta,2))
 		end
 	end
-	
-	
+
+
 
 
 
 ---------------- Neural networks -------------------------------------------
 
-	
+
 	if CONTINUOUSACTIONS then
 		network_definitions  =	{
 				statesize 		= channel.statedimension[1],
@@ -281,10 +281,10 @@ function setup()
 	      --action_bounds = torch.Tensor({channel.action_bounds.min,channel.action_bounds.max}),
 	      actor					=
 					{
-						hsizes 			= {50,50}, -- 25 25 
+						hsizes 			= {50,50}, -- 25 25
 						nonlinearity 	= nn.ReLu,
 						batchnorm 		= opt.batchnorm,
-					}, 
+					},
 				critic 				=
 					{
 						actionlayer  	= 1,
@@ -294,34 +294,34 @@ function setup()
 						knownQ				= {
 							use 				= false, -- use a batch for batchnorm
 						},
-					},				
+					},
 				GPU						= USEGPU, -- for the training networks
 		}
 		network = drl_ddpg(opt.exec,opt.train, network_definitions)
 	else
 		network_definitions  =	{
 				statesize 		= channel.statedimension,
-				actionsize 		=	channel.actiondimension,  
+				actionsize 		=	channel.actiondimension,
 	      state_bounds  = nil,
 	      action_bounds = nil,
-				hsizes 				= {50,50,20}, -- 25 25 
+				hsizes 				= {50,50,20}, -- 25 25
 				nonlinearity 	= nn.ReLu,
-				batchnorm 		= opt.batchnorm, 	
+				batchnorm 		= opt.batchnorm,
 				GPU						= USEGPU, -- for the training networks
 		}
 		network = drl_dqn(opt.exec,opt.train, network_definitions)
 
 	end
 
-	network_train_settings = 
+	network_train_settings =
 	{
  			logTDE				= LOGQPERF,
  			logUPDATE     = LOGQPERF,
       logQPred      = LOGQPERF,
       logQFpred     = LOGQPERF,
       logUseCount 	= opt.logusecount,
-      batch_size		= opt.batchsize, 
- 			batchupdates 	= opt.batchupdates,-- 20--math.floor((8/64)*EPISODE_SIZE), 
+      batch_size		= opt.batchsize,
+ 			batchupdates 	= opt.batchupdates,-- 20--math.floor((8/64)*EPISODE_SIZE),
  			gamma 				= opt.gamma,
  			L2norm				= opt.l2,
  			prioritized_experience_replay = opt.prioritized_experience_replay,
@@ -346,10 +346,10 @@ function setup()
 		--local explorationPolicy  	= drl_continuous_policy_uniform_random({action_dimension = channel.actiondimension, lower_limits = channel.action_bounds.min, upper_limits = channel.action_bounds.max})
 		local explorationPolicy  	= drl_policy_OU({theta = 5.14, sigma = 0.3, sample_rate = opt.OUSR, action_dimension = channel.actiondimension, bounds = {-1, 1}}) -- DDPG paper theta+sigma, sr=1000: no subsampling
 
-		policy 													= drl_policy({action_dimension = channel.actiondimension,	
+		policy 													= drl_policy({action_dimension = channel.actiondimension,
 			 	communicator 								= communicator,
 			 	exploitationActionFunction 	= function (state) return network:get_policy_action(state) end,
-			 	explorationActionFunction		= explorationPolicy,		 
+			 	explorationActionFunction		= explorationPolicy,
 			 	tradeofftype								= 'add',--'addunscaled', -- scale
 			 	bounds											= {-1,1}, --! All the same!
 			 	explorationAmountFunction		= drl_exploration_amount_function({
@@ -357,39 +357,39 @@ function setup()
 			 		initial_exploration  				= 1.00,--1.2
 			 		multiplier						    	= 0.9/500, -- 0.999,
 			 		minimum_exploration					= 0.1--0.6,
-	 			}), 
+	 			}),
 		})
 	else
 		local explorationPolicy  = drl_discrete_policy_uniform_random({action_dimension = channel.actiondimension})
-		policy 													= drl_policy({action_dimension = channel.actiondimension,	
+		policy 													= drl_policy({action_dimension = channel.actiondimension,
 			 	communicator 								= communicator,
 			 	exploitationActionFunction 	= function (state) return network:get_policy_action(state) end,
-			 	explorationActionFunction		= explorationPolicy,		 
+			 	explorationActionFunction		= explorationPolicy,
 			 	tradeofftype								= 'greedy',
 			 	explorationAmountFunction		= drl_exploration_amount_function({
 			 		functiontype 								= 'linear_per_sequence',
 			 		initial_exploration  				= 1,
 			 		multiplier						    	= opt.edecay, -- 0.999,
 			 		minimum_exploration					= 0.0--0.6,
-	 			}), 
-		}) 	
+	 			}),
+		})
 	end
 
 
 ---------------- Experiment description ------------------------------------
 	createNormalizationTable = function ()
 		normalization = {}
-		if channel.action_bounds.max then 
-			local amax = torch.Tensor({channel.action_bounds.max}) 
-			local amin = torch.Tensor({channel.action_bounds.min}) 
+		if channel.action_bounds.max then
+			local amax = torch.Tensor({channel.action_bounds.max})
+			local amin = torch.Tensor({channel.action_bounds.min})
 			normalization.output_scale 	= amax:clone():csub(amin):mul(0.5)
-			normalization.output_add 		= amax:clone():add(amin):mul(0.5)  			
+			normalization.output_add 		= amax:clone():add(amin):mul(0.5)
 		end
-		if torch.isTensor(channel.state_bounds.max) then 
-			local smax = channel.state_bounds.max 
-			local smin = channel.state_bounds.min 
+		if torch.isTensor(channel.state_bounds.max) then
+			local smax = channel.state_bounds.max
+			local smin = channel.state_bounds.min
 			normalization.input_scale 	= smax:clone():csub(smin):mul(0.5)
-			normalization.input_add 		= smax:clone():add(smin):mul(0.5)  			
+			normalization.input_add 		= smax:clone():add(smin):mul(0.5)
 		end
 		return
 	end
@@ -421,7 +421,7 @@ function setup()
 		end
 
 		return normstate
-	end	
+	end
 
 	scaleActionBeforeSend = function(action)
 		if not(normalization) then
@@ -437,9 +437,9 @@ function setup()
 
 
 	gymstate = generalized_state({
-		name = 'Gym State', 
-		experience_memory = xpm, 
-		dimension = channel.statedimension, 
+		name = 'Gym State',
+		experience_memory = xpm,
+		dimension = channel.statedimension,
 		extrap = "nil",
 		statetype = "torch.DoubleTensor",
 		prevPerFullState = 0,
@@ -451,9 +451,9 @@ function setup()
 
 
 	action = generalized_state({
-		name = 'action', 
-		experience_memory = xpm, 
-		dimension = channel.actiondimension, 
+		name = 'action',
+		experience_memory = xpm,
+		dimension = channel.actiondimension,
 		extrap = "zero",
 		statetype = "torch.DoubleTensor",
 		getFunction 	= function(self,time_index,full_state)
@@ -470,7 +470,7 @@ function setup()
 				actuatoraction:add(actionnoise)
 			end
 			local action 	= scaleActionBeforeSend(actuatoraction)
-	
+
       if (channel:get_terminal(time_index) == 1) then
 				channel:send_env_reset()
 				--communicator:sleep(0.2)
@@ -487,11 +487,11 @@ function setup()
       return unscalecdaction
 		end
 	})
-	
+
 	reward = generalized_state({
-		name = 'reward', 
-		experience_memory = xpm, 
-		dimension = torch.LongStorage({1}), 
+		name = 'reward',
+		experience_memory = xpm,
+		dimension = torch.LongStorage({1}),
 		extrap = "nil",
 		statetype = "torch.DoubleTensor",
 		getFunction = function(self,time_index)
@@ -500,9 +500,9 @@ function setup()
 	})
 
 	terminal = generalized_state({
-		name = 'terminal', 
-		experience_memory = xpm, 
-		dimension = torch.LongStorage({1}), 
+		name = 'terminal',
+		experience_memory = xpm,
+		dimension = torch.LongStorage({1}),
 		extrap = "nil",
 		statetype = "torch.DoubleTensor",
 		getFunction = function(self,time_index)
@@ -514,12 +514,12 @@ function setup()
 		end
 	})
 
-	xpm:reset_getfunctions()	
+	xpm:reset_getfunctions()
 	xpm:addPartialState(1,gymstate)
 	xpm:setAction(action)
 	xpm:setReward(reward,{delay=true,cost=false}) -- calculated reward is for the previous state action pair (based on s,a,s'), reward is infact a cost (minimize instead of maximize)
 	xpm:setTerminal(terminal) -- for environments that have absorbing states
-	
+
 	diagnostics = drl_diagnostics({})
 	--diagnostics:addConsoleSummary(reward,{})
 
@@ -533,11 +533,11 @@ function replace_last_experience_with_fantasy( probability )
 	last_index = xpm.experience_database.current_write_index - 1
 	if last_index > 0 then
 		if math.random() < probability then
-			if opt.synthS then 
+			if opt.synthS then
 				xpm.experience_database.state[1][last_index]:uniform(-1,1)
 			end
 			if opt.synthA then
-				xpm.experience_database.action[1][last_index]:uniform(-1,1)			
+				xpm.experience_database.action[1][last_index]:uniform(-1,1)
 			else
 				xpm.experience_database.action[1][last_index]:copy(policy(xpm.experience_database.state[1][last_index],communicator:get_time_index(),communicator:get_sequence_index()))
 			end
@@ -584,18 +584,28 @@ function main()
 
 	LAST_STATE_NOISE, LAST_ACTION_NOISE = 0,0
 
+	if opt.synthRefreshProb < 1.0 then
+		xpm.synt_indices = torch.Tensor(xpm.experience_replay_size)
+		for i=1, xpm.experience_replay_size do
+			if math.random() < opt.synthFrac then
+				xpm.synt_indices[i] = 1
+			else
+				xpm.synt_indices[i] = 0
+			end
+		end
+	end
 
 	rewards = torch.Tensor(EPISODES):zero()
 	channel:send_env_reset()
-	communicator:advance_clock()	
+	communicator:advance_clock()
 	local BESTSOFAR = -math.huge
 	local sequence_timestep = 0
 
 	-- main loop -----------------------
 	while communicator:get_sequence_index() <= EPISODES do
-		time_index 			= communicator:get_time_index() -- always increasing timestep counter for keeping track of all events 
+		time_index 			= communicator:get_time_index() -- always increasing timestep counter for keeping track of all events
 		sequence_index 	= communicator:get_sequence_index() -- counter for the episode
-		sequence_timestep = sequence_timestep + 1 -- timesteps since the beginning of the current episode		
+		sequence_timestep = sequence_timestep + 1 -- timesteps since the beginning of the current episode
 
 		xpm:collect_OSAR(time_index,sequence_index) -- collect the (observations) state action and reward by interacting with the environment
 
@@ -603,23 +613,39 @@ function main()
 			xpm_offpol.OSAR = xpm:get_OSAR_copy()
 			xpm_offpol:add_RL_state_to_db()
 		end
-		local dbidx = xpm:add_RL_state_to_db()	
-		if dbidx then 	
-			replace_last_experience_with_fantasy( opt.synthFrac )
-			xpm:update_extra_info("OFFPOL",policy:get_exploration_effect(),dbidx)  
-			if opt.noisescale > 0.0 then
-				--xpm:update_extra_info("STATENOISE",LAST_STATE_NOISE:clone(),dbidx)  
-				--xpm:update_extra_info("ACTIONNOISE",LAST_ACTION_NOISE:clone(),dbidx)  
+		if opt.synthRefreshProb < 1.0 then
+			idx = xpm.experience_database.current_write_index
+			if xpm.synt_indices[idx] == 1 then
+				local dbidx = xpm:dont_add_RL_state_to_db()
+				if dbidx then
+					if math.random() < opt.synthRefreshProb or dbidx < xpm.experience_replay_size then
+						replace_last_experience_with_fantasy( 1.0 )
+					end
+				end
+			else
+				local dbidx = xpm:add_RL_state_to_db()
 			end
+			assert(opt.ignorefrac==0.0)
+		else
+			local dbidx = xpm:add_RL_state_to_db()
+			if dbidx then
+				replace_last_experience_with_fantasy( opt.synthFrac )
+				xpm:update_extra_info("OFFPOL",policy:get_exploration_effect(),dbidx)
+				if opt.noisescale > 0.0 then
+					--xpm:update_extra_info("STATENOISE",LAST_STATE_NOISE:clone(),dbidx)
+					--xpm:update_extra_info("ACTIONNOISE",LAST_ACTION_NOISE:clone(),dbidx)
+				end
 
 
-			if opt.ignorefrac > 0 and math.random() < opt.ignorefrac then
-				xpm:rewind_overwrite_index() -- next time overwrite this experience
-			end 
+				if opt.ignorefrac > 0 and math.random() < opt.ignorefrac then
+					xpm:rewind_overwrite_index() -- next time overwrite this experience
+				end
+			end
 		end
 
+
 		diagnostics:update(time_index, sequence_index)
-		if channel:get_terminal(time_index) == 1 or sequence_timestep >= (opt.seqlength * opt.samplefreq) then 	
+		if channel:get_terminal(time_index) == 1 or sequence_timestep >= (opt.seqlength * opt.samplefreq) then
 			if sequence_timestep >= (opt.seqlength * opt.samplefreq) then
 				channel:send_env_reset()
 				sequence_timestep = 0
@@ -628,36 +654,36 @@ function main()
 				fill_hybrid()
 			end
 
-			-- prioritized experience replay imprtance sampling annealing 
+			-- prioritized experience replay imprtance sampling annealing
 			network_train_settings.prioritized_beta = opt.prioritized_beta_0 + (opt.prioritized_beta_final - opt.prioritized_beta_0) * sequence_index/EPISODES
 			network:train(xpm_learn, network_train_settings)
-			
+
     	network:set_controller_parameters(network:get_controller_parameters())
 			local seqrew = reward:ordered_seq(sequence_index):sum()/(opt.immediate_reward_scale * opt.seqlength * opt.samplefreq/10)
 
 			if sequence_index%100 == 0 then
 				print("Sequence " .. sequence_index .. " / " .. EPISODES)
 				print("TDE for last update: " .. calculate_TDE(xpm ,{since="last_update"}))
-	 			print("AVG pred Q for last update: " .. calculate_AVGQ(xpm ,{since="last_update"})[1] .. ", QFrozen: " .. calculate_AVGQ(xpm ,{since="last_update"})[2]) 
+	 			print("AVG pred Q for last update: " .. calculate_AVGQ(xpm ,{since="last_update"})[1] .. ", QFrozen: " .. calculate_AVGQ(xpm ,{since="last_update"})[2])
 	    	print("DB filled: " .. math.floor(100*xpm.experience_database.last_write_index/xpm.experience_replay_size) .. "%")
 				print(seqrew)
-				if opt.savedbsnaps then 
+				if opt.savedbsnaps then
 					xpm:save_mat_screenshot('test' .. sequence_index .. '.mat',{time_indices = true, sequence_indices = true, state = true, action = true, reward = true},{'TDE','USECOUNT','OFFPOL'})
 				end
 			end
 			rewards[sequence_index] = seqrew
 			communicator:advance_sequence_index()
 		end
-		-- advancing the clock increases the time index by one, sends it out on all channels and then blocks until at least one sampling time period has passed since the last time the clock advancement function call was completed.	
-		communicator:advance_clock()	
-	end		
+		-- advancing the clock increases the time index by one, sends it out on all channels and then blocks until at least one sampling time period has passed since the last time the clock advancement function call was completed.
+		communicator:advance_clock()
+	end
 
 end
 
 main()
 torch.save(opt.resultfile .. '-t7',{seq = rewards})
 --mattorch.save(opt.resultfile,{seq = rewards})
---mattorch.save(opt.resultfile,{seq = rewards, epsToComp = torch.Tensor({sequence_index})})	
+--mattorch.save(opt.resultfile,{seq = rewards, epsToComp = torch.Tensor({sequence_index})})
 torch.save(opt.resultfile .. 'completed') -- to signal the experiment is done
 print("READY")
 channel:send_exit()
