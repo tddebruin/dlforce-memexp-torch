@@ -12,7 +12,7 @@ function wait_for_result(filename)
 		os.execute("sleep 3")
 		check_command_messages()
 	end
-	os.execute('rm ' .. filename .. 'completed') 
+	os.execute('rm ' .. filename .. 'completed')
 end
 
 function file_exists(name)
@@ -23,7 +23,7 @@ end
 function check_command_messages()
 	local stopped = false
 	while file_exists('stop') or file_exists('stop.txt') do
-		if not stopped then 
+		if not stopped then
 			stopped = true
 			report_status("Noticed a stop command file, will resume when it is removed.")
 		end
@@ -38,19 +38,19 @@ function check_command_messages()
 end
 
 function report_status(status,nodate)
-	if not nodate then 
-		status = os.date("%A , %X , " .. opt.name .. ": ") .. status 
+	if not nodate then
+		status = os.date("%A , %X , " .. opt.name .. ": ") .. status
 	end
 	print(status)
-	local f=io.open(resultdir .. 'automated_experiment_status.txt',"a")
-	f:write(status .. '\n')
-	f:close()
+	--local f=io.open(resultdir .. 'automated_experiment_status.txt',"a")
+	--f:write(status .. '\n')
+	--f:close()
 end
 
 function reload_experiments(  )
 	if file_exists('experiment_definitions.dat') then
 		experiments = torch.load('experiment_definitions.dat')
-		if file_exists('reload_experiments-' .. opt.name) then 
+		if file_exists('reload_experiments-' .. opt.name) then
 			os.execute('rm reload_experiments-' .. opt.name)
 		end
 		report_status("Experiment definitions reloaded. Open experiments:")
@@ -73,25 +73,25 @@ function perform_experiment( experimentID )
 	end
 	os.execute('cp  ' .. experimentrunfile  .. ' ' .. expdir .. 'backup_' .. experimentrunfile )
 	local namenotfound = true
-	local expRep = 1		
+	local expRep = 1
 	local resultname = expdir .. string.format('RESULT_%03i.mat', expRep)
-	while (file_exists(resultname)) do 
+	while (file_exists(resultname)) do
 		expRep = expRep + 1
 		resultname = expdir .. string.format('RESULT_%03i.mat', expRep)
 	end
-	
+
 	torch.save(resultname,{})
 	send_data()
 	report_status('Reserved ' .. resultname)
 	local command = 'gnome-terminal -e "th ' .. experimentrunfile .. ' -resultfile \'' .. resultname .. '\' ' .. experiments[experimentID].paramstring .. '"'
 	if opt.name == 'lab' or opt.name == 'laptop' then
-		command = 'th ' .. experimentrunfile .. ' -resultfile \'' .. resultname .. '\' ' .. experiments[experimentID].paramstring 
-	end	
+		command = 'th ' .. experimentrunfile .. ' -resultfile \'' .. resultname .. '\' ' .. experiments[experimentID].paramstring
+	end
 	report_status('Attempting experiment: ' .. experimentID .. '(' ..experiments[experimentID].name .. ') iteration ' .. expRep .. ' with the following command:' )
 	report_status(command)
-		
+
 	os.execute(command)
-	wait_for_result(resultname) 
+	wait_for_result(resultname)
 end
 
 function experiments_already_performed( experimentID )
@@ -101,7 +101,7 @@ function experiments_already_performed( experimentID )
 	end
 	expRep = 1
 	local resultname = expdir .. string.format('RESULT_%03i.mat', expRep + 1)
-	while (file_exists(resultname)) do 
+	while (file_exists(resultname)) do
 		expRep = expRep + 1
 		resultname = expdir .. string.format('RESULT_%03i.mat', expRep + 1)
 	end
@@ -116,7 +116,7 @@ function first_experiment_with_least_results()
 			local runs = experiments_already_performed(experiment)
 			if runs < leastRuns then
 				leastRuns 	= runs
-				leastRunsID = experiment 
+				leastRunsID = experiment
 			end
 		end
 	end
@@ -141,12 +141,12 @@ end
 
 function main()
 	--NAME = get_name()
-	assert((opt.name == 'desktop' or opt.name == 'laptop' or opt.name == 'lab'),'specify -name as lab desktop or laptop')	
+	assert((opt.name == 'desktop' or opt.name == 'laptop' or opt.name == 'lab'),'specify -name as lab desktop or laptop')
 	load_data()
 	report_status(os.date("======  %A %d %B %Y ======"),true)
 	report_status('Starting automated experiment cycle')
 	reload_experiments()
-	
+
 	while true do
 		os.execute('git pull')
 		check_command_messages()
@@ -164,8 +164,8 @@ function main()
 			send_data()
 			--os.execute('sleep 60') -- if anything funny happens in the loop (eg with creating folders, at least it only happens once a minute...)
 		else
-			os.execute('sleep 30') -- wait for experiments to be defined	
-		end	
+			os.execute('sleep 30') -- wait for experiments to be defined
+		end
 	end
 end
 
