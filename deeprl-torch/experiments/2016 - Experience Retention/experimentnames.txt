@@ -226,3 +226,21 @@ Magman 50Hz, 10k xp, 10% synth S synthRefreshProb 0%
 Magman 50Hz, 10k xp, 50% synth S synthRefreshProb 0%
 Magman 50Hz, 10k xp, 10% synth A synthRefreshProb 0%
 Magman 50Hz, 10k xp, 50% synth A synthRefreshProb 0%
+Swingup 100Hz
+Magman 100Hz
+Swingup 100Hz, 50% synth S 
+Magman 100Hz 50% synth S 
+Swingup 100Hz, 50% synth A 
+Magman 100Hz, 50% synth A 
+Swingup 150Hz
+Magman 150Hz
+Swingup 150Hz, 50% synth S 
+Magman 150Hz 50% synth S 
+Swingup 150Hz, 50% synth A 
+Magman 150Hz, 50% synth A 
+Swingup 200Hz
+Magman 200Hz
+Swingup 200Hz, 50% synth S 
+Magman 200Hz 50% synth S 
+Swingup 200Hz, 50% synth A 
+Magman 200Hz, 50% synth A 
