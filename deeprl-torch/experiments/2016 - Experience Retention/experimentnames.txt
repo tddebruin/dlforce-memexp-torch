@@ -244,3 +244,19 @@ Swingup 200Hz, 50% synth S
 Magman 200Hz 50% synth S 
 Swingup 200Hz, 50% synth A 
 Magman 200Hz, 50% synth A 
+Magman 50Hz, 10k xp, FIFO, PER peralpha 0.4
+Magman 50Hz, 10k xp, FIFO, PER peralpha 0.6
+Magman 50Hz, 10k xp, FIFO, PER peralpha 0.8
+Magman 50Hz, 10k xp, FIFO, PER peralpha 1.0
+magman 50Hz, full DB, PER peralpha 0.4
+magman 50Hz, full DB, PER peralpha 0.6
+magman 50Hz, full DB, PER peralpha 0.8
+magman 50Hz, full DB, PER peralpha 1.0
+Swingup 50Hz, 10k xp, FIFO, PER peralpha 0.4
+Swingup 50Hz, 10k xp, FIFO, PER peralpha 0.6
+Swingup 50Hz, 10k xp, FIFO, PER peralpha 0.8
+Swingup 50Hz, 10k xp, FIFO, PER peralpha 1.0
+Swingup 50Hz, full DB, PER peralpha 0.4
+Swingup 50Hz, full DB, PER peralpha 0.6
+Swingup 50Hz, full DB, PER peralpha 0.8
+Swingup 50Hz, full DB, PER peralpha 1.0

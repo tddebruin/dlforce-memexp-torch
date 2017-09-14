@@ -1229,6 +1229,88 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 200 -synthFrac 0.5 -synthA',
 	},
+	{ --247
+		name = 'Magman 50Hz, 10k xp, FIFO, PER peralpha 0.4',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.4',
+	},
+	{ --248
+		name = 'Magman 50Hz, 10k xp, FIFO, PER peralpha 0.6',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.6',
+	},
+	{ --249
+		name = 'Magman 50Hz, 10k xp, FIFO, PER peralpha 0.8',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.8',
+	},
+	{ --250
+		name = 'Magman 50Hz, 10k xp, FIFO, PER peralpha 1.0',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 1.0',
+	},
+	{ --251
+		name = 'magman 50Hz, full DB, PER peralpha 0.4',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.4',
+	},
+	{ --252
+		name = 'magman 50Hz, full DB, PER peralpha 0.6',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.6',
+	},
+	{ --253
+		name = 'magman 50Hz, full DB, PER peralpha 0.8',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.8',
+	},
+	{ --254
+		name = 'magman 50Hz, full DB, PER peralpha 1.0',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 1.0',
+	},	
+	{ --255
+		name = 'Swingup 50Hz, 10k xp, FIFO, PER peralpha 0.4',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.4',
+	},
+	{ --256
+		name = 'Swingup 50Hz, 10k xp, FIFO, PER peralpha 0.6',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.6',
+	},
+	{ --257
+		name = 'Swingup 50Hz, 10k xp, FIFO, PER peralpha 0.8',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.8',
+	},
+	{ --258
+		name = 'Swingup 50Hz, 10k xp, FIFO, PER peralpha 1.0',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 1.0',
+	},
+	{ --259
+		name = 'Swingup 50Hz, full DB, PER peralpha 0.4',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.4',
+	},
+	{ --260
+		name = 'Swingup 50Hz, full DB, PER peralpha 0.6',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.6',
+	},
+	{ --261
+		name = 'Swingup 50Hz, full DB, PER peralpha 0.8',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.8',
+	},
+	{ --262
+		name = 'Swingup 50Hz, full DB, PER peralpha 1.0',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 1.0',
+	},
+	
+	
 }
 
 local cmd = torch.CmdLine()
