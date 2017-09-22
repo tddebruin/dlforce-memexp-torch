@@ -260,3 +260,9 @@ Swingup 50Hz, full DB, PER peralpha 0.4
 Swingup 50Hz, full DB, PER peralpha 0.6
 Swingup 50Hz, full DB, PER peralpha 0.8
 Swingup 50Hz, full DB, PER peralpha 1.0
+Magman 50Hz, 10k xp, FIFO, PER+FIS
+Swingup 50Hz, 10k xp, FIFO, PER+FIS
+Magman 50Hz, 10k xp, TDE a=1.2, PER
+Swingup 50Hz, 10k xp, TDE a=1.2, PER
+Magman 50Hz, 10k xp, TDE a=1.2, PER+IS
+Swingup 50Hz, 10k xp, TDE a=1.2, PER+IS

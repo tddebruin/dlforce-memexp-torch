@@ -1309,8 +1309,40 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 1.0',
 	},
+	{ --263
+		name = 'Magman 50Hz, 10k xp, FIFO, PER+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -countbasedimpsamp',
+	},
+	{ --264
+		name = 'Swingup 50Hz, 10k xp, FIFO, PER+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -countbasedimpsamp',
+	},	
+	{ --265
+		name = 'Magman 50Hz, 10k xp, TDE a=1.2, PER',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --266
+		name = 'Swingup 50Hz, 10k xp, TDE a=1.2, PER',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --267
+		name = 'Magman 50Hz, 10k xp, TDE a=1.2, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 -prioritized_experience_replay',
+	},
+	{ --268
+		name = 'Swingup 50Hz, 10k xp, TDE a=1.2, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 -prioritized_experience_replay',
+	},
 	
-	
+
+
+
 }
 
 local cmd = torch.CmdLine()
