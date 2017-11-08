@@ -1379,6 +1379,17 @@ experiments = {
 		execute = false,
 		paramstring = '-xpmsize 600000 -env "SwingupSimC" -overwrite "FIFO" -noisescale 0.02 -prioritized_experience_replay -countbasedimpsamp',
 	},
+	{ --277
+		name = 'Swingup 100Hz, 50% synth A SAMPLEDROPOUT',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 100 -synthFrac 0.5 -synthA -ignorefrac 0.5',
+	},
+	{ --278
+		name = 'Magman 200Hz, 50% synth A SAMPLEDROPOUT',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 200 -synthFrac 0.5 -synthA -ignorefrac 0.75',
+	},
+
 
 }
 
