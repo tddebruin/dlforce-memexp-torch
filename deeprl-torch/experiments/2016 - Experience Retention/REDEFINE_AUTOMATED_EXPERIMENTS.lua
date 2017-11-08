@@ -1346,7 +1346,7 @@ experiments = {
 	},
 	{ --270
 		name = 'UHSR Magman 200Hz, FULL (2400k), PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 2400000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 200 -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --271
@@ -1356,7 +1356,7 @@ experiments = {
 	},	
 	{ --272
 		name = 'HSR Swingup 100 Hz, FULL (1200k)  PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1200000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 100 -prioritized_experience_replay -countbasedimpsamp',
 	},	
 	{ --273
@@ -1366,7 +1366,7 @@ experiments = {
 	},
 	{ --274
 		name = 'Noise Magman 0.02, FULL (600k),  PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 600000 -env "MagmanSimC" -overwrite "FIFO" -noisescale 0.02 -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --275
@@ -1376,7 +1376,7 @@ experiments = {
 	},
 	{ --276
 		name = 'Noise Swingup 0.02, FULL (600k),  PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 600000 -env "SwingupSimC" -overwrite "FIFO" -noisescale 0.02 -prioritized_experience_replay -countbasedimpsamp',
 	},
 
