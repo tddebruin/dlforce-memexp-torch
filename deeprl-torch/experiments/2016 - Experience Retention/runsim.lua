@@ -38,7 +38,7 @@ function setup()
 
 	-- Experiment settings
 	cmd:option('-env','SwingupSimC') -- MagmanSimC
-	cmd:option('-episodes',3000)
+	cmd:option('-episodes',2000)
 	cmd:option('-samplefreq',50,'Hz')
 	cmd:option('-seqlength',4,'seconds')
 	cmd:option('-noisescale',0.00,'Multiplies gaussian noise with stdv 1 and adds the noise to state and actions ')
