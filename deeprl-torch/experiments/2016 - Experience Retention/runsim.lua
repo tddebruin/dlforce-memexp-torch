@@ -635,10 +635,14 @@ function main()
 					--xpm:update_extra_info("STATENOISE",LAST_STATE_NOISE:clone(),dbidx)
 					--xpm:update_extra_info("ACTIONNOISE",LAST_ACTION_NOISE:clone(),dbidx)
 				end
-
-
 				if opt.ignorefrac > 0 and math.random() < opt.ignorefrac then
 					xpm:rewind_overwrite_index() -- next time overwrite this experience
+				end
+				if opt.overwrite ==  'RESERVOIR' and xpm.experience_database.last_write_index == xpm.experience_replay_size then
+					keep_chance = xpm.experience_replay_size / time_index
+					if math.random() > keep_chance then
+						xpm:rewind_overwrite_index()
+					end
 				end
 			end
 		end

@@ -276,3 +276,5 @@ Noise Swingup 0.02, FULL (600k), Uniform
 Noise Swingup 0.02, FULL (600k),  PER+FIS
 Swingup 100Hz, 50% synth A SAMPLEDROPOUT
 Magman 200Hz, 50% synth A SAMPLEDROPOUT
+Magman 50Hz, 10k xp, RESERVOIR, Uniform
+Swingup 50Hz, 10k xp, RESERVOIR, Uniform

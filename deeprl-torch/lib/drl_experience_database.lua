@@ -639,6 +639,13 @@ function em:advance_db_write_index()
 			end
   		self.experience_database.current_write_index = self.distribution_index()
 		end
+	elseif self.expm_settings.overwrite_policy == 'RESERVOIR' then
+		if self.experience_database.last_write_index < self.experience_replay_size then
+			self.experience_database.current_write_index = self.experience_database.current_write_index + 1
+		else
+  		-- cant simply drop the experience, so write it to a random location and have it overwritten (in runsim) if need be
+  		self.experience_database.current_write_index = math.random(self.experience_replay_size)
+		end
 	elseif self.expm_settings.overwrite_policy == 'STOCHRANK' then
 		if self.experience_database.last_write_index < self.experience_replay_size then
 			self.experience_database.current_write_index = self.experience_database.current_write_index + 1

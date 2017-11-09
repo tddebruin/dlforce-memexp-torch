@@ -1389,6 +1389,16 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 200 -synthFrac 0.5 -synthA -ignorefrac 0.75',
 	},
+	{ --279
+		name = 'Magman 50Hz, 10k xp, RESERVOIR, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" ',
+	},
+	{ --280
+		name = 'Swingup 50Hz, 10k xp, RESERVOIR, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" ',
+	},
 
 
 }
