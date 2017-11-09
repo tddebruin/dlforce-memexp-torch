@@ -1399,7 +1399,26 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" ',
 	},
-
+	{ --281
+		name = 'Noise Magman 50Hz, 10k xp, RESERVOIR, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -noisescale 0.02 ',
+	},
+	{ --282
+		name = 'Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -noisescale 0.02',
+	},
+	{ --283
+		name = 'Magman 200Hz, 10k xp, RESERVOIR, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -samplefreq 200 -overwrite "RESERVOIR" ',
+	},
+	{ --284
+		name = 'Swingup 100Hz, 10k xp, RESERVOIR, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" ',
+	},
 
 }
 

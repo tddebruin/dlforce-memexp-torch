@@ -278,3 +278,7 @@ Swingup 100Hz, 50% synth A SAMPLEDROPOUT
 Magman 200Hz, 50% synth A SAMPLEDROPOUT
 Magman 50Hz, 10k xp, RESERVOIR, Uniform
 Swingup 50Hz, 10k xp, RESERVOIR, Uniform
+Noise Magman 50Hz, 10k xp, RESERVOIR, Uniform
+Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform
+Magman 200Hz, 10k xp, RESERVOIR, Uniform
+Swingup 100Hz, 10k xp, RESERVOIR, Uniform
