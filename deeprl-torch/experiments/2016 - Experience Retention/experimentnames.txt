@@ -282,3 +282,9 @@ Noise Magman 50Hz, 10k xp, RESERVOIR, Uniform
 Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform
 Magman 200Hz, 10k xp, RESERVOIR, Uniform
 Swingup 100Hz, 10k xp, RESERVOIR, Uniform
+Magman 50Hz, 10k xp, RESERVOIR, PER
+Swingup 50Hz, 10k xp, RESERVOIR, PER
+Noise Magman 50Hz, 10k xp, RESERVOIR, PER
+Noise Swingup 50Hz, 10k xp, RESERVOIR, PER
+Magman 200Hz, 10k xp, RESERVOIR, PER
+Swingup 100Hz, 10k xp, RESERVOIR, PER
