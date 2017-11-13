@@ -288,3 +288,4 @@ Noise Magman 50Hz, 10k xp, RESERVOIR, PER
 Noise Swingup 50Hz, 10k xp, RESERVOIR, PER
 Magman 200Hz, 10k xp, RESERVOIR, PER
 Swingup 100Hz, 10k xp, RESERVOIR, PER
+Magman 50Hz, 10k xp, RESERVOIR, PER+FIS

@@ -1449,6 +1449,11 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
+	{ --291
+		name = 'Magman 50Hz, 10k xp, RESERVOIR, PER+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -prioritized_experience_replay -countbasedimpsamp',
+	},
 
 }
 
