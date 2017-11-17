@@ -294,3 +294,15 @@ Noise Magman 50Hz, 10k xp, RESERVOIR, PER+FIS
 Noise Swingup 50Hz, 10k xp, RESERVOIR, PER+FIS
 Magman 200Hz, 10k xp, RESERVOIR, PER+FIS
 Swingup 100Hz, 10k xp, RESERVOIR, PER+FIS
+Magman 50Hz, 10k xp, RESERVOIR, PER+IS
+Swingup 50Hz, 10k xp, RESERVOIR, PER+IS
+Noise Magman 50Hz, 10k xp, RESERVOIR, PER+IS
+Noise Swingup 50Hz, 10k xp, RESERVOIR, PER+IS
+Magman 200Hz, 10k xp, RESERVOIR, PER+IS
+Swingup 100Hz, 10k xp, RESERVOIR, PER+IS
+Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS
+Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS
+Noise Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS
+Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS
+Magman 200Hz, 10k xp, RESERVOIR, Uniform+FIS
+Swingup 100Hz, 10k xp, RESERVOIR, Uniform+FIS

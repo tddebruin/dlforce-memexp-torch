@@ -1479,6 +1479,66 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -prioritized_experience_replay -countbasedimpsamp',
 	},
+	{ --297
+		name = 'Magman 50Hz, 10k xp, RESERVOIR, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -prioritized_experience_replay',
+	},
+	{ --298
+		name = 'Swingup 50Hz, 10k xp, RESERVOIR, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -prioritized_experience_replay',
+	},
+	{ --299
+		name = 'Noise Magman 50Hz, 10k xp, RESERVOIR, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -noisescale 0.02 -prioritized_experience_replay',
+	},
+	{ --300
+		name = 'Noise Swingup 50Hz, 10k xp, RESERVOIR, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -noisescale 0.02 -prioritized_experience_replay',
+	},
+	{ --301
+		name = 'Magman 200Hz, 10k xp, RESERVOIR, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -samplefreq 200 -overwrite "RESERVOIR" -prioritized_experience_replay',
+	},
+	{ --302
+		name = 'Swingup 100Hz, 10k xp, RESERVOIR, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -prioritized_experience_replay',
+	},	
+	{ --303
+		name = 'Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -countbasedimpsamp',
+	},
+	{ --304
+		name = 'Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -countbasedimpsamp',
+	},
+	{ --305
+		name = 'Noise Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -noisescale 0.02 -countbasedimpsamp',
+	},
+	{ --306
+		name = 'Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -noisescale 0.02 -countbasedimpsamp',
+	},
+	{ --307
+		name = 'Magman 200Hz, 10k xp, RESERVOIR, Uniform+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -samplefreq 200 -overwrite "RESERVOIR" -countbasedimpsamp',
+	},
+	{ --308
+		name = 'Swingup 100Hz, 10k xp, RESERVOIR, Uniform+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -countbasedimpsamp',
+	},
 
 }
 
