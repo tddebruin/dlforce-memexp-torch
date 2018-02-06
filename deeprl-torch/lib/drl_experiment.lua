@@ -74,6 +74,7 @@ function experiment:__init( settings )
 			end,
 			startstate = torch.Tensor({0,0}),
 			alternativestartstate = {	torch.Tensor({0.07,0}),
+																torch.Tensor({0.035,0.1}),
 																torch.Tensor({0.035,-0.1}),
 																torch.Tensor({0,0.3}),
 															},

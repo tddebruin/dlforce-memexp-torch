@@ -382,7 +382,7 @@ function ddpg:train_noseq(batch_index,state_index,gamma,train_settings, experien
 				cutorch:synchronize()		
 			end 		
 			local errorgrad 		= self.train_networks.criterion:backward(Qpred,target)
-			if train_settings.prioritized_experience_replay and train_settings.prioritized_beta > 0 and self.trainbatch.is_weights then 
+			if (train_settings.prioritized_experience_replay or train_settings.countbasedimpsamp) and train_settings.prioritized_beta > 0 and self.trainbatch.is_weights then 
 				self.train_networks.critic.network:backward({s,a},errorgrad:cmul(is_weights))
 			else
 				self.train_networks.critic.network:backward({s,a},errorgrad)

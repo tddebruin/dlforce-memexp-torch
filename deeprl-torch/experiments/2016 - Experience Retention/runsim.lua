@@ -21,6 +21,8 @@ LOGQPERF = true -- NEEDS TO BE TRUE FOR PRIORITIZED EXPERIENCE REPLAY!
 
 function setup()
 
+	env_scenario = nil
+
 	plots = {
 						reward = false,
 						updateperiod = 5
@@ -68,6 +70,8 @@ function setup()
 	cmd:option('-synthFrac',0.0,'Fraction of experiences that are replaced with synthetic experiences')
 	cmd:option('-synthRefreshProb',1.0,'probability of refreshing a synthetic experience, as opposed to keeping it the same when the experience is updated. Also keeps the db indices for synth exp fixed when smaller than 1.')
 
+	-- Generalization
+	cmd:option('-generalizationrun', false, 'perform a generalization run after training, starting from another initial state distributoin')
 
 	-- RL SPECIFIC
 	cmd:option('-gamma',0.95,'')
@@ -472,7 +476,7 @@ function setup()
 			local action 	= scaleActionBeforeSend(actuatoraction)
 
       if (channel:get_terminal(time_index) == 1) then
-				channel:send_env_reset()
+				channel:send_env_reset(env_scenario)
 				--communicator:sleep(0.2)
 			else
       	local send_action
@@ -596,7 +600,7 @@ function main()
 	end
 
 	rewards = torch.Tensor(EPISODES):zero()
-	channel:send_env_reset()
+	channel:send_env_reset(env_scenario)
 	communicator:advance_clock()
 	local BESTSOFAR = -math.huge
 	local sequence_timestep = 0
@@ -651,7 +655,7 @@ function main()
 		diagnostics:update(time_index, sequence_index)
 		if channel:get_terminal(time_index) == 1 or sequence_timestep >= (opt.seqlength * opt.samplefreq) then
 			if sequence_timestep >= (opt.seqlength * opt.samplefreq) then
-				channel:send_env_reset()
+				channel:send_env_reset(env_scenario)
 				sequence_timestep = 0
 			end
 			if opt.overwrite == 'HYBRID' then
@@ -682,10 +686,51 @@ function main()
 		communicator:advance_clock()
 	end
 
+
+	if opt.generalizationrun then
+		GEN_EPS = 12
+		sequence_index_valstart 	= communicator:get_sequence_index() -- counter for the episode
+		gen_rewards = torch.Tensor(GEN_EPS):zero()
+		
+		while communicator:get_sequence_index() <= (sequence_index_valstart + GEN_EPS) do
+			time_index 			= communicator:get_time_index() -- always increasing timestep counter for keeping track of all events
+			sequence_index 	= communicator:get_sequence_index() -- counter for the episode
+			sequence_timestep = sequence_timestep + 1 -- timesteps since the beginning of the current episode
+			env_scenario = 1 + sequence_index % 4
+
+			xpm:collect_OSAR(time_index,sequence_index) -- collect the (observations) state action and reward by interacting with the environment
+
+			local dbidx = xpm:add_RL_state_to_db()
+
+			diagnostics:update(time_index, sequence_index)
+			if channel:get_terminal(time_index) == 1 or sequence_timestep >= (opt.seqlength * opt.samplefreq) then
+				if sequence_timestep >= (opt.seqlength * opt.samplefreq) then
+					channel:send_env_reset(env_scenario)
+					sequence_timestep = 0
+				end
+
+				local seqrew = reward:ordered_seq(sequence_index):sum()/(opt.immediate_reward_scale * opt.seqlength * opt.samplefreq/10)
+
+				idx_gen_res = sequence_index - sequence_index_valstart
+				if idx_gen_res > 0 then
+					gen_rewards[idx_gen_res] = seqrew
+				end
+				communicator:advance_sequence_index()
+
+			end
+			-- advancing the clock increases the time index by one, sends it out on all channels and then blocks until at least one sampling time period has passed since the last time the clock advancement function call was completed.
+			communicator:advance_clock()
+		end	
+	end
+
+
 end
 
 main()
 torch.save(opt.resultfile .. '-t7',{seq = rewards})
+if opt.generalizationrun then
+	torch.save(opt.resultfile .. '_gen-t7', {seq = gen_rewards})
+end
 --mattorch.save(opt.resultfile,{seq = rewards})
 --mattorch.save(opt.resultfile,{seq = rewards, epsToComp = torch.Tensor({sequence_index})})
 torch.save(opt.resultfile .. 'completed') -- to signal the experiment is done

@@ -306,3 +306,16 @@ Noise Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS
 Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS
 Magman 200Hz, 10k xp, RESERVOIR, Uniform+FIS
 Swingup 100Hz, 10k xp, RESERVOIR, Uniform+FIS
+Swingup 10k xp GENTEST, noise, TDE, Uniform
+Swingup 10k xp GENTEST, noise, TDE, Uniform+FIS
+Swingup 10k xp GENTEST, noise, EXPL, PER
+Swingup 10k xp GENTEST, noise, EXPL, PER+ IS
+Swingup 10k xp GENTEST, noise, EXPL, PER+FIS
+Swingup 10k xp GENTEST, noise, RESERVOIR, Uniform
+Swingup 10k xp GENTEST, noise, RESERVOIR, Uniform+FIS
+Swingup 10k xp GENTEST, EXPL, PER
+Swingup 10k xp GENTEST, EXPL, PER+ IS
+Swingup 10k xp GENTEST, EXPL, PER+FIS
+Magman 10k xp GENTEST, EXPL, PER
+Magman 10k xp GENTEST, EXPL, PER+ IS
+Magman 10k xp GENTEST, EXPL, PER+FIS

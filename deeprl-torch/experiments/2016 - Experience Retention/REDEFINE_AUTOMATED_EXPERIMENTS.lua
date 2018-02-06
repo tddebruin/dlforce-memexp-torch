@@ -1539,6 +1539,71 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -countbasedimpsamp',
 	},
+	{ --309
+		name = 'Swingup 10k xp GENTEST, noise, TDE, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -overwrite_metric "TDE"',
+	},
+	{ --310
+		name = 'Swingup 10k xp GENTEST, noise, TDE, Uniform+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -overwrite_metric "TDE" -countbasedimpsamp',
+	},
+	{ --311
+		name = 'Swingup 10k xp GENTEST, noise, EXPL, PER',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --312
+		name = 'Swingup 10k xp GENTEST, noise, EXPL, PER+ IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay',
+	},
+	{ --313
+		name = 'Swingup 10k xp GENTEST, noise, EXPL, PER+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay -countbasedimpsamp',
+	},
+		{ --314
+		name = 'Swingup 10k xp GENTEST, noise, RESERVOIR, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "RESERVOIR"',
+	},
+	{ --315
+		name = 'Swingup 10k xp GENTEST, noise, RESERVOIR, Uniform+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "RESERVOIR" -countbasedimpsamp',
+	},
+	{ --316
+		name = 'Swingup 10k xp GENTEST, EXPL, PER',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --317
+		name = 'Swingup 10k xp GENTEST, EXPL, PER+ IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay',
+	},
+	{ --318
+		name = 'Swingup 10k xp GENTEST, EXPL, PER+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay -countbasedimpsamp',
+	},
+	{ --319
+		name = 'Magman 10k xp GENTEST, EXPL, PER',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --320
+		name = 'Magman 10k xp GENTEST, EXPL, PER+ IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay',
+	},
+	{ --321
+		name = 'Magman 10k xp GENTEST, EXPL, PER+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay -countbasedimpsamp',
+	},
 
 }
 
