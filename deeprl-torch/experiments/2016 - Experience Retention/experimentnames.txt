@@ -319,3 +319,5 @@ Swingup 10k xp GENTEST, EXPL, PER+FIS
 Magman 10k xp GENTEST, EXPL, PER
 Magman 10k xp GENTEST, EXPL, PER+ IS
 Magman 10k xp GENTEST, EXPL, PER+FIS
+magman 50Hz, full DB, PER normal net (verification)
+magman 50Hz, full DB, PER big net 

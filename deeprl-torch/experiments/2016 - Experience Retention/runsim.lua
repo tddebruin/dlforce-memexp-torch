@@ -81,6 +81,7 @@ function setup()
 	cmd:option('-batchsize',16,'')
 	cmd:option('-samplereuse',8,'Use each sample approx this many times')
 	cmd:option('-doubleQ',false)
+	cmd:option('-bignet', false, 'Use a network the size of the original DDPG paper instead of a smaller one.')
 	-- Critic only specific
 	cmd:option('-lr',0.00025,'')
 	cmd:option('-l2',0.00001,'')
@@ -278,7 +279,33 @@ function setup()
 
 
 	if CONTINUOUSACTIONS then
-		network_definitions  =	{
+		if opt.bignet then
+			network_definitions  =	{
+				statesize 		= channel.statedimension[1],
+				actionsize 		=	channel.actiondimension[1],
+	      state_bounds  = nil,
+	      --action_bounds = torch.Tensor({channel.action_bounds.min,channel.action_bounds.max}),
+	      actor					=
+					{
+						hsizes 			= {400,300}, -- 25 25
+						nonlinearity 	= nn.ReLu,
+						batchnorm 		= opt.batchnorm,
+					},
+				critic 				=
+					{
+						actionlayer  	= 1,
+						hsizes 				= {400,300}, -- 25 25 10
+						nonlinearity 	= nn.ReLu,
+						batchnorm 		= false,
+						knownQ				= {
+							use 				= false, -- use a batch for batchnorm
+						},
+					},
+				GPU						= USEGPU, -- for the training networks
+			}
+			network = drl_ddpg(opt.exec,opt.train, network_definitions)
+		else
+			network_definitions  =	{
 				statesize 		= channel.statedimension[1],
 				actionsize 		=	channel.actiondimension[1],
 	      state_bounds  = nil,
@@ -300,8 +327,10 @@ function setup()
 						},
 					},
 				GPU						= USEGPU, -- for the training networks
-		}
-		network = drl_ddpg(opt.exec,opt.train, network_definitions)
+			}
+			network = drl_ddpg(opt.exec,opt.train, network_definitions)
+		end
+		
 	else
 		network_definitions  =	{
 				statesize 		= channel.statedimension,
@@ -669,7 +698,7 @@ function main()
     	network:set_controller_parameters(network:get_controller_parameters())
 			local seqrew = reward:ordered_seq(sequence_index):sum()/(opt.immediate_reward_scale * opt.seqlength * opt.samplefreq/10)
 
-			if sequence_index%100 == 0 then
+			if sequence_index%1 == 0 then
 				print("Sequence " .. sequence_index .. " / " .. EPISODES)
 				print("TDE for last update: " .. calculate_TDE(xpm ,{since="last_update"}))
 	 			print("AVG pred Q for last update: " .. calculate_AVGQ(xpm ,{since="last_update"})[1] .. ", QFrozen: " .. calculate_AVGQ(xpm ,{since="last_update"})[2])
@@ -688,7 +717,7 @@ function main()
 
 
 	if opt.generalizationrun then
-		GEN_EPS = 12
+		GEN_EPS = 60
 		sequence_index_valstart 	= communicator:get_sequence_index() -- counter for the episode
 		gen_rewards = torch.Tensor(GEN_EPS):zero()
 		
@@ -729,6 +758,9 @@ end
 main()
 torch.save(opt.resultfile .. '-t7',{seq = rewards})
 if opt.generalizationrun then
+	print('Generalization: ')
+	print(torch.mean(gen_rewards))
+
 	torch.save(opt.resultfile .. '_gen-t7', {seq = gen_rewards})
 end
 --mattorch.save(opt.resultfile,{seq = rewards})

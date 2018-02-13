@@ -1604,6 +1604,18 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -generalizationrun -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay -countbasedimpsamp',
 	},
+	{ --322
+		name = 'magman 50Hz, full DB, PER normal net (verification)',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --323
+		name = 'magman 50Hz, full DB, PER big net ',
+		execute = true,
+		paramstring = '-xpmsize 400000 -bignet -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+
+
 
 }
 
