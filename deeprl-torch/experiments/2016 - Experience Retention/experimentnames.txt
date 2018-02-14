@@ -323,3 +323,9 @@ magman 50Hz, full DB, PER normal net (verification)
 magman 50Hz, full DB, PER big net 
 Magman 50Hz, 10k xp, RESERVOIR, PER
 Swingup 50Hz, 10k xp, RESERVOIR, PER
+Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS
+Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS
+Noise Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS
+Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS
+Magman 200Hz, 10k xp, RESERVOIR, Uniform+FIS
+Swingup 100Hz, 10k xp, RESERVOIR, Uniform+FIS
