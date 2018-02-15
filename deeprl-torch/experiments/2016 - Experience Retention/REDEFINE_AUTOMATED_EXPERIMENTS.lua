@@ -1616,13 +1616,13 @@ experiments = {
 	},
 	{ --324
 		name = 'Magman 50Hz, 10k xp, RESERVOIR, PER',
-		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+		execute = false, --same as 285
+		paramstring = '-DONTUSE -xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --325
 		name = 'Swingup 50Hz, 10k xp, RESERVOIR, PER',
-		execute = true,
-		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+		execute = false,  --same as 286
+		paramstring = '-DONTUSE -xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --326
 		name = 'Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS',
