@@ -329,3 +329,4 @@ Noise Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS
 Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS
 Magman 200Hz, 10k xp, RESERVOIR, Uniform+FIS
 Swingup 100Hz, 10k xp, RESERVOIR, Uniform+FIS
+magman 50Hz, 10k xp, FIFO, PER+IS big net 

@@ -1611,7 +1611,7 @@ experiments = {
 	},
 	{ --323
 		name = 'magman 50Hz, full DB, PER big net ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 400000 -bignet -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --324
@@ -1653,6 +1653,11 @@ experiments = {
 		name = 'Swingup 100Hz, 10k xp, RESERVOIR, Uniform+FIS',
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -countbasedimpsamp',
+	},
+	{ --332
+		name = 'magman 50Hz, 10k xp, FIFO, PER+IS big net ',
+		execute = false,
+		paramstring = '-bignet -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay',
 	},
 
 
