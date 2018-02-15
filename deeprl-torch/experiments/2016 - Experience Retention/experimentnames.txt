@@ -330,3 +330,7 @@ Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS
 Magman 200Hz, 10k xp, RESERVOIR, Uniform+FIS
 Swingup 100Hz, 10k xp, RESERVOIR, Uniform+FIS
 magman 50Hz, 10k xp, FIFO, PER+IS big net 
+Swingup 100Hz, 10k xp, TDE a=1.2, Uniform
+Swingup 100Hz, 10k xp, EXPL a=1.2, Uniform
+Magman 200Hz, 10k xp, TDE a=1.2, Uniform
+Magman 200Hz, 10k xp, EXPL a=1.2, Uniform

@@ -1659,6 +1659,26 @@ experiments = {
 		execute = false,
 		paramstring = '-bignet -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay',
 	},
+	{ --333
+		name = 'Swingup 100Hz, 10k xp, TDE a=1.2, Uniform',
+		execute = true,
+		paramstring = '-samplefreq 100 -xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 ',
+	},
+	{ --334
+		name = 'Swingup 100Hz, 10k xp, EXPL a=1.2, Uniform',
+		execute = true,
+		paramstring = '-samplefreq 100 -xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 ',
+	},
+	{ --335
+		name = 'Magman 200Hz, 10k xp, TDE a=1.2, Uniform',
+		execute = true,
+		paramstring = '-samplefreq 200 -xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 ',
+	},
+	{ --336
+		name = 'Magman 200Hz, 10k xp, EXPL a=1.2, Uniform',
+		execute = true,
+		paramstring = '-samplefreq 200 -xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 ',
+	},
 
 
 }
