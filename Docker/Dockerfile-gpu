@@ -1,0 +1,20 @@
+FROM kaixhin/cuda-torch
+
+RUN luarocks install lzmq
+RUN luarocks install "https://raw.github.com/Neopallium/lua-pb/master/lua-pb-scm-0.rockspec"
+
+#synching data
+#RUN apt-get update && apt-get install -y awscli
+RUN pip install awscli
+
+# Set the working directory 
+WORKDIR /app/
+
+# Copy the current directory contents into the container at /app
+ADD ./src /app
+
+# Make port 80 available to the world outside this container
+# EXPOSE 80
+
+# Run torch experiments when the container launches
+CMD ["sh", "start.sh"]
