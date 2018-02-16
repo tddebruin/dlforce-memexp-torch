@@ -334,3 +334,15 @@ Swingup 100Hz, 10k xp, TDE a=1.2, Uniform
 Swingup 100Hz, 10k xp, EXPL a=1.2, Uniform
 Magman 200Hz, 10k xp, TDE a=1.2, Uniform
 Magman 200Hz, 10k xp, EXPL a=1.2, Uniform
+Magman 200Hz, 10k xp, TDE a=1.2, Uniform
+Magman 200Hz, 10k xp, EXPL a=1.2, Uniform
+Swingup 10k xp GENTEST, noise, FIFO, PER
+Swingup 10k xp GENTEST, noise, TDE(1.2), PER
+Swingup 10k xp GENTEST, noise, Expl(1.2), Uniform
+Swingup 400k xp GENTEST, noise, FULL, PER
+Magman 10k xp GENTEST, noise, FIFO, PER
+Magman 10k xp GENTEST, noise, TDE(1.2), Uniform
+Magman 10k xp GENTEST, noise, TDE(1.2), PER
+Magman 10k xp GENTEST, noise, Expl(1.2), Uniform
+Magman 10k xp GENTEST, noise, Expl(1.2), PER
+Magman 400k xp GENTEST, noise, FULL, PER

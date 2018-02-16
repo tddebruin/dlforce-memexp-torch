@@ -1611,7 +1611,7 @@ experiments = {
 	},
 	{ --323
 		name = 'magman 50Hz, full DB, PER big net ',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 400000 -bignet -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --324
@@ -1656,7 +1656,7 @@ experiments = {
 	},
 	{ --332
 		name = 'magman 50Hz, 10k xp, FIFO, PER+IS big net ',
-		execute = false,
+		execute = true,
 		paramstring = '-bignet -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay',
 	},
 	{ --333
@@ -1671,14 +1671,75 @@ experiments = {
 	},
 	{ --335
 		name = 'Magman 200Hz, 10k xp, TDE a=1.2, Uniform',
-		execute = true,
-		paramstring = '-samplefreq 200 -xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 ',
+		execute = false, --WRONG SETTINGS
+		paramstring = '-DONTUSE -samplefreq 200 -xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 ',
 	},
 	{ --336
 		name = 'Magman 200Hz, 10k xp, EXPL a=1.2, Uniform',
-		execute = true,
-		paramstring = '-samplefreq 200 -xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 ',
+		execute = false, --WRONG SETTINGS
+		paramstring = '-DONTUSE -samplefreq 200 -xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 ',
 	},
+	{ --337
+		name = 'Magman 200Hz, 10k xp, TDE a=1.2, Uniform',
+		execute = true, 
+		paramstring = '-samplefreq 200 -xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 ',
+	},
+	{ --338
+		name = 'Magman 200Hz, 10k xp, EXPL a=1.2, Uniform',
+		execute = true, 
+		paramstring = '-samplefreq 200 -xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 ',
+	},
+	{ --339
+		name = 'Swingup 10k xp GENTEST, noise, FIFO, PER',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --340
+		name = 'Swingup 10k xp GENTEST, noise, TDE(1.2), PER',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --341
+		name = 'Swingup 10k xp GENTEST, noise, Expl(1.2), Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 ',
+	},
+	{ --342
+		name = 'Swingup 400k xp GENTEST, noise, FULL, PER',
+		execute = true,
+		paramstring = '-xpmsize 400000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --343
+		name = 'Magman 10k xp GENTEST, noise, FIFO, PER',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --344
+		name = 'Magman 10k xp GENTEST, noise, TDE(1.2), Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 ',
+	},
+	{ --345
+		name = 'Magman 10k xp GENTEST, noise, TDE(1.2), PER',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --346
+		name = 'Magman 10k xp GENTEST, noise, Expl(1.2), Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -overwrite "STOCHRANK"  -overwrite_alpha 1.2 ',
+	},
+	{ --347
+		name = 'Magman 10k xp GENTEST, noise, Expl(1.2), PER',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2  -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --348
+		name = 'Magman 400k xp GENTEST, noise, FULL, PER',
+		execute = true,
+		paramstring = '-xpmsize 400000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+
 
 
 }
