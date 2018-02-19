@@ -1739,7 +1739,31 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 400000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
-
+	{ --349
+		name = 'Swingup 50Hz, 10k xp, noise, FIFO, Uniform+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -countbasedimpsamp',
+	},
+	{ --350
+		name = 'Swingup 50Hz, 10k xp, noise, FIFO, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -prioritized_experience_replay',
+	},
+	{ --351
+		name = 'Swingup 50Hz, 10k xp, noise, FIFO, PER+FIS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -prioritized_experience_replay -countbasedimpsamp',
+	},
+	{ --352
+		name = 'Swingup 50Hz, 10k xp, noise, TDE, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay',
+	},
+	{ --353
+		name = 'Swingup 50Hz, 10k xp, noise, TDE, PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -countbasedimpsamp',
+	},
 
 
 }
