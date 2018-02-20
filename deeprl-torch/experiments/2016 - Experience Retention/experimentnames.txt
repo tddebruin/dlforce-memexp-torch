@@ -350,4 +350,9 @@ Swingup 50Hz, 10k xp, noise, FIFO, Uniform+FIS
 Swingup 50Hz, 10k xp, noise, FIFO, PER+IS
 Swingup 50Hz, 10k xp, noise, FIFO, PER+FIS
 Swingup 50Hz, 10k xp, noise, TDE, PER+IS
-Swingup 50Hz, 10k xp, noise, TDE, PER+IS
+Swingup 50Hz, 10k xp, noise, TDE, PER+FIS
+Magman 50Hz, 10k xp, noise, FIFO, Uniform+FIS
+Magman 50Hz, 10k xp, noise, FIFO, PER+IS
+Magman 50Hz, 10k xp, noise, TDE, Uniform+FIS
+Magman 50Hz, 10k xp, noise, TDE, PER+IS
+Magman 50Hz, 10k xp, noise, TDE, PER+FIS
