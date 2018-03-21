@@ -1611,7 +1611,7 @@ experiments = {
 	},
 	{ --323
 		name = 'magman 50Hz, full DB, PER big net ',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 400000 -bignet -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --324
@@ -1656,7 +1656,7 @@ experiments = {
 	},
 	{ --332
 		name = 'magman 50Hz, 10k xp, FIFO, PER+IS big net ',
-		execute = false,
+		execute = true,
 		paramstring = '-bignet -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay',
 	},
 	{ --333
