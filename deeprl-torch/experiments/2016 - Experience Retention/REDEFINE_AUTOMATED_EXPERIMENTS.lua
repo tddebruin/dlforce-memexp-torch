@@ -1789,6 +1789,16 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -countbasedimpsamp',
 	},
+	{ --359
+		name = 'Swingup 50Hz, 10k xp, noise, FIFO, Uniform+FIS (newFIS compare 349)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "SwingupSimC" -countbasedimpsamp',
+	},
+	{ --360
+		name = 'Swingup 50Hz, 10k xp, noise, FIFO, PER+FIS (newFis compare 351)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "SwingupSimC" -prioritized_experience_replay -countbasedimpsamp',
+	},
 }
 
 local cmd = torch.CmdLine()

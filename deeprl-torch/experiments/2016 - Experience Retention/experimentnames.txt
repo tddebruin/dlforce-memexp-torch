@@ -356,3 +356,5 @@ Magman 50Hz, 10k xp, noise, FIFO, PER+IS
 Magman 50Hz, 10k xp, noise, TDE, Uniform+FIS
 Magman 50Hz, 10k xp, noise, TDE, PER+IS
 Magman 50Hz, 10k xp, noise, TDE, PER+FIS
+Swingup 50Hz, 10k xp, noise, FIFO, Uniform+FIS (newFIS compare 349)
+Swingup 50Hz, 10k xp, noise, FIFO, PER+FIS (newFis compare 351)

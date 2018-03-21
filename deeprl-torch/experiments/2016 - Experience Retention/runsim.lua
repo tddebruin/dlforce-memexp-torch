@@ -611,6 +611,50 @@ function replace_last_experience_with_fantasy( probability )
 end
 
 
+function recalculate_bintab( episode )
+	if opt.countbasedimpsamp then 
+		local epsinmem = math.floor(opt.xpmsize / ((1-opt.ignorefrac)*(opt.samplefreq * opt.seqlength)))
+		if episode > epsinmem then
+			return -- no need to keep calculating, is fixed now
+		end
+		local n = math.min(episode, epsinmem)
+		local p = opt.samplereuse / epsinmem
+		local prob_sampled_i_times = function ( i )
+			if i > epsinmem then
+				return 0
+			else
+				return (factorial(n)/(factorial(i)*factorial(n-(i)))*p^(i) * (1-p)^(n-(i)))
+			end
+		end
+
+		for i = 1,20 do
+			s = 0
+			for j=0,i do
+				if j <= n then 
+					s = s + prob_sampled_i_times(j)
+				end
+			end
+			xpm.bintab[i] = 1 - s
+		end
+		expected_replays = math.ceil(n*p)
+		cum_weight = 0
+		for j=1,expected_replays do
+			cum_weight = cum_weight + xpm.bintab[j]
+		end
+		correction_weight = expected_replays / cum_weight
+		for i = 1,20 do
+			xpm.bintab[i] = xpm.bintab[i] * correction_weight
+			if xpm.bintab[i] ~= xpm.bintab[i] then
+				 xpm.bintab[i] = 1
+			end
+		end
+	end
+end
+
+
+
+
+
 
 function main()
 	setup()
@@ -633,7 +677,7 @@ function main()
 	communicator:advance_clock()
 	local BESTSOFAR = -math.huge
 	local sequence_timestep = 0
-
+	recalculate_bintab(1)
 	-- main loop -----------------------
 	while communicator:get_sequence_index() <= EPISODES do
 		time_index 			= communicator:get_time_index() -- always increasing timestep counter for keeping track of all events
@@ -710,6 +754,7 @@ function main()
 			end
 			rewards[sequence_index] = seqrew
 			communicator:advance_sequence_index()
+			recalculate_bintab(communicator:get_sequence_index())
 		end
 		-- advancing the clock increases the time index by one, sends it out on all channels and then blocks until at least one sampling time period has passed since the last time the clock advancement function call was completed.
 		communicator:advance_clock()
