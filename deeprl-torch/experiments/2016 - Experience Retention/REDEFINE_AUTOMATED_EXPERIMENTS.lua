@@ -1799,6 +1799,60 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "SwingupSimC" -prioritized_experience_replay -countbasedimpsamp',
 	},
+	{ --361
+		name = 'Noise Swingup 50Hz, 10k xp, RESERVOIR, PER+FIS (new Fis compare 294)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -noisescale 0.02 -prioritized_experience_replay -countbasedimpsamp',
+	},
+	{ --362
+		name = 'Swingup 10k xp , noise, TDE, Uniform+FIS (newFis compare 310)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -overwrite_metric "TDE" -countbasedimpsamp',
+	},
+	{ --363
+		name = 'Swingup 10k xp, noise, RESERVOIR, Uniform+FIS (newFis compare 315)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "SwingupSimC" -overwrite "RESERVOIR" -countbasedimpsamp',
+	},
+	{ --364
+		name = 'Noise Magman 0.02, 10k xp, FIFO, PER+FIS (newFis compare 71)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -noisescale 0.02 -prioritized_experience_replay -countbasedimpsamp',
+	},
+	{ --365
+		name = 'Noise Magman 50Hz, 10k xp, RESERVOIR, PER+FIS (newFis compare 293)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -noisescale 0.02 -prioritized_experience_replay -countbasedimpsamp',
+	},
+	{ --366
+		name = 'Noise Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS (newFis compare 328)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -noisescale 0.02 -countbasedimpsamp',
+	},
+	{ --367
+		name = 'Magman 50Hz, 10k xp, noise, FIFO, Uniform+FIS (newFis compare 354)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -countbasedimpsamp',
+	},
+	{ --368
+		name = 'Magman 50Hz, 10k xp, noise, TDE, Uniform+FIS (newFis compare 356)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -countbasedimpsamp',
+	},
+	{ --369
+		name = 'Magman 50Hz, 10k xp, noise, TDE, PER+FIS (newFis compare 358)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -countbasedimpsamp',
+	},
+	{ --370
+		name = 'Swingup 50Hz, 10k xp, noise, TDE, PER+FIS (newFis compare 353)',
+		execute = true,
+		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -countbasedimpsamp',
+	},
+
+
+
+
 }
 
 local cmd = torch.CmdLine()
