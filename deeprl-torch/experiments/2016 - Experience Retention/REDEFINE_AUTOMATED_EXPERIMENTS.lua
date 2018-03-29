@@ -1849,10 +1849,22 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -countbasedimpsamp',
 	},
-
-
-
-
+	{ --371
+		name = 'Magman 50Hz, FIFO 84000 Uniform',
+		execute = true,
+		paramstring = '-xpmsize 84000 -env "MagmanSimC"',
+	},
+	{ --372
+		name = 'Magman 50Hz, FIFO 84000 PER',
+		execute = true,
+		paramstring = '-xpmsize 84000 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --373
+		name = 'Magman 50Hz, FIFO 84000 PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 84000 -env "MagmanSimC" -prioritized_experience_replay',
+	},
+	
 }
 
 local cmd = torch.CmdLine()
