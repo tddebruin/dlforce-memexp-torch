@@ -1864,6 +1864,51 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 84000 -env "MagmanSimC" -prioritized_experience_replay',
 	},
+	{ --374
+		name = 'Magman 50Hz, FIFO 42000 Uniform',
+		execute = true,
+		paramstring = '-xpmsize 42000 -env "MagmanSimC"',
+	},
+	{ --375
+		name = 'Magman 50Hz, FIFO 42000 PER',
+		execute = true,
+		paramstring = '-xpmsize 42000 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --376
+		name = 'Magman 50Hz, FIFO 42000 PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 42000 -env "MagmanSimC" -prioritized_experience_replay',
+	},
+	{ --377
+		name = 'Magman 50Hz, FIFO 21000 Uniform',
+		execute = true,
+		paramstring = '-xpmsize 21000 -env "MagmanSimC"',
+	},
+	{ --378
+		name = 'Magman 50Hz, FIFO 21000 PER',
+		execute = true,
+		paramstring = '-xpmsize 21000 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --379
+		name = 'Magman 50Hz, FIFO 21000 PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 21000 -env "MagmanSimC" -prioritized_experience_replay',
+	},
+	{ --380
+		name = 'Magman 50Hz, FIFO 5000 Uniform',
+		execute = true,
+		paramstring = '-xpmsize 5000 -env "MagmanSimC"',
+	},
+	{ --381
+		name = 'Magman 50Hz, FIFO 5000 PER',
+		execute = true,
+		paramstring = '-xpmsize 5000 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --382
+		name = 'Magman 50Hz, FIFO 5000 PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 5000 -env "MagmanSimC" -prioritized_experience_replay',
+	},
 	
 }
 

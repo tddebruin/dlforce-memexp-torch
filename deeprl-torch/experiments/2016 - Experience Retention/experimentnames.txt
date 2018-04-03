@@ -371,3 +371,12 @@ Swingup 50Hz, 10k xp, noise, TDE, PER+FIS (newFis compare 353)
 Magman 50Hz, FIFO 84000 Uniform
 Magman 50Hz, FIFO 84000 PER
 Magman 50Hz, FIFO 84000 PER+IS
+Magman 50Hz, FIFO 42000 Uniform
+Magman 50Hz, FIFO 42000 PER
+Magman 50Hz, FIFO 42000 PER+IS
+Magman 50Hz, FIFO 21000 Uniform
+Magman 50Hz, FIFO 21000 PER
+Magman 50Hz, FIFO 21000 PER+IS
+Magman 50Hz, FIFO 5000 Uniform
+Magman 50Hz, FIFO 5000 PER
+Magman 50Hz, FIFO 5000 PER+IS
