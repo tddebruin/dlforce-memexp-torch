@@ -1,7 +1,7 @@
 experiments = {
 	{ --1
 		name = 'Magman 50Hz, full DB',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 400000 -env "MagmanSimC"',
 	},
 	{ --2
@@ -51,7 +51,7 @@ experiments = {
 	},
 	{ --11
 		name = 'Swingup 50Hz, full DB, FASTER STOCHASTIC prioritized replay',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimC" -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --12
@@ -61,12 +61,12 @@ experiments = {
 	},
 	{ --13
 		name = 'Magman 50Hz, 10k xp, FIFO, Uniform',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" ',
 	},
 	{ --14
 		name = 'Magman 50Hz, 10k xp, FIFO, PER',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --15
@@ -106,7 +106,7 @@ experiments = {
 	},
 	{ --22
 		name = 'Magman 50Hz, 10k xp, EXPL a=1.2, Uniform',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2',
 	},
 	{ --23
@@ -121,12 +121,12 @@ experiments = {
 	},
 	{ --25
 		name = 'Swingup 50Hz, 10k xp, FIFO, Uniform',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" ',
 	},
 	{ --26
 		name = 'Swingup 50Hz, 10k xp, FIFO, PER',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --27
@@ -166,7 +166,7 @@ experiments = {
 	},
 	{ --34
 		name = 'Swingup 50Hz, 10k xp, EXPL a=1.2, Uniform',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2',
 	},
 	{ --35
@@ -311,7 +311,7 @@ experiments = {
 	},
 	{ --63
 		name = 'Swingup 50Hz, 10k xp, TDE a=1.2, Uniform',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 ',
 	},
 	{ --64
@@ -321,7 +321,7 @@ experiments = {
 	},
 	{ --65
 		name = 'Magman 50Hz, 10k xp, TDE a=1.2, Uniform',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -overwrite_metric "TDE"',
 	},
 	{ --66
@@ -726,7 +726,7 @@ experiments = {
 	},
 	{ --146
 		name = 'Swingup 50Hz, full DB ',
-		execute = false,
+		execute = true,
 		paramstring = '-xpmsize 400000 -env "SwingupSimC"',
 	},
 	{ --147
@@ -751,212 +751,212 @@ experiments = {
 	},
 	{ --151
 		name = 'Swingup 50Hz, 10k xp, 5% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.05 -synthS',
 	},
 	{ --152
 		name = 'Swingup 50Hz, 10k xp, 20% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.2 -synthS',
 	},
 	{ --153
 		name = 'Swingup 50Hz, 10k xp, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS',
 	},
 	{ --154
 		name = 'Swingup 50Hz, 10k xp, 100% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 1.00 -synthS',
 	},
 	{ --155
 		name = 'Magman 50Hz, 10k xp, 5% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.05 -synthS',
 	},
 	{ --156
 		name = 'Magman 50Hz, 10k xp, 20% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.2 -synthS',
 	},
 	{ --157
 		name = 'Magman 50Hz, 10k xp, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS',
 	},
 	{ --158
 		name = 'Magman 50Hz, 10k xp, 100% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 1.0 -synthS',
 	},
 	{ --159
 		name = 'Swingup 50Hz, 10k xp, 5% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.05 -synthA',
 	},
 	{ --160
 		name = 'Swingup 50Hz, 10k xp, 20% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.2 -synthA',
 	},
 	{ --161
 		name = 'Swingup 50Hz, 10k xp, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA',
 	},
 	{ --162
 		name = 'Swingup 50Hz, 10k xp, 100% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 1.0 -synthA',
 	},
 	{ --163
 		name = 'Magman 50Hz, 10k xp, 5% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.05 -synthA',
 	},
 	{ --164
 		name = 'Magman 50Hz, 10k xp, 20% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.2 -synthA',
 	},
 	{ --165
 		name = 'Magman 50Hz, 10k xp, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA',
 	},
 	{ --166
 		name = 'Magman 50Hz, 10k xp, 100% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 1.0 -synthA',
 	},
 	{ --167
 		name = 'Swingup 50Hz, 1k xp',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1000 -env "SwingupSimC" -overwrite "FIFO"',
 	},
 	{ --168
 		name = 'Swingup 50Hz, 1k xp, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS',
 	},
 	{ --169
 		name = 'Swingup 50Hz, 1k xp, 100% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 1.00 -synthS',
 	},
 	{ --170
 		name = 'Magman 50Hz, 1k xp',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1000 -env "MagmanSimC" -overwrite "FIFO"',
 	},
 	{ --171
 		name = 'Magman 50Hz, 1k xp, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS',
 	},
 	{ --172
 		name = 'Magman 50Hz, 1k xp, 100% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 1.0 -synthS',
 	},
 	{ --173
 		name = 'Swingup 50Hz, 1k xp, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA',
 	},
 	{ --174
 		name = 'Swingup 50Hz, 1k xp, 100% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 1.0 -synthA',
 	},
 	{ --175
 		name = 'Magman 50Hz, 1k xp, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA',
 	},
 	{ --176
 		name = 'Magman 50Hz, 1k xp, 100% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 1000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 1.0 -synthA',
 	},
 	{ --177
 		name = 'Swingup 50Hz, 100k xp',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 100000 -env "SwingupSimC" -overwrite "FIFO"',
 	},
 	{ --178
 		name = 'Swingup 50Hz, 100k xp, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 100000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS',
 	},
 	{ --179
 		name = 'Swingup 50Hz, 100k xp, 100% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 100000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 1.00 -synthS',
 	},
 	{ --180
 		name = 'Magman 50Hz, 100k xp',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 100000 -env "MagmanSimC" -overwrite "FIFO"',
 	},
 	{ --181
 		name = 'Magman 50Hz, 100k xp, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 100000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS',
 	},
 	{ --182
 		name = 'Magman 50Hz, 100k xp, 100% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 100000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 1.0 -synthS',
 	},
 	{ --183
 		name = 'Swingup 50Hz, 100k xp, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 100000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA',
 	},
 	{ --184
 		name = 'Swingup 50Hz, 100k xp, 100% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 100000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 1.0 -synthA',
 	},
 	{ --185
 		name = 'Magman 50Hz, 100k xp, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 100000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA',
 	},
 	{ --186
 		name = 'Magman 50Hz, 100k xp, 100% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 100000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 1.0 -synthA',
 	},
 	{ --187
 		name = 'Swingup 50Hz, noise 0.01',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -noisescale 0.01',
 	},
 	{ --188
 		name = 'Magman 50Hz, noise 0.01',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -noisescale 0.01',
 	},
 	{ --189
 		name = 'Swingup 50Hz, noise 0.01, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -noisescale 0.01 -synthFrac 0.5 -synthS',
 	},
 	{ --190
 		name = 'Magman 50Hz, noise 0.01, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -noisescale 0.01 -synthFrac 0.5 -synthS',
 	},
 	{ --191
 		name = 'Swingup 50Hz, noise 0.01, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -noisescale 0.01 -synthFrac 0.5 -synthA',
 	},
 	{ --192
 		name = 'Magman 50Hz, noise 0.01, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -noisescale 0.01 -synthFrac 0.5 -synthA',
 	},
 	{ --193
@@ -971,172 +971,172 @@ experiments = {
 	},
 	{ --195
 		name = 'Swingup 50Hz, noise 0.02, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -noisescale 0.02 -synthFrac 0.5 -synthS',
 	},
 	{ --196
 		name = 'Magman 50Hz, noise 0.02, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -noisescale 0.02 -synthFrac 0.5 -synthS',
 	},
 	{ --197
 		name = 'Swingup 50Hz, noise 0.02, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -noisescale 0.02 -synthFrac 0.5 -synthA',
 	},
 	{ --198
 		name = 'Magman 50Hz, noise 0.02, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -noisescale 0.02 -synthFrac 0.5 -synthA',
 	},
 	{ --199
 		name = 'Swingup 50Hz, noise 0.05',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -noisescale 0.05',
 	},
 	{ --200
 		name = 'Magman 50Hz, noise 0.05',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -noisescale 0.05',
 	},
 	{ --201
 		name = 'Swingup 50Hz, noise 0.05, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -noisescale 0.05 -synthFrac 0.5 -synthS',
 	},
 	{ --202
 		name = 'Magman 50Hz, noise 0.05, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -noisescale 0.05 -synthFrac 0.5 -synthS',
 	},
 	{ --203
 		name = 'Swingup 50Hz, noise 0.05, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -noisescale 0.05 -synthFrac 0.5 -synthA',
 	},
 	{ --204
 		name = 'Magman 50Hz, noise 0.05, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -noisescale 0.05 -synthFrac 0.5 -synthA',
 	},
 	{ --205
 		name = 'Swingup 50Hz, 10k xp, 10% synth S synthRefreshProb 10%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.1 -synthS -synthRefreshProb 0.1',
 	},
 	{ --206
 		name = 'Swingup 50Hz, 10k xp, 50% synth S synthRefreshProb 10%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthRefreshProb 0.1',
 	},
 	{ --207
 		name = 'Swingup 50Hz, 10k xp, 10% synth A synthRefreshProb 10%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.1 -synthA -synthRefreshProb 0.1',
 	},
 	{ --208
 		name = 'Swingup 50Hz, 10k xp, 50% synth A synthRefreshProb 10%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA -synthRefreshProb 0.1',
 	},
 	{ --209
 		name = 'Magman 50Hz, 10k xp, 10% synth S synthRefreshProb 10%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.1 -synthS -synthRefreshProb 0.1',
 	},
 	{ --210
 		name = 'Magman 50Hz, 10k xp, 50% synth S synthRefreshProb 10%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthRefreshProb 0.1',
 	},
 	{ --211
 		name = 'Magman 50Hz, 10k xp, 10% synth A synthRefreshProb 10%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.1 -synthA -synthRefreshProb 0.1',
 	},
 	{ --212
 		name = 'Magman 50Hz, 10k xp, 50% synth A synthRefreshProb 10%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA -synthRefreshProb 0.1',
 	},
 	{ --213
 		name = 'Swingup 50Hz, 10k xp, 10% synth S synthRefreshProb 1%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.1 -synthS -synthRefreshProb 0.01',
 	},
 	{ --214
 		name = 'Swingup 50Hz, 10k xp, 50% synth S synthRefreshProb 1%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthRefreshProb 0.01',
 	},
 	{ --215
 		name = 'Swingup 50Hz, 10k xp, 10% synth A synthRefreshProb 1%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.1 -synthA -synthRefreshProb 0.01',
 	},
 	{ --216
 		name = 'Swingup 50Hz, 10k xp, 50% synth A synthRefreshProb 1%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA -synthRefreshProb 0.01',
 	},
 	{ --217
 		name = 'Magman 50Hz, 10k xp, 10% synth S synthRefreshProb 1%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.1 -synthS -synthRefreshProb 0.01',
 	},
 	{ --218
 		name = 'Magman 50Hz, 10k xp, 50% synth S synthRefreshProb 1%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthRefreshProb 0.01',
 	},
 	{ --219
 		name = 'Magman 50Hz, 10k xp, 10% synth A synthRefreshProb 1%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.1 -synthA -synthRefreshProb 0.01',
 	},
 	{ --220
 		name = 'Magman 50Hz, 10k xp, 50% synth A synthRefreshProb 1%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA -synthRefreshProb 0.01',
 	},
 	{ --221
 		name = 'Swingup 50Hz, 10k xp, 10% synth S synthRefreshProb 0%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.1 -synthS -synthRefreshProb 0.0',
 	},
 	{ --222
 		name = 'Swingup 50Hz, 10k xp, 50% synth S synthRefreshProb 0%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthRefreshProb 0.0',
 	},
 	{ --223
 		name = 'Swingup 50Hz, 10k xp, 10% synth A synthRefreshProb 0%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.1 -synthA -synthRefreshProb 0.0',
 	},
 	{ --224
 		name = 'Swingup 50Hz, 10k xp, 50% synth A synthRefreshProb 0%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA -synthRefreshProb 0.0',
 	},
 	{ --225
 		name = 'Magman 50Hz, 10k xp, 10% synth S synthRefreshProb 0%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.1 -synthS -synthRefreshProb 0.0',
 	},
 	{ --226
 		name = 'Magman 50Hz, 10k xp, 50% synth S synthRefreshProb 0%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthRefreshProb 0.0',
 	},
 	{ --227
 		name = 'Magman 50Hz, 10k xp, 10% synth A synthRefreshProb 0%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.1 -synthA -synthRefreshProb 0.0',
 	},
 	{ --228
 		name = 'Magman 50Hz, 10k xp, 50% synth A synthRefreshProb 0%',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthA -synthRefreshProb 0.0',
 	},
 	{ --229
@@ -1146,62 +1146,62 @@ experiments = {
 	},
 	{ --230
 		name = 'Magman 100Hz',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 100',
 	},
 	{ --231
 		name = 'Swingup 100Hz, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 100 -synthFrac 0.5 -synthS',
 	},
 	{ --232
 		name = 'Magman 100Hz 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 100 -synthFrac 0.5 -synthS',
 	},
 	{ --233
 		name = 'Swingup 100Hz, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 100 -synthFrac 0.5 -synthA',
 	},
 	{ --234
 		name = 'Magman 100Hz, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 100 -synthFrac 0.5 -synthA',
 	},
 	{ --235
 		name = 'Swingup 150Hz',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 150',
 	},
 	{ --236
 		name = 'Magman 150Hz',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 150',
 	},
 	{ --237
 		name = 'Swingup 150Hz, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 150 -synthFrac 0.5 -synthS',
 	},
 	{ --238
 		name = 'Magman 150Hz 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 150 -synthFrac 0.5 -synthS',
 	},
 	{ --239
 		name = 'Swingup 150Hz, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 150 -synthFrac 0.5 -synthA',
 	},
 	{ --240
 		name = 'Magman 150Hz, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 150 -synthFrac 0.5 -synthA',
 	},
 	{ --241
 		name = 'Swingup 200Hz',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 200',
 	},
 	{ --242
@@ -1211,112 +1211,112 @@ experiments = {
 	},
 	{ --243
 		name = 'Swingup 200Hz, 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 200 -synthFrac 0.5 -synthS',
 	},
 	{ --244
 		name = 'Magman 200Hz 50% synth S ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 200 -synthFrac 0.5 -synthS',
 	},
 	{ --245
 		name = 'Swingup 200Hz, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 200 -synthFrac 0.5 -synthA',
 	},
 	{ --246
 		name = 'Magman 200Hz, 50% synth A ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 200 -synthFrac 0.5 -synthA',
 	},
 	{ --247
 		name = 'Magman 50Hz, 10k xp, FIFO, PER peralpha 0.4',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.4',
 	},
 	{ --248
 		name = 'Magman 50Hz, 10k xp, FIFO, PER peralpha 0.6',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.6',
 	},
 	{ --249
 		name = 'Magman 50Hz, 10k xp, FIFO, PER peralpha 0.8',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.8',
 	},
 	{ --250
 		name = 'Magman 50Hz, 10k xp, FIFO, PER peralpha 1.0',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 1.0',
 	},
 	{ --251
 		name = 'magman 50Hz, full DB, PER peralpha 0.4',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.4',
 	},
 	{ --252
 		name = 'magman 50Hz, full DB, PER peralpha 0.6',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.6',
 	},
 	{ --253
 		name = 'magman 50Hz, full DB, PER peralpha 0.8',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.8',
 	},
 	{ --254
 		name = 'magman 50Hz, full DB, PER peralpha 1.0',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 1.0',
 	},
 	{ --255
 		name = 'Swingup 50Hz, 10k xp, FIFO, PER peralpha 0.4',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.4',
 	},
 	{ --256
 		name = 'Swingup 50Hz, 10k xp, FIFO, PER peralpha 0.6',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.6',
 	},
 	{ --257
 		name = 'Swingup 50Hz, 10k xp, FIFO, PER peralpha 0.8',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.8',
 	},
 	{ --258
 		name = 'Swingup 50Hz, 10k xp, FIFO, PER peralpha 1.0',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 1.0',
 	},
 	{ --259
 		name = 'Swingup 50Hz, full DB, PER peralpha 0.4',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.4',
 	},
 	{ --260
 		name = 'Swingup 50Hz, full DB, PER peralpha 0.6',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.6',
 	},
 	{ --261
 		name = 'Swingup 50Hz, full DB, PER peralpha 0.8',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 0.8',
 	},
 	{ --262
 		name = 'Swingup 50Hz, full DB, PER peralpha 1.0',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 1.0',
 	},
 	{ --263
 		name = 'Magman 50Hz, 10k xp, FIFO, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --264
 		name = 'Swingup 50Hz, 10k xp, FIFO, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --265
@@ -1331,12 +1331,12 @@ experiments = {
 	},
 	{ --267
 		name = 'Magman 50Hz, 10k xp, TDE a=1.2, PER+IS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 -prioritized_experience_replay',
 	},
 	{ --268
 		name = 'Swingup 50Hz, 10k xp, TDE a=1.2, PER+IS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 -prioritized_experience_replay',
 	},
 	{ --269
@@ -1381,12 +1381,12 @@ experiments = {
 	},
 	{ --277
 		name = 'Swingup 100Hz, 50% synth A SAMPLEDROPOUT',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 100 -synthFrac 0.5 -synthA -ignorefrac 0.5',
 	},
 	{ --278
 		name = 'Magman 200Hz, 50% synth A SAMPLEDROPOUT',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 200 -synthFrac 0.5 -synthA -ignorefrac 0.75',
 	},
 	{ --279
@@ -1406,7 +1406,7 @@ experiments = {
 	},
 	{ --282
 		name = 'Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -noisescale 0.02',
 	},
 	{ --283
@@ -1441,52 +1441,52 @@ experiments = {
 	},
 	{ --289
 		name = 'Magman 200Hz, 10k xp, RESERVOIR, PER',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -samplefreq 200 -overwrite "RESERVOIR" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0 ',
 	},
 	{ --290
 		name = 'Swingup 100Hz, 10k xp, RESERVOIR, PER',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --291
 		name = 'Magman 50Hz, 10k xp, RESERVOIR, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --292
 		name = 'Swingup 50Hz, 10k xp, RESERVOIR, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --293
 		name = 'Noise Magman 50Hz, 10k xp, RESERVOIR, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -noisescale 0.02 -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --294
 		name = 'Noise Swingup 50Hz, 10k xp, RESERVOIR, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -noisescale 0.02 -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --295
 		name = 'Magman 200Hz, 10k xp, RESERVOIR, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -samplefreq 200 -overwrite "RESERVOIR" -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --296
 		name = 'Swingup 100Hz, 10k xp, RESERVOIR, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --297
 		name = 'Magman 50Hz, 10k xp, RESERVOIR, PER+IS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -prioritized_experience_replay',
 	},
 	{ --298
 		name = 'Swingup 50Hz, 10k xp, RESERVOIR, PER+IS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -prioritized_experience_replay',
 	},
 	{ --299
@@ -1501,12 +1501,12 @@ experiments = {
 	},
 	{ --301
 		name = 'Magman 200Hz, 10k xp, RESERVOIR, PER+IS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -samplefreq 200 -overwrite "RESERVOIR" -prioritized_experience_replay',
 	},
 	{ --302
 		name = 'Swingup 100Hz, 10k xp, RESERVOIR, PER+IS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -prioritized_experience_replay',
 	},
 	{ --303
@@ -1546,7 +1546,7 @@ experiments = {
 	},
 	{ --310
 		name = 'Swingup 10k xp GENTEST, noise, TDE, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -overwrite_metric "TDE" -countbasedimpsamp',
 	},
 	{ --311
@@ -1556,12 +1556,12 @@ experiments = {
 	},
 	{ --312
 		name = 'Swingup 10k xp GENTEST, noise, EXPL, PER+ IS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay',
 	},
 	{ --313
 		name = 'Swingup 10k xp GENTEST, noise, EXPL, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay -countbasedimpsamp',
 	},
 		{ --314
@@ -1571,7 +1571,7 @@ experiments = {
 	},
 	{ --315
 		name = 'Swingup 10k xp GENTEST, noise, RESERVOIR, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "RESERVOIR" -countbasedimpsamp',
 	},
 	{ --316
@@ -1581,12 +1581,12 @@ experiments = {
 	},
 	{ --317
 		name = 'Swingup 10k xp GENTEST, EXPL, PER+ IS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay',
 	},
 	{ --318
 		name = 'Swingup 10k xp GENTEST, EXPL, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --319
@@ -1596,12 +1596,12 @@ experiments = {
 	},
 	{ --320
 		name = 'Magman 10k xp GENTEST, EXPL, PER+ IS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay',
 	},
 	{ --321
 		name = 'Magman 10k xp GENTEST, EXPL, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --322
@@ -1611,7 +1611,7 @@ experiments = {
 	},
 	{ --323
 		name = 'magman 50Hz, full DB, PER big net ',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 400000 -bignet -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --324
@@ -1626,37 +1626,37 @@ experiments = {
 	},
 	{ --326
 		name = 'Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -countbasedimpsamp',
 	},
 	{ --327
 		name = 'Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -countbasedimpsamp',
 	},
 	{ --328
 		name = 'Noise Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "RESERVOIR" -noisescale 0.02 -countbasedimpsamp',
 	},
 	{ --329
 		name = 'Noise Swingup 50Hz, 10k xp, RESERVOIR, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "RESERVOIR" -noisescale 0.02 -countbasedimpsamp',
 	},
 	{ --330
 		name = 'Magman 200Hz, 10k xp, RESERVOIR, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -samplefreq 200 -overwrite "RESERVOIR" -countbasedimpsamp',
 	},
 	{ --331
 		name = 'Swingup 100Hz, 10k xp, RESERVOIR, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -countbasedimpsamp',
 	},
 	{ --332
 		name = 'magman 50Hz, 10k xp, FIFO, PER+IS big net ',
-		execute = true,
+		execute = false,
 		paramstring = '-bignet -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -prioritized_experience_replay',
 	},
 	{ --333
@@ -1721,7 +1721,7 @@ experiments = {
 	},
 	{ --345
 		name = 'Magman 10k xp GENTEST, noise, TDE(1.2), PER',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
 	},
 	{ --346
@@ -1741,7 +1741,7 @@ experiments = {
 	},
 	{ --349
 		name = 'Swingup 50Hz, 10k xp, noise, FIFO, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -countbasedimpsamp',
 	},
 	{ --350
@@ -1751,7 +1751,7 @@ experiments = {
 	},
 	{ --351
 		name = 'Swingup 50Hz, 10k xp, noise, FIFO, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --352
@@ -1761,12 +1761,12 @@ experiments = {
 	},
 	{ --353
 		name = 'Swingup 50Hz, 10k xp, noise, TDE, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --354
 		name = 'Magman 50Hz, 10k xp, noise, FIFO, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -countbasedimpsamp',
 	},
 	{ --355
@@ -1776,7 +1776,7 @@ experiments = {
 	},
 	{ --356
 		name = 'Magman 50Hz, 10k xp, noise, TDE, Uniform+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -countbasedimpsamp',
 	},
 	{ --357
@@ -1786,7 +1786,7 @@ experiments = {
 	},
 	{ --358
 		name = 'Magman 50Hz, 10k xp, noise, TDE, PER+FIS',
-		execute = true,
+		execute = false,
 		paramstring = '-xpmsize 10000 -generalizationrun -noisescale 0.02 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -countbasedimpsamp',
 	},
 	{ --359
@@ -1849,55 +1849,111 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -countbasedimpsamp',
 	},
-	{ --371 (25)
+	{ --371
+		name = 'Magman 50Hz, FIFO 84000 Uniform',
+		execute = true,
+		paramstring = '-xpmsize 84000 -env "MagmanSimC"',
+	},
+	{ --372
+		name = 'Magman 50Hz, FIFO 84000 PER',
+		execute = true,
+		paramstring = '-xpmsize 84000 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --373
+		name = 'Magman 50Hz, FIFO 84000 PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 84000 -env "MagmanSimC" -prioritized_experience_replay',
+	},
+	{ --374
+		name = 'Magman 50Hz, FIFO 42000 Uniform',
+		execute = true,
+		paramstring = '-xpmsize 42000 -env "MagmanSimC"',
+	},
+	{ --375
+		name = 'Magman 50Hz, FIFO 42000 PER',
+		execute = true,
+		paramstring = '-xpmsize 42000 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --376
+		name = 'Magman 50Hz, FIFO 42000 PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 42000 -env "MagmanSimC" -prioritized_experience_replay',
+	},
+	{ --377
+		name = 'Magman 50Hz, FIFO 21000 Uniform',
+		execute = true,
+		paramstring = '-xpmsize 21000 -env "MagmanSimC"',
+	},
+	{ --378
+		name = 'Magman 50Hz, FIFO 21000 PER',
+		execute = true,
+		paramstring = '-xpmsize 21000 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --379
+		name = 'Magman 50Hz, FIFO 21000 PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 21000 -env "MagmanSimC" -prioritized_experience_replay',
+	},
+	{ --380
+		name = 'Magman 50Hz, FIFO 5000 Uniform',
+		execute = true,
+		paramstring = '-xpmsize 5000 -env "MagmanSimC"',
+	},
+	{ --381
+		name = 'Magman 50Hz, FIFO 5000 PER',
+		execute = true,
+		paramstring = '-xpmsize 5000 -env "MagmanSimC" -prioritized_experience_replay -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --382
+		name = 'Magman 50Hz, FIFO 5000 PER+IS',
+		execute = true,
+		paramstring = '-xpmsize 5000 -env "MagmanSimC" -prioritized_experience_replay',
+	},
+	{ --383 (25)
 		name = 'DISCRETE Swingup 50Hz, 10k xp, FIFO, Uniform',
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" ',
 	},
-	{ --372
+	{ --384
 		name = 'DISCRETE Swingup 50Hz, 10k xp, 5% synth S ',
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.05 -synthS',
 	},
-	{ --373
+	{ --385
 		name = 'DISCRETE Swingup 50Hz, 10k xp, 10% synth S ',
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.10 -synthS',
 	},
-	{ --374
+	{ --386
 		name = 'DISCRETE Swingup 50Hz, 10k xp, 25% synth S ',
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.25 -synthS',
 	},
-	{ --375 (153)
+	{ --387 (153)
 		name = 'DISCRETE Swingup 50Hz, 10k xp, 50% synth S ',
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.5 -synthS',
 	},
-	{ --376
+	{ --388
 			name = 'Swingup 50Hz, 10k xp, 5% synth A ',
 			execute = true,
 			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.05 -synthA',
 	},
-	{ --377
+	{ --389
 			name = 'Swingup 50Hz, 10k xp, 10% synth A ',
 			execute = true,
 			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.10 -synthA',
 	},
-	{ --378
+	{ --390
 			name = 'Swingup 50Hz, 10k xp, 25% synth A ',
 			execute = true,
 			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.25 -synthA',
 	},
-	{ --379 (161)
+	{ --391 (161)
 			name = 'Swingup 50Hz, 10k xp, 50% synth A ',
 			execute = true,
 			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.5 -synthA',
 	},
-
-
-
-
 }
 
 local cmd = torch.CmdLine()
