@@ -85,6 +85,7 @@ function setup()
 	-- Critic only specific
 	cmd:option('-lr',0.00025,'')
 	cmd:option('-l2',0.00001,'')
+	cmd:option('-freezecount', 200, 'number of steps between DQN frozen net updates')
 	-- Actor-critic specific
 	cmd:option('-criticl2',0.005,'')
 	cmd:option('-lowpass',1e-2,'')
@@ -116,6 +117,8 @@ function setup()
 			local experiment_def = {}
 			if opt.env == 'MagmanSimD' then
 				experiment_def = {environment = 'magman', magnets = 3, discrete = true, ts = 1/opt.samplefreq}
+			elseif opt.env == 'SwingupSimD' then
+				experiment_def = {environment = 'pendulum', discrete = true, ts = 1/opt.samplefreq, bwddiff=opt.bwd, altrew = opt.altrew}
 			elseif opt.env == 'MagmanSimC' then
 				experiment_def = {environment = 'magman', magnets = 4, discrete = false, ts = 1/opt.samplefreq}
 			elseif opt.env == 'SwingupSimC' then
@@ -330,7 +333,7 @@ function setup()
 			}
 			network = drl_ddpg(opt.exec,opt.train, network_definitions)
 		end
-		
+
 	else
 		network_definitions  =	{
 				statesize 		= channel.statedimension,
@@ -339,7 +342,7 @@ function setup()
 	      action_bounds = nil,
 				hsizes 				= {50,50,20}, -- 25 25
 				nonlinearity 	= nn.ReLu,
-				batchnorm 		= opt.batchnorm,
+				batchnorm 		= false,
 				GPU						= USEGPU, -- for the training networks
 		}
 		network = drl_dqn(opt.exec,opt.train, network_definitions)
@@ -363,7 +366,7 @@ function setup()
  			optimsettings = {
  				optimfunction 	= optim.adam,
  				config 					= {learningRate = opt.lr}, --1e-3
- 				freezecount 		= opt.frozenupdates,
+ 				freezecount 		= opt.freezecount,
  				configActor 		= {learningRate = opt.lractor}, --1e-3
  				configCritic 		= {learningRate = opt.lrcritic},  -- 1e-4
  				critic_L2norm		= opt.l2,
@@ -401,9 +404,9 @@ function setup()
 			 	tradeofftype								= 'greedy',
 			 	explorationAmountFunction		= drl_exploration_amount_function({
 			 		functiontype 								= 'linear_per_sequence',
-			 		initial_exploration  				= 1,
-			 		multiplier						    	= opt.edecay, -- 0.999,
-			 		minimum_exploration					= 0.0--0.6,
+			 		initial_exploration  				= 0.70,
+			 		multiplier						    	= 0.69/500, -- 0.999,
+			 		minimum_exploration					= 0.01--0.6,
 	 			}),
 		})
 	end
@@ -412,7 +415,7 @@ function setup()
 ---------------- Experiment description ------------------------------------
 	createNormalizationTable = function ()
 		normalization = {}
-		if channel.action_bounds.max then
+		if channel.action_bounds.max and CONTINUOUSACTIONS then
 			local amax = torch.Tensor({channel.action_bounds.max})
 			local amin = torch.Tensor({channel.action_bounds.min})
 			normalization.output_scale 	= amax:clone():csub(amin):mul(0.5)
@@ -612,7 +615,7 @@ end
 
 
 function recalculate_bintab( episode )
-	if opt.countbasedimpsamp then 
+	if opt.countbasedimpsamp then
 		local epsinmem = math.floor(opt.xpmsize / ((1-opt.ignorefrac)*(opt.samplefreq * opt.seqlength)))
 		if episode > epsinmem then
 			return -- no need to keep calculating, is fixed now
@@ -630,7 +633,7 @@ function recalculate_bintab( episode )
 		for i = 1,20 do
 			s = 0
 			for j=0,i do
-				if j <= n then 
+				if j <= n then
 					s = s + prob_sampled_i_times(j)
 				end
 			end
@@ -765,7 +768,7 @@ function main()
 		GEN_EPS = 60
 		sequence_index_valstart 	= communicator:get_sequence_index() -- counter for the episode
 		gen_rewards = torch.Tensor(GEN_EPS):zero()
-		
+
 		while communicator:get_sequence_index() <= (sequence_index_valstart + GEN_EPS) do
 			time_index 			= communicator:get_time_index() -- always increasing timestep counter for keeping track of all events
 			sequence_index 	= communicator:get_sequence_index() -- counter for the episode
@@ -794,7 +797,7 @@ function main()
 			end
 			-- advancing the clock increases the time index by one, sends it out on all channels and then blocks until at least one sampling time period has passed since the last time the clock advancement function call was completed.
 			communicator:advance_clock()
-		end	
+		end
 	end
 
 

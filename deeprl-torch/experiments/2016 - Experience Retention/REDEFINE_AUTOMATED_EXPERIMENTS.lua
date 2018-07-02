@@ -1268,7 +1268,7 @@ experiments = {
 		name = 'magman 50Hz, full DB, PER peralpha 1.0',
 		execute = true,
 		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimC" -prioritized_beta_0 0 -prioritized_beta_final 0 -prioritized_alpha 1.0',
-	},	
+	},
 	{ --255
 		name = 'Swingup 50Hz, 10k xp, FIFO, PER peralpha 0.4',
 		execute = true,
@@ -1318,7 +1318,7 @@ experiments = {
 		name = 'Swingup 50Hz, 10k xp, FIFO, PER+FIS',
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -prioritized_experience_replay -countbasedimpsamp',
-	},	
+	},
 	{ --265
 		name = 'Magman 50Hz, 10k xp, TDE a=1.2, PER',
 		execute = true,
@@ -1353,12 +1353,12 @@ experiments = {
 		name = 'HSR Swingup 100 Hz, FULL (1200k) Uniform',
 		execute = true,
 		paramstring = '-xpmsize 1200000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 100',
-	},	
+	},
 	{ --272
 		name = 'HSR Swingup 100 Hz, FULL (1200k)  PER+FIS',
 		execute = false,
 		paramstring = '-xpmsize 1200000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 100 -prioritized_experience_replay -countbasedimpsamp',
-	},	
+	},
 	{ --273
 		name = 'Noise Magman 0.02, FULL (600k), Uniform',
 		execute = true,
@@ -1508,7 +1508,7 @@ experiments = {
 		name = 'Swingup 100Hz, 10k xp, RESERVOIR, PER+IS',
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" -prioritized_experience_replay',
-	},	
+	},
 	{ --303
 		name = 'Magman 50Hz, 10k xp, RESERVOIR, Uniform+FIS',
 		execute = false,
@@ -1681,12 +1681,12 @@ experiments = {
 	},
 	{ --337
 		name = 'Magman 200Hz, 10k xp, TDE a=1.2, Uniform',
-		execute = true, 
+		execute = true,
 		paramstring = '-samplefreq 200 -xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 ',
 	},
 	{ --338
 		name = 'Magman 200Hz, 10k xp, EXPL a=1.2, Uniform',
-		execute = true, 
+		execute = true,
 		paramstring = '-samplefreq 200 -xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 ',
 	},
 	{ --339
@@ -1848,6 +1848,51 @@ experiments = {
 		name = 'Swingup 50Hz, 10k xp, noise, TDE, PER+FIS (newFis compare 353)',
 		execute = true,
 		paramstring = '-xpmsize 10000 -noisescale 0.02 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2  -prioritized_experience_replay -countbasedimpsamp',
+	},
+	{ --371 (25)
+		name = 'DISCRETE Swingup 50Hz, 10k xp, FIFO, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" ',
+	},
+	{ --372
+		name = 'DISCRETE Swingup 50Hz, 10k xp, 5% synth S ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.05 -synthS',
+	},
+	{ --373
+		name = 'DISCRETE Swingup 50Hz, 10k xp, 10% synth S ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.10 -synthS',
+	},
+	{ --374
+		name = 'DISCRETE Swingup 50Hz, 10k xp, 25% synth S ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.25 -synthS',
+	},
+	{ --375 (153)
+		name = 'DISCRETE Swingup 50Hz, 10k xp, 50% synth S ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.5 -synthS',
+	},
+	{ --376
+			name = 'Swingup 50Hz, 10k xp, 5% synth A ',
+			execute = true,
+			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.05 -synthA',
+	},
+	{ --377
+			name = 'Swingup 50Hz, 10k xp, 10% synth A ',
+			execute = true,
+			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.10 -synthA',
+	},
+	{ --378
+			name = 'Swingup 50Hz, 10k xp, 25% synth A ',
+			execute = true,
+			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.25 -synthA',
+	},
+	{ --379 (161)
+			name = 'Swingup 50Hz, 10k xp, 50% synth A ',
+			execute = true,
+			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.5 -synthA',
 	},
 
 

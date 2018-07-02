@@ -22,7 +22,7 @@ local ode4_ti = function(odefun,tspan,y0)
 	  F[1]:copy(odefun(yi))
 	  F[2]:copy(odefun(yi:clone():add(F[1]:clone():mul(0.5*hi))))
 	  F[3]:copy(odefun(yi:clone():add(F[2]:clone():mul(0.5*hi))))
-	  F[4]:copy(odefun(yi:clone():add(F[3]:clone():mul(hi)))) 
+	  F[4]:copy(odefun(yi:clone():add(F[3]:clone():mul(hi))))
 	  Y[i]:copy( yi:clone():add( (F[1]:clone():add(F[2]:clone():mul(2)):add(F[3]:clone():mul(2)):add(F[4]:clone()) ):mul(hi/6)) )
 	end
 	return Y
@@ -44,18 +44,18 @@ function experiment:__init( settings )
 				local beta = 1.75e-4--     % magnetic force function parameter
 				local b = 0.0161--         % viscous friction coefficient
 				local m = 0.032--          % ball mass
-				                                            
+
 				local dx = torch.Tensor(x:size()):zero()
 				dx[1] = x[2]
 				local term4 = 0
 				if x:nElement() == 6 then
 					term4 = x[6]*(-alpha*(x[1]-0.075)/((x[1]-0.075)^2 + beta)^3)
 				end
-				dx[2] = -(b/m)*x[2] + 
-							 (x[3]*(-alpha*(x[1]-0.000)/((x[1]-0.000)^2 + beta)^3) + 
-			          x[4]*(-alpha*(x[1]-0.025)/((x[1]-0.025)^2 + beta)^3) + 
+				dx[2] = -(b/m)*x[2] +
+							 (x[3]*(-alpha*(x[1]-0.000)/((x[1]-0.000)^2 + beta)^3) +
+			          x[4]*(-alpha*(x[1]-0.025)/((x[1]-0.025)^2 + beta)^3) +
 			          x[5]*(-alpha*(x[1]-0.050)/((x[1]-0.050)^2 + beta)^3) + term4 )/m
-				return dx 
+				return dx
 			end,
 			r = function (env, state,action)
 				local	Qdiag = {10,0.5}     --% diagonal of the reward Q matrix
@@ -104,12 +104,12 @@ function experiment:__init( settings )
 				local b = 3e-6--       % Viscous damping
 				local K = 5.36e-2--    % Torque constant
 				local R = 9.5--        % Rotor resistance
-				                                            
+
 				local dx = torch.Tensor(x:size()):zero()
 				dx[1] = x[2]
 				dx[2] = (-M*g*l*math.sin(x[1]) - (b + K^2/R)*x[2] + K/R*x[3])/J
 				dx[3] = 0
-				return dx 
+				return dx
 			end,
 			r = function (env, state,action)
 				local	Qdiag = {5,0.1}     --% diagonal of the reward Q matrix
@@ -146,7 +146,7 @@ function experiment:__init( settings )
 	if settings.environment == 'magman' then
 		self.environment = self.environments.magman
 		self.environment.state_dimension = 2
-		if settings.discrete then 
+		if settings.discrete then
 			self.discrete_actions = torch.Tensor(64,3)
 			for a = 0,63 do
 				self.discrete_actions[a+1][1] = (a%4)*0.2
@@ -178,11 +178,11 @@ function experiment:__init( settings )
 				return next_state
 			end
 		end
-		if settings.altrew then 
+		if settings.altrew then
 			print("USING ALTERNATIVE REWARD FUNCTION!")
 			self.environment.r = function (env, state,action)
 				local	Qdiag = {5,0.1} --5 0    --% diagonal of the reward Q matrix
-				
+
 				local Pdiag = {0}; --%1     --% diagonal of the reward P matrix
 				local reward = 0
 				if env.wrapflag then
@@ -196,12 +196,12 @@ function experiment:__init( settings )
 				end
 				return reward/100
 			end
-		end 
+		end
 		self.environment.state_dimension = 2
-		if settings.discrete then 
-			self.environment.action_dimension = 16
-			self.discrete_actions = torch.linspace(self.environment.minu,self.environment.maxu,self.environment.action_dimension)
-			self.environment.action_type = 'DISCRETE'		
+		if settings.discrete then
+			self.environment.action_dimension = 15
+			self.discrete_actions = torch.linspace(self.environment.minu[1],self.environment.maxu[1],self.environment.action_dimension):view(-1,1)
+			self.environment.action_type = 'DISCRETE'
 		else
 			self.environment.action_type = 'CONTINUOUS'
 			self.environment.action_dimension = 1
@@ -228,7 +228,7 @@ function experiment:check_action(action)
 		end
 	end
 
-	if type(action) == 'number' and self.environment.action_type == 'DISCRETE' then 
+	if type(action) == 'number' and self.environment.action_type == 'DISCRETE' then
 		return self.discrete_actions[action]:clone()
 	else
 		return action
@@ -241,7 +241,7 @@ function experiment:step( action )
 	self.action:copy(self:check_action(action))
 	self.state:copy(self.environment:f( self.state, self.action ))
 	self.reward = self.environment:r(self.state, self.action)
-	if self.environment.magwalled then 
+	if self.environment.magwalled then
 		if self.state[1] < -0.035 then
 			self.state[1] = -0.035
 			self.state[2] = 0.001
@@ -256,7 +256,7 @@ function experiment:step( action )
 	self.steps = self.steps + 1
 	--[[
 	local maxsteps = self.environment.params.SEQLENGTH or 100
-	if self.steps >= maxsteps then 
+	if self.steps >= maxsteps then
 		self.terminal = 3
 	end
 	]]
@@ -269,14 +269,14 @@ function experiment:reset(scenario)
 		self.state:copy(self.environment.startstate)
 	end
   --self.state:copy(self:uniform_random_state())
-	
+
 	self.reward 	= 0
 	self.steps 		= 0
-	self.terminal = 0	
+	self.terminal = 0
 end
 
 function experiment:get_state()
-	
+
 	return self.state:clone()
 
 end
@@ -311,7 +311,7 @@ function experiment:get_bounds()
 			max = self.environment.maxu,
 			dimension = self.environment.action_dimension,
 			action_type = self.environment.action_type,
-		},		
+		},
 	}
 end
 
@@ -322,9 +322,9 @@ end
 
 function experiment:transition_function(state, action)
 	local corrected_action = self:check_action(action)
-	local next_state = self.environment:f( state, action ) 
+	local next_state = self.environment:f( state, action )
 	local reward_correction = 0
-	if self.environment.magwalled then 
+	if self.environment.magwalled then
 		next_state = torch.Tensor(2):copy(next_state)
 		if next_state[1] < -0.035 then
 			next_state[1] = -0.035
@@ -377,8 +377,8 @@ function experiment:actions_normalize(actions)
 end
 
 function experiment:forward(statesandactions)
-	local states = statesandactions[1]  
-	local actions = statesandactions[2]  
+	local states = statesandactions[1]
+	local actions = statesandactions[2]
 	states = self:states_denormalize(states)
 	actions = self:actions_denormalize(actions)
 	local next_states = states:clone()
@@ -386,7 +386,7 @@ function experiment:forward(statesandactions)
 		local tempstate = states[i]:clone()
 		local tempaction = self:check_action(actions[i]:clone())
 		next_states[i]:copy(self.environment:f( tempstate, tempaction ))
-		if self.environment.magwalled then 
+		if self.environment.magwalled then
 			if next_states[i][1] < -0.035 then
 				next_states[i][1] = -0.035
 				next_states[i][2] = 0.001
@@ -403,8 +403,8 @@ end
 
 -- finite diff, only calculated for the actions!
 function experiment:backward(statesandactions, multiplier)
-	local states = statesandactions[1]:clone()  
-	local actions = statesandactions[2]:clone()  
+	local states = statesandactions[1]:clone()
+	local actions = statesandactions[2]:clone()
 	local DELTA = 0.001
 	local sp0 = self:forward(statesandactions)
 	local aderiv = actions:clone()
