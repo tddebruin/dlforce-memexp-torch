@@ -1935,24 +1935,34 @@ experiments = {
 		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.5 -synthS',
 	},
 	{ --388
-			name = 'Swingup 50Hz, 10k xp, 5% synth A ',
+			name = 'DISCRETE Swingup 50Hz, 10k xp, 5% synth A ',
 			execute = true,
 			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.05 -synthA',
 	},
 	{ --389
-			name = 'Swingup 50Hz, 10k xp, 10% synth A ',
+			name = 'DISCRETE Swingup 50Hz, 10k xp, 10% synth A ',
 			execute = true,
 			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.10 -synthA',
 	},
 	{ --390
-			name = 'Swingup 50Hz, 10k xp, 25% synth A ',
+			name = 'DISCRETE Swingup 50Hz, 10k xp, 25% synth A ',
 			execute = true,
 			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.25 -synthA',
 	},
 	{ --391 (161)
-			name = 'Swingup 50Hz, 10k xp, 50% synth A ',
+			name = 'DISCRETE Swingup 50Hz, 10k xp, 50% synth A ',
 			execute = true,
 			paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" -synthFrac 0.5 -synthA',
+	},
+	{ --392
+			name = 'Swingup 50Hz, 10k xp, 25% synth S ',
+			execute = true,
+			paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.25 -synthS',
+	},
+	{ --393
+			name = 'Swingup 50Hz, 10k xp, 25% synth A ',
+			execute = true,
+			paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.25 -synthA',
 	},
 }
 
