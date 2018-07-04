@@ -1964,6 +1964,67 @@ experiments = {
 			execute = true,
 			paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.25 -synthA',
 	},
+	{ --394
+		name = 'Swingup 25Hz',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 25',
+	},
+	{ --395
+		name = 'Magman 25Hz',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 25',
+	},
+	{ --396
+		name = 'Swingup 25Hz, 50% synth S ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 25 -synthFrac 0.5 -synthS',
+	},
+	{ --397
+		name = 'Magman 25Hz 50% synth S ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 25 -synthFrac 0.5 -synthS',
+	},
+	{ --398
+		name = 'Swingup 25Hz, 50% synth A ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 25 -synthFrac 0.5 -synthA',
+	},
+	{ --399
+		name = 'Magman 25Hz, 50% synth A ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 25 -synthFrac 0.5 -synthA',
+	},
+	{ --400
+		name = 'Swingup 10Hz',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 10',
+	},
+	{ --401
+		name = 'Magman 10Hz',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 10',
+	},
+	{ --402
+		name = 'Swingup 10Hz, 50% synth S ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 10 -synthFrac 0.5 -synthS',
+	},
+	{ --403
+		name = 'Magman 10Hz 50% synth S ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 10 -synthFrac 0.5 -synthS',
+	},
+	{ --404
+		name = 'Swingup 10Hz, 50% synth A ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 10 -synthFrac 0.5 -synthA',
+	},
+	{ --405
+		name = 'Magman 10Hz, 50% synth A ',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 10 -synthFrac 0.5 -synthA',
+	},
+
 }
 
 local cmd = torch.CmdLine()

@@ -391,3 +391,15 @@ DISCRETE Swingup 50Hz, 10k xp, 25% synth A
 DISCRETE Swingup 50Hz, 10k xp, 50% synth A 
 Swingup 50Hz, 10k xp, 25% synth S 
 Swingup 50Hz, 10k xp, 25% synth A 
+Swingup 25Hz
+Magman 25Hz
+Swingup 25Hz, 50% synth S 
+Magman 25Hz 50% synth S 
+Swingup 25Hz, 50% synth A 
+Magman 25Hz, 50% synth A 
+Swingup 10Hz
+Magman 10Hz
+Swingup 10Hz, 50% synth S 
+Magman 10Hz 50% synth S 
+Swingup 10Hz, 50% synth A 
+Magman 10Hz, 50% synth A 
