@@ -403,3 +403,7 @@ Swingup 10Hz, 50% synth S
 Magman 10Hz 50% synth S 
 Swingup 10Hz, 50% synth A 
 Magman 10Hz, 50% synth A 
+DISCRETE magman 50Hz, full DB, prioritized replay
+DISCRETE Swingup 50Hz, full DB, prioritized replay
+DISCRETE Magman 50Hz, 10k xp, FIFO, Uniform
+DISCRETE Swingup 50Hz, 10k xp, FIFO, Uniform

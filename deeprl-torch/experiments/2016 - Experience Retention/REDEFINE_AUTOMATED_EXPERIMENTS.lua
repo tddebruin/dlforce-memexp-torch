@@ -2024,6 +2024,26 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 10 -synthFrac 0.5 -synthA',
 	},
+	{ --406
+		name = 'DISCRETE magman 50Hz, full DB, prioritized replay',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "MagmanSimD" -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --407
+		name = 'DISCRETE Swingup 50Hz, full DB, prioritized replay',
+		execute = true,
+		paramstring = '-xpmsize 400000 -prioritized_experience_replay -env "SwingupSimD" -prioritized_beta_0 0 -prioritized_beta_final 0',
+	},
+	{ --408
+		name = 'DISCRETE Magman 50Hz, 10k xp, FIFO, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimD" -overwrite "FIFO" ',
+	},
+	{ --409
+		name = 'DISCRETE Swingup 50Hz, 10k xp, FIFO, Uniform',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" ',
+	},
 
 }
 
