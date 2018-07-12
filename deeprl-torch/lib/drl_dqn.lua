@@ -30,7 +30,7 @@ function dqn:create_network(settings)
 	assert(settings.statesize,"No state size given")
 	assert(settings.actionsize,"No action size given")
 	assert(settings.hsizes,"size of hidden layer(s) not given")
-	assert(torch.type(settings.hsizes)=="table","hsize should be a table array with the number of hidden units per layer") 
+	assert(torch.type(settings.hsizes)=="table","hsize should be a table array with the number of hidden units per layer")
 	local inputsize_state, actionsize
 
 	if (type(settings.statesize) == 'number') then
@@ -50,27 +50,27 @@ function dqn:create_network(settings)
 	else
 		assert(false,'not yet implemented')
 	end
-	
+
 	local hiddensizes				= settings.hsizes
 	local nonlinearity			= settings.nonlinearity or nn.ReLU
 	local batchnorm					= nn.Identity
 	if settings.batchnorm	then
 		batchnorm = nn.BatchNormalization
 	end
-	
-  local stateInput 				=	nn.Identity()()	
+
+  local stateInput 				=	nn.Identity()()
 	local hiddenlayers 			= {}
 	local layersizes				= {}
 	hiddenlayers[0] 				= stateInput
-	layersizes[0] 					= inputsize_state		
+	layersizes[0] 					= inputsize_state
 
 	local layerindex = 0
-	while layerindex < #hiddensizes do 
+	while layerindex < #hiddensizes do
 		layerindex 								= layerindex + 1
 
 		hiddenlayers[layerindex] 	= nonlinearity()(nn.Linear(layersizes[layerindex-1],hiddensizes[layerindex])(batchnorm(layersizes[layerindex-1])(hiddenlayers[layerindex-1])))
 		layersizes[layerindex] 		= hiddensizes[layerindex]
-	end 	
+	end
 	local Qoutput 							= nn.Linear(layersizes[layerindex],actionsize)(hiddenlayers[layerindex])
 	local network 							= nn.gModule({stateInput},{Qoutput})
 	return network
@@ -83,17 +83,17 @@ function dqn:create_train_networks()
 	self.train_networks.Q.network			 				= self:create_network(self.settings)
 	self.train_networks.FROZENQ 							= {}
 	self.train_networks.FROZENQ.network				= self:create_network(self.settings)
-	self.train_networks.criterion 						= nn.MSECriterion() 
-	
+	self.train_networks.criterion 						= nn.MSECriterion()
+
 	-- first optionally send to GPU, only THEN get the parameters
 	if self.settings.GPU then
 		self.train_networks.Q.network:cuda()
 		self.train_networks.FROZENQ.network:cuda()
-		self.train_networks.criterion:cuda() 
-	end	
-	
+		self.train_networks.criterion:cuda()
+	end
+
 	local Q_paramx, Q_paramdx 								= self.train_networks.Q.network:getParameters()
-	local FQ_paramx, FQ_paramdx 							= self.train_networks.FROZENQ.network:getParameters()	
+	local FQ_paramx, FQ_paramdx 							= self.train_networks.FROZENQ.network:getParameters()
 	self.optimStateQ													= {}
 	self.train_networks.Q.paramx 							= Q_paramx
 	self.train_networks.Q.paramdx 						= Q_paramdx
@@ -105,7 +105,7 @@ end
 
 -- Can be either a policy network or a Q network with discrete actions
 -- After this call self.controller_network should at least contain:
--- { network, paramx, paramdx } 
+-- { network, paramx, paramdx }
 function dqn:create_controller_network()
 	self.controller_network 						= {}
 	self.controller_network.network 		= self:create_network(self.settings)
@@ -130,7 +130,7 @@ function dqn:get_policy_action(state)
   	s:add(-1,self.input_scale_add)
   	s:cdiv(self.input_scale)
   end
-  	
+
   local a = self.controller_network.network:forward(s)
   local max, indices = torch.max(a,1)
   -- return indices[1]
@@ -155,7 +155,7 @@ local same_dimensions = function(tensor1, tensor2)
   return true
 end
 
-function dqn:train(experiencedb, trainsettings)  
+function dqn:train(experiencedb, trainsettings)
   parent:train(experiencedb, trainsettings)
 	local GPU 						= self.train_networks.Q.paramx:type()=="torch.CudaTensor"
 	local MINIMIZEQ 			= experiencedb.cost
@@ -166,11 +166,14 @@ function dqn:train(experiencedb, trainsettings)
 		requested_parts = trainsettings.requested_parts,
 		seq_properties  = trainsettings.seq_properties,
 		prioritized 		= trainsettings.prioritized_experience_replay,
+		prioritized_alpha = trainsettings.prioritized_alpha,
+		prioritized_beta 	= trainsettings.prioritized_beta,
+		countbasedimpsamp = trainsettings.countbasedimpsamp
 	})
   self.updateCount      = self.updateCount + 1
 
   -- Input scale --
-  if (self.state_bounds) then 
+  if (self.state_bounds) then
     if (not same_dimensions(self.batchscale_sub_in, self.trainbatch.state[1])) then
       self.batchscale_sub_in =  self.trainbatch.state[1]:clone()
       for i = 1,self.state_bounds:size(2) do
@@ -193,7 +196,7 @@ function dqn:train(experiencedb, trainsettings)
 			trainsettings.state_index = 1
 		end
 	end
-	if ((not trainsettings.seq_properties) or trainsettings.seq_properties.length <=1) then		
+	if ((not trainsettings.seq_properties) or trainsettings.seq_properties.length <=1) then
 		assert(trainsettings.state_index,"state_index not set and multiple states available")
 		assert(trainsettings.batchupdates,"batchupdates not set (number of minibatch updates per train() call)")
 		assert(trainsettings.gamma,"gamma RL parameter not set (dqn uses TD learning)")
@@ -217,17 +220,17 @@ function dqn:train_noseq(batch_index,state_index,gamma,train_settings, experienc
 	else
 		self.gradientupdatecount = 1
 	end
-		
+
 		-- make sure s, s' and a are scaled!
 		function evaluateQ(paramx_)
 			if paramx_ ~= self.train_networks.Q.paramx then self.train_networks.Q.paramx:copy(paramx_) end
-			--FP		
-		
+			--FP
+
 			local s 	    	= self.trainbatch.state[state_index][{batch_index,sequence_index}]
 			local a		    	= self.trainbatch.action[state_index][{batch_index,sequence_index}]
-			local next_s  	= self.trainbatch.next_state[state_index][{batch_index,sequence_index}]	
+			local next_s  	= self.trainbatch.next_state[state_index][{batch_index,sequence_index}]
 			local r 	    	= self.trainbatch.reward[{batch_index,sequence_index}]
-			local term 			
+			local term
 			if self.trainbatch.terminal then
 				term = self.trainbatch.terminal[{batch_index,sequence_index}]:clone()
 			else
@@ -237,14 +240,14 @@ function dqn:train_noseq(batch_index,state_index,gamma,train_settings, experienc
 			term:mul(-1):add(1)
 			local maxqnexts = self.train_networks.FROZENQ.network:forward(next_s):max(2)
 			local nextq = maxqnexts:clone():cmul(term)
-			local target = torch.add(r,gamma,nextq)	
+			local target = torch.add(r,gamma,nextq)
 
-			if cutorch then 
-				cutorch:synchronize()		
+			if cutorch then
+				cutorch:synchronize()
 			end
 
       local Qpreds 		= self.train_networks.Q.network:forward(s)
-			local q = torch.Tensor(Qpreds:size(1)):typeAs(Qpreds)	
+			local q = torch.Tensor(Qpreds:size(1)):typeAs(Qpreds)
 			local actionbatchindex = torch.Tensor(Qpreds:size(1))
 			if torch.isTensor(a[1]) then
 				for i=1,q:nElement() do
@@ -257,13 +260,13 @@ function dqn:train_noseq(batch_index,state_index,gamma,train_settings, experienc
 			for i=1,q:nElement() do
 					q[i] = Qpreds[i][actionbatchindex[i]]
 			end
-			if cutorch then 
-				cutorch:synchronize()		
-			end		
-			
+			if cutorch then
+				cutorch:synchronize()
+			end
+
 
 			--BP
-			
+
 			self.lastTDE 	= self.train_networks.criterion:forward(q,target)
 			if train_settings.logTDE then
 				--calculate temporal difference error per database sample
@@ -271,33 +274,33 @@ function dqn:train_noseq(batch_index,state_index,gamma,train_settings, experienc
 				TDEtens:add(q,-1.0,target:clone():resizeAs(q))
 				experiencedb:update_extra_info("TDE",TDEtens:clone():double():abs(),self.trainbatch.db_indices[{batch_index,sequence_index}])
 			end
-      if train_settings.logQPred then    
+      if train_settings.logQPred then
 				experiencedb:update_extra_info("QPRED",q:clone():double(),self.trainbatch.db_indices[{batch_index,sequence_index}])
-			end   
-      if train_settings.logQFpred then    
+			end
+      if train_settings.logQFpred then
 				experiencedb:update_extra_info("QFPRED",maxqnexts:clone():double(),self.trainbatch.db_indices[{batch_index,sequence_index}])
 			end
 			-- logs the last time (itertion) in which the samples were used for a gradient calculation
-      if train_settings.logUPDATE then        
+      if train_settings.logUPDATE then
 				experiencedb:update_extra_info("UPDATE",self.trainbatch.db_indices[{batch_index,sequence_index}]:clone():fill(self.updateCount),self.trainbatch.db_indices[{batch_index,sequence_index}])
 			end
-			
+
 
 
 			-- Gradient calculation
 			self.train_networks.Q.paramdx:zero()
-			if cutorch then 
-				cutorch:synchronize()		
-			end 		
+			if cutorch then
+				cutorch:synchronize()
+			end
 			local errorgrad 		= self.train_networks.criterion:backward(q,target)
 			local Qgradient 		= torch.Tensor(Qpreds:size()):typeAs(Qpreds):zero()
 			for i = 1,a:size(1) do
 				Qgradient[i][actionbatchindex[i]] = errorgrad[i]
-			end	
+			end
 
 			self.train_networks.Q.network:backward(s,Qgradient)
-			if cutorch then 
-				cutorch:synchronize()		
+			if cutorch then
+				cutorch:synchronize()
 			end
 
 			-- detect nan gradient
@@ -309,19 +312,19 @@ function dqn:train_noseq(batch_index,state_index,gamma,train_settings, experienc
 			if self.trainsettings.L2norm then
 				self.train_networks.Q.paramdx:add( self.train_networks.Q.paramx:clone():mul( self.trainsettings.L2norm ) )
 			end
-			return 0 , self.train_networks.Q.paramdx 
-		end	
+			return 0 , self.train_networks.Q.paramdx
+		end
 
-	-- Start of the training function -- 
+	-- Start of the training function --
 	optim_settings = train_settings.optimsettings
 	self.train_networks.Q.network:training()
-	
+
 	assert(optim_settings,"optim_settings not set")
 	assert(optim_settings.optimfunction,"optimfunction not set")
 	assert(optim_settings.config,"config not set")
-	assert(optim_settings.freezecount,"freezecount not set (number of gradient updates before updating the weights of the network used for the target Q values.)") 
+	assert(optim_settings.freezecount,"freezecount not set (number of gradient updates before updating the weights of the network used for the target Q values.)")
 	optim_settings.optimfunction(evaluateQ, self.train_networks.Q.paramx, optim_settings.config, self.optimStateQ)
-	
+
 	if (self.gradientupdatecount % optim_settings.freezecount == 1) then
 		self.train_networks.FROZENQ.paramx:copy(self.train_networks.Q.paramx)
 	end
@@ -333,7 +336,7 @@ function dqn:getQ(state, action)
   state = state:resize(state:nElement()/self.settings.statesize,self.settings.statesize):typeAs(self.train_networks.Q.paramx)
   action = action:resize(action:nElement()/self.settings.actionsize,self.settings.actionsize):typeAs(self.train_networks.Q.paramx)
   self.train_networks.Q.network:evaluate()
-  if (self.state_bounds) then 
+  if (self.state_bounds) then
     if (not same_dimensions(self.qscalein_sub, state)) then
       self.qscalein_sub =  state:clone()
       for i = 1,self.state_bounds:size(2) do
@@ -348,7 +351,7 @@ function dqn:getQ(state, action)
     state:cmul(self.qscalein_mul)
   end
 	return self.train_networks.Q.network:forward(state)
-end	
+end
 
 
 function dqn:valQTDE(state, next_state, action, reward)
@@ -357,7 +360,7 @@ function dqn:valQTDE(state, next_state, action, reward)
   next_state = next_state:resize(next_state:nElement()/self.settings.statesize,self.settings.statesize):typeAs(self.train_networks.Q.paramx)
   action = action:resize(action:nElement()/self.settings.actionsize,self.settings.actionsize):typeAs(self.train_networks.Q.paramx)
   self.train_networks.Q.network:evaluate()
-  if (self.state_bounds) then 
+  if (self.state_bounds) then
     if (not same_dimensions(self.qscalein_sub, state)) then
       self.qscalein_sub =  state:clone()
       for i = 1,self.state_bounds:size(2) do
@@ -377,8 +380,8 @@ function dqn:valQTDE(state, next_state, action, reward)
 	local next_qs = self.train_networks.Q.network:forward(state)
 	nqvs, besta = torch.max(next_qs,2)
 	local Qs =  self.train_networks.Q.network:forward(state)
-			--self.train_networks.Q.network:evaluate()		
-end	
+			--self.train_networks.Q.network:evaluate()
+end
 
 local copytable = function (table)
 	result = {}
@@ -392,7 +395,7 @@ local copytable = function (table)
 		end
 	end
 	return result
-end	
+end
 
 function dqn:createCheckpoint()
 	self.checkpoint = {}
@@ -410,6 +413,6 @@ function dqn:resetToLastCheckpoint()
 	self.train_networks.Q.paramx:copy(self.checkpoint.qp)
 	self.controller_network.paramx:copy(self.checkpoint.cp)
 	self.optimStateQ = copytable(self.checkpoint.optimState)
-	self.updateCount = self.checkpoint.updateCount 
+	self.updateCount = self.checkpoint.updateCount
 	self.gradientupdatecount = self.checkpoint.gradientupdatecount
 end
