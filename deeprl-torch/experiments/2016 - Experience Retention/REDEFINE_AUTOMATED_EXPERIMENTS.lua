@@ -2044,6 +2044,67 @@ experiments = {
 		execute = true,
 		paramstring = '-xpmsize 10000 -env "SwingupSimD" -overwrite "FIFO" ',
 	},
+	{ --410
+		name = 'Magman GEN 0% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.0 -synthS -synthA',
+	},
+	{ --411
+		name = 'Magman GEN 10% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.1 -synthS -synthA',
+	},
+	{ --412
+		name = 'Magman GEN 20% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.2 -synthS -synthA',
+	},
+	{ --413
+		name = 'Magman GEN 30% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.3 -synthS -synthA',
+	},
+	{ --414
+		name = 'Magman GEN 40% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.4 -synthS -synthA',
+	},
+	{ --415
+		name = 'Magman GEN 50% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthA',
+	},
+	{ --416
+		name = 'Magman GEN 50% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthA',
+	},
+	{ --417
+		name = 'Magman GEN 60% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.6 -synthS -synthA',
+	},
+	{ --418
+		name = 'Magman GEN 70% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.7 -synthS -synthA',
+	},
+	{ --419
+		name = 'Magman GEN 80% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.8 -synthS -synthA',
+	},
+	{ --420
+		name = 'Magman GEN 90% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.9 -synthS -synthA',
+	},
+	{ --421
+		name = 'Magman GEN 100% synth SA',
+		execute = true,
+		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 1.0 -synthS -synthA',
+	},
+
 
 }
 

@@ -143,6 +143,14 @@ function experiment:__init( settings )
 		},
 	}
 
+	for x=-0.035,0.105,0.01 do
+   		for v = -0.2, 0.2, 0.02 do
+			table.insert(self.environments.magman.alternativestartstate, torch.Tensor{x,v})
+		end
+	end
+
+
+
 	if settings.environment == 'magman' then
 		self.environment = self.environments.magman
 		self.environment.state_dimension = 2

@@ -765,15 +765,16 @@ function main()
 
 
 	if opt.generalizationrun then
-		GEN_EPS = 60
+		GEN_EPS = 135
 		sequence_index_valstart 	= communicator:get_sequence_index() -- counter for the episode
 		gen_rewards = torch.Tensor(GEN_EPS):zero()
 
-		while communicator:get_sequence_index() <= (sequence_index_valstart + GEN_EPS) do
+		while communicator:get_sequence_index() <= (sequence_index_valstart + GEN_EPS - 1) do
 			time_index 			= communicator:get_time_index() -- always increasing timestep counter for keeping track of all events
 			sequence_index 	= communicator:get_sequence_index() -- counter for the episode
 			sequence_timestep = sequence_timestep + 1 -- timesteps since the beginning of the current episode
-			env_scenario = 1 + sequence_index % 4
+			env_scenario =  1 + sequence_index - sequence_index_valstart
+			print(env_scenario)
 
 			xpm:collect_OSAR(time_index,sequence_index) -- collect the (observations) state action and reward by interacting with the environment
 
