@@ -776,7 +776,6 @@ function main()
 			sequence_index 	= communicator:get_sequence_index() -- counter for the episode
 			sequence_timestep = sequence_timestep + 1 -- timesteps since the beginning of the current episode
 			env_scenario =  1 + sequence_index - sequence_index_valstart
-			print(env_scenario)
 
 			xpm:collect_OSAR(time_index,sequence_index) -- collect the (observations) state action and reward by interacting with the environment
 
