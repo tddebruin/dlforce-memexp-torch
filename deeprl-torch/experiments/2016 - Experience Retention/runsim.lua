@@ -48,6 +48,8 @@ function setup()
 	cmd:option('-altrew',false,'use rew func without speed penalty')
 	cmd:option('-OUSR',1000,'OU Sampling rate (1000 = base)')
 
+	cmd:option('-min_exploration', 0.1, 'minimum exploration')
+
 	-- Experience replay
 	cmd:option('-xpmsize',10000,'Maximum number of experiences in memory') -- 50000
 	cmd:option('-overwrite','FIFO','Overwrite policy for the experience database: FIFO, TDE, DISTRIBUTION HYBRID')
@@ -387,12 +389,12 @@ function setup()
 			 	exploitationActionFunction 	= function (state) return network:get_policy_action(state) end,
 			 	explorationActionFunction		= explorationPolicy,
 			 	tradeofftype								= 'add',--'addunscaled', -- scale
-			 	bounds											= {-1,1}, --! All the same!
+			 	bounds										= {-1,1}, --! All the same!
 			 	explorationAmountFunction		= drl_exploration_amount_function({
 			 		functiontype 								= 'linear_per_sequence',
 			 		initial_exploration  				= 1.00,--1.2
-			 		multiplier						    	= 0.9/500, -- 0.999,
-			 		minimum_exploration					= 0.1--0.6,
+					multiplier					    	= 0.9/500, -- 0.999,
+			 		minimum_exploration					= opt.min_exploration--0.6,
 	 			}),
 		})
 	else

@@ -2047,64 +2047,123 @@ experiments = {
 	{ --410
 		name = 'Magman GEN 0% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.0 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.0 -synthS -synthA',
 	},
 	{ --411
 		name = 'Magman GEN 10% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.1 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.1 -synthS -synthA',
 	},
 	{ --412
 		name = 'Magman GEN 20% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.2 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.2 -synthS -synthA',
 	},
 	{ --413
 		name = 'Magman GEN 30% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.3 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.3 -synthS -synthA',
 	},
 	{ --414
 		name = 'Magman GEN 40% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.4 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.4 -synthS -synthA',
 	},
 	{ --415
 		name = 'Magman GEN 50% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthA',
 	},
 	{ --416
 		name = 'Magman GEN 50% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthA',
 	},
 	{ --417
 		name = 'Magman GEN 60% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.6 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.6 -synthS -synthA',
 	},
 	{ --418
 		name = 'Magman GEN 70% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.7 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.7 -synthS -synthA',
 	},
 	{ --419
 		name = 'Magman GEN 80% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.8 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.8 -synthS -synthA',
 	},
 	{ --420
 		name = 'Magman GEN 90% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.9 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.9 -synthS -synthA',
 	},
 	{ --421
 		name = 'Magman GEN 100% synth SA',
 		execute = true,
-		paramstring = '-xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 1.0 -synthS -synthA',
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 1.0 -synthS -synthA',
 	},
-
+	{ --422
+		name = 'Magman GEN RANDOM',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -episodes 0',
+	},
+	{ --423
+		name = 'Magman GEN ExplMin 0.0',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.0',
+	},
+	{ --424
+		name = 'Magman GEN ExplMin 0.1',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.1',
+	},
+	{ --425
+		name = 'Magman GEN ExplMin 0.2',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.2',
+	},
+	{ --426
+		name = 'Magman GEN ExplMin 0.3',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.3',
+	},
+	{ --427
+		name = 'Magman GEN ExplMin 0.4',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.4',
+	},
+	{ --428
+		name = 'Magman GEN ExplMin 0.5',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.5',
+	},
+	{ --429
+		name = 'Magman GEN ExplMin 0.6',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.6',
+	},
+	{ --430
+		name = 'Magman GEN ExplMin 0.7',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.7',
+	},
+	{ --431
+		name = 'Magman GEN ExplMin 0.8',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.8',
+	},
+	{ --432
+		name = 'Magman GEN ExplMin 0.9',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.9',
+	},
+	{ --433
+		name = 'Magman GEN ExplMin 1.0',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 1.0',
+	},
 
 }
 
