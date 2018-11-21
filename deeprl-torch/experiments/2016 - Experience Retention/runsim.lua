@@ -783,7 +783,6 @@ function main()
 				end
 				if opt.generalizationrun then
 					gen_rewards[1+ math.floor(sequence_index/40)] = generalization_experiment()
-					print(gen_rewards[1+ math.floor(sequence_index/40)])
 				end
 			end
 			rewards[sequence_index] = seqrew
