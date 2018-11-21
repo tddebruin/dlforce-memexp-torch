@@ -419,7 +419,6 @@ Magman GEN 70% synth SA
 Magman GEN 80% synth SA
 Magman GEN 90% synth SA
 Magman GEN 100% synth SA
-Magman GEN RANDOM
 Magman GEN ExplMin 0.0
 Magman GEN ExplMin 0.1
 Magman GEN ExplMin 0.2

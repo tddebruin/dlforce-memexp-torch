@@ -615,6 +615,29 @@ function replace_last_experience_with_fantasy( probability )
 	end
 end
 
+function generalization_experiment()
+
+	local result = torch.Tensor(4):zero()
+	for experiment_idx = 1,40 do
+		localexperiment:reset(experiment_idx)
+		local rsum = 0
+		local s = localexperiment:get_state():clone()
+		s:add(-1,normalization.input_add)
+		s:cdiv(normalization.input_scale)
+		local a = scaleActionBeforeSend(policy:deterministic(torch.Tensor(s)))
+		for ts = 1,200 do
+			localexperiment:step(torch.Tensor(a))
+			s = localexperiment:get_state():clone()
+			s:add(-1,normalization.input_add)
+			s:cdiv(normalization.input_scale)
+			rsum = rsum + localexperiment:get_reward()
+			a = scaleActionBeforeSend(policy:deterministic(torch.Tensor(s)))
+		end
+		result[experiment_idx] = rsum/(opt.seqlength * opt.samplefreq/10)
+	end
+	return result
+end
+
 
 function recalculate_bintab( episode )
 	if opt.countbasedimpsamp then
@@ -678,12 +701,14 @@ function main()
 	end
 
 	rewards = torch.Tensor(EPISODES):zero()
+	gen_rewards = torch.Tensor(50, 40):zero()
 	channel:send_env_reset(env_scenario)
 	communicator:advance_clock()
 	local BESTSOFAR = -math.huge
 	local sequence_timestep = 0
 	recalculate_bintab(1)
 	-- main loop -----------------------
+	sprintf('starting main loop')
 	while communicator:get_sequence_index() <= EPISODES do
 		time_index 			= communicator:get_time_index() -- always increasing timestep counter for keeping track of all events
 		sequence_index 	= communicator:get_sequence_index() -- counter for the episode
@@ -747,7 +772,7 @@ function main()
     	network:set_controller_parameters(network:get_controller_parameters())
 			local seqrew = reward:ordered_seq(sequence_index):sum()/(opt.immediate_reward_scale * opt.seqlength * opt.samplefreq/10)
 
-			if sequence_index%1 == 0 then
+			if sequence_index%40 == 1 then
 				print("Sequence " .. sequence_index .. " / " .. EPISODES)
 				print("TDE for last update: " .. calculate_TDE(xpm ,{since="last_update"}))
 	 			print("AVG pred Q for last update: " .. calculate_AVGQ(xpm ,{since="last_update"})[1] .. ", QFrozen: " .. calculate_AVGQ(xpm ,{since="last_update"})[2])
@@ -755,6 +780,10 @@ function main()
 				print(seqrew)
 				if opt.savedbsnaps then
 					xpm:save_mat_screenshot('test' .. sequence_index .. '.mat',{time_indices = true, sequence_indices = true, state = true, action = true, reward = true},{'TDE','USECOUNT','OFFPOL'})
+				end
+				if opt.generalizationrun then
+					gen_rewards[1+ math.floor(sequence_index/40)] = generalization_experiment()
+					print(gen_rewards[1+ math.floor(sequence_index/40)])
 				end
 			end
 			rewards[sequence_index] = seqrew
@@ -766,42 +795,42 @@ function main()
 	end
 
 
-	if opt.generalizationrun then
-		GEN_EPS = 315
-		sequence_index_valstart 	= communicator:get_sequence_index() -- counter for the episode
-		gen_rewards = torch.Tensor(GEN_EPS):zero()
+--	if opt.generalizationrun then
+--		GEN_EPS = 315
+--		sequence_index_valstart 	= communicator:get_sequence_index() -- counter for the episode
+--
+--
+--		while communicator:get_sequence_index() <= (sequence_index_valstart + GEN_EPS - 1) do
+--			time_index 			= communicator:get_time_index() -- always increasing timestep counter for keeping track of all events
+--			sequence_index 	= communicator:get_sequence_index() -- counter for the episode
+--			sequence_timestep = sequence_timestep + 1 -- timesteps since the beginning of the current episode
+--			env_scenario =  1 + sequence_index - sequence_index_valstart
+--			xpm:collect_OSAR(time_index,sequence_index) -- collect the (observations) state action and reward by interacting with the environment
+--
+--			local dbidx = xpm:add_RL_state_to_db()
+--
+--			diagnostics:update(time_index, sequence_index)
+--			if channel:get_terminal(time_index) == 1 or sequence_timestep >= (opt.seqlength * opt.samplefreq) then
+--				if sequence_timestep >= (opt.seqlength * opt.samplefreq) then
+--					channel:send_env_reset(env_scenario)
+--					sequence_timestep = 0
+--				end
+--
+--				local seqrew = reward:ordered_seq(sequence_index):sum()/(opt.immediate_reward_scale * opt.seqlength * opt.samplefreq/10)
+--
+--				idx_gen_res = sequence_index - sequence_index_valstart
+--				if idx_gen_res > 0 then
+--					gen_rewards[idx_gen_res] = seqrew
+--				end
+--				communicator:advance_sequence_index()
+--
+--			end
+--			-- advancing the clock increases the time index by one, sends it out on all channels and then blocks until at least one sampling time period has passed since the last time the clock advancement function call was completed.
+--			communicator:advance_clock()
+--		end
+--	end
 
-		while communicator:get_sequence_index() <= (sequence_index_valstart + GEN_EPS - 1) do
-			time_index 			= communicator:get_time_index() -- always increasing timestep counter for keeping track of all events
-			sequence_index 	= communicator:get_sequence_index() -- counter for the episode
-			sequence_timestep = sequence_timestep + 1 -- timesteps since the beginning of the current episode
-			env_scenario =  1 + sequence_index - sequence_index_valstart
-			xpm:collect_OSAR(time_index,sequence_index) -- collect the (observations) state action and reward by interacting with the environment
-
-			local dbidx = xpm:add_RL_state_to_db()
-
-			diagnostics:update(time_index, sequence_index)
-			if channel:get_terminal(time_index) == 1 or sequence_timestep >= (opt.seqlength * opt.samplefreq) then
-				if sequence_timestep >= (opt.seqlength * opt.samplefreq) then
-					channel:send_env_reset(env_scenario)
-					sequence_timestep = 0
-				end
-
-				local seqrew = reward:ordered_seq(sequence_index):sum()/(opt.immediate_reward_scale * opt.seqlength * opt.samplefreq/10)
-
-				idx_gen_res = sequence_index - sequence_index_valstart
-				if idx_gen_res > 0 then
-					gen_rewards[idx_gen_res] = seqrew
-				end
-				communicator:advance_sequence_index()
-
-			end
-			-- advancing the clock increases the time index by one, sends it out on all channels and then blocks until at least one sampling time period has passed since the last time the clock advancement function call was completed.
-			communicator:advance_clock()
-		end
-	end
-
-
+print('Finished main loop')
 end
 
 main()

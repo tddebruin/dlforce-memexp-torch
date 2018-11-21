@@ -142,9 +142,9 @@ function experiment:__init( settings )
 			maxs = torch.Tensor({math.pi, 30}),
 		},
 	}
-
-	for x=-0.035,0.105,0.01 do
-   		for v = -0.2, 0.2, 0.02 do
+	self.environments.magman.alternativestartstate = {}
+	for x=0.00,0.07,0.01 do
+   		for v = -0.1, 0.1, 0.05 do
 			table.insert(self.environments.magman.alternativestartstate, torch.Tensor{x,v})
 		end
 	end
