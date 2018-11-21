@@ -617,7 +617,7 @@ end
 
 function generalization_experiment()
 
-	local result = torch.Tensor(4):zero()
+	local result = torch.Tensor(40):zero()
 	for experiment_idx = 1,40 do
 		localexperiment:reset(experiment_idx)
 		local rsum = 0
@@ -794,43 +794,6 @@ function main()
 		communicator:advance_clock()
 	end
 
-
---	if opt.generalizationrun then
---		GEN_EPS = 315
---		sequence_index_valstart 	= communicator:get_sequence_index() -- counter for the episode
---
---
---		while communicator:get_sequence_index() <= (sequence_index_valstart + GEN_EPS - 1) do
---			time_index 			= communicator:get_time_index() -- always increasing timestep counter for keeping track of all events
---			sequence_index 	= communicator:get_sequence_index() -- counter for the episode
---			sequence_timestep = sequence_timestep + 1 -- timesteps since the beginning of the current episode
---			env_scenario =  1 + sequence_index - sequence_index_valstart
---			xpm:collect_OSAR(time_index,sequence_index) -- collect the (observations) state action and reward by interacting with the environment
---
---			local dbidx = xpm:add_RL_state_to_db()
---
---			diagnostics:update(time_index, sequence_index)
---			if channel:get_terminal(time_index) == 1 or sequence_timestep >= (opt.seqlength * opt.samplefreq) then
---				if sequence_timestep >= (opt.seqlength * opt.samplefreq) then
---					channel:send_env_reset(env_scenario)
---					sequence_timestep = 0
---				end
---
---				local seqrew = reward:ordered_seq(sequence_index):sum()/(opt.immediate_reward_scale * opt.seqlength * opt.samplefreq/10)
---
---				idx_gen_res = sequence_index - sequence_index_valstart
---				if idx_gen_res > 0 then
---					gen_rewards[idx_gen_res] = seqrew
---				end
---				communicator:advance_sequence_index()
---
---			end
---			-- advancing the clock increases the time index by one, sends it out on all channels and then blocks until at least one sampling time period has passed since the last time the clock advancement function call was completed.
---			communicator:advance_clock()
---		end
---	end
-
-print('Finished main loop')
 end
 
 main()
@@ -838,7 +801,6 @@ torch.save(opt.resultfile .. '-t7',{seq = rewards})
 if opt.generalizationrun then
 	print('Generalization: ')
 	print(torch.mean(gen_rewards))
-
 	torch.save(opt.resultfile .. '_gen-t7', {seq = gen_rewards})
 end
 --mattorch.save(opt.resultfile,{seq = rewards})
