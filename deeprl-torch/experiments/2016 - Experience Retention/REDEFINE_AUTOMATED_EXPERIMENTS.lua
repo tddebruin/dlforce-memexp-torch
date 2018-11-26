@@ -2051,7 +2051,7 @@ experiments = {
 	},
 	{ --411
 		name = 'Magman GEN 10% synth SA',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.1 -synthS -synthA',
 	},
 	{ --412
@@ -2061,7 +2061,7 @@ experiments = {
 	},
 	{ --413
 		name = 'Magman GEN 30% synth SA',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.3 -synthS -synthA',
 	},
 	{ --414
@@ -2071,12 +2071,12 @@ experiments = {
 	},
 	{ --415
 		name = 'Magman GEN 50% synth SA',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthA',
 	},
 	{ --416
 		name = 'Magman GEN 50% synth SA',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.5 -synthS -synthA',
 	},
 	{ --417
@@ -2086,7 +2086,7 @@ experiments = {
 	},
 	{ --418
 		name = 'Magman GEN 70% synth SA',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.7 -synthS -synthA',
 	},
 	{ --419
@@ -2096,7 +2096,7 @@ experiments = {
 	},
 	{ --420
 		name = 'Magman GEN 90% synth SA',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -synthFrac 0.9 -synthS -synthA',
 	},
 	{ --421
@@ -2111,7 +2111,7 @@ experiments = {
 	},
 	{ --423
 		name = 'Magman GEN ExplMin 0.1',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.1',
 	},
 	{ --424
@@ -2121,7 +2121,7 @@ experiments = {
 	},
 	{ --425
 		name = 'Magman GEN ExplMin 0.3',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.3',
 	},
 	{ --426
@@ -2131,7 +2131,7 @@ experiments = {
 	},
 	{ --427
 		name = 'Magman GEN ExplMin 0.5',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.5',
 	},
 	{ --428
@@ -2141,7 +2141,7 @@ experiments = {
 	},
 	{ --429
 		name = 'Magman GEN ExplMin 0.7',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.7',
 	},
 	{ --430
@@ -2151,13 +2151,73 @@ experiments = {
 	},
 	{ --431
 		name = 'Magman GEN ExplMin 0.9',
-		execute = true,
+		execute = false,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 0.9',
 	},
 	{ --432
 		name = 'Magman GEN ExplMin 1.0',
 		execute = true,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -min_exploration 1.0',
+	},
+	{ --433
+		name = 'Swingup GEN 0% synth SA',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.0 -synthS -synthA',
+	},
+	{ --434
+		name = 'Swingup GEN 20% synth SA',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.2 -synthS -synthA',
+	},
+	{ --435
+		name = 'Swingup GEN 40% synth SA',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.4 -synthS -synthA',
+	},
+	{ --436
+		name = 'Swingup GEN 60% synth SA',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.6 -synthS -synthA',
+	},
+	{ --437
+		name = 'Swingup GEN 80% synth SA',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 0.8 -synthS -synthA',
+	},
+	{ --438
+		name = 'Swingup GEN 100% synth SA',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -synthFrac 1.0 -synthS -synthA',
+	},
+	{ --439
+		name = 'Swingup GEN ExplMin 0.0',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -min_exploration 0.0',
+	},
+	{ --440
+		name = 'Swingup GEN ExplMin 0.2',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -min_exploration 0.2',
+	},
+	{ --441
+		name = 'Swingup GEN ExplMin 0.4',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -min_exploration 0.4',
+	},
+	{ --442
+		name = 'Swingup GEN ExplMin 0.6',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -min_exploration 0.6',
+	},
+	{ --443
+		name = 'Swingup GEN ExplMin 0.8',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -min_exploration 0.8',
+	},
+	{ --444
+		name = 'Swingup GEN ExplMin 1.0',
+		execute = true,
+		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -min_exploration 1.0',
 	},
 
 }

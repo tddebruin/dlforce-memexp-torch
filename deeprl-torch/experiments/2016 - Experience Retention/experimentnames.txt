@@ -430,3 +430,15 @@ Magman GEN ExplMin 0.7
 Magman GEN ExplMin 0.8
 Magman GEN ExplMin 0.9
 Magman GEN ExplMin 1.0
+Swingup GEN 0% synth SA
+Swingup GEN 20% synth SA
+Swingup GEN 40% synth SA
+Swingup GEN 60% synth SA
+Swingup GEN 80% synth SA
+Swingup GEN 100% synth SA
+Swingup GEN ExplMin 0.0
+Swingup GEN ExplMin 0.2
+Swingup GEN ExplMin 0.4
+Swingup GEN ExplMin 0.6
+Swingup GEN ExplMin 0.8
+Swingup GEN ExplMin 1.0

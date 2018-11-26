@@ -148,7 +148,12 @@ function experiment:__init( settings )
 			table.insert(self.environments.magman.alternativestartstate, torch.Tensor{x,v})
 		end
 	end
-
+	self.environments.pendulum.alternativestartstate = {}
+	for x=-1.75,1.75,0.5 do
+   		for v = -0.2, 0.2, 0.1 do
+			table.insert(self.environments.pendulum.alternativestartstate, torch.Tensor{x,v})
+		end
+	end
 
 
 	if settings.environment == 'magman' then
