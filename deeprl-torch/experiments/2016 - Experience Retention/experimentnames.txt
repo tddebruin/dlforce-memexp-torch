@@ -442,3 +442,11 @@ Swingup GEN ExplMin 0.4
 Swingup GEN ExplMin 0.6
 Swingup GEN ExplMin 0.8
 Swingup GEN ExplMin 1.0
+Swingup 100Hz Noise GENR
+Swingup 100Hz, 10k xp, RESERVOIR, Uniform Noise GENR
+Swingup 100Hz, 10k xp, TDE a=1.2, Uniform Noise GENR
+Swingup 100Hz, 10k xp, EXPL a=1.2, Uniform Noise GENR
+Magman 100Hz Noise GENR
+Magman 100Hz, 10k xp, RESERVOIR, Uniform Noise GENR
+Magman 100Hz, 10k xp, TDE a=1.2, Uniform Noise GENR
+Magman 100Hz, 10k xp, EXPL a=1.2, Uniform Noise GENR

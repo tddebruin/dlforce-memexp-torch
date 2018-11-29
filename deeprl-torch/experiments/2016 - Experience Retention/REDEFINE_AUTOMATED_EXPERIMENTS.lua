@@ -2219,6 +2219,46 @@ experiments = {
 		execute = true,
 		paramstring = '-generalizationrun -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -min_exploration 1.0',
 	},
+    { --445
+		name = 'Swingup 100Hz Noise GENR',
+		execute = true,
+		paramstring = '-generalizationrun -noisescale 0.02 -xpmsize 10000 -env "SwingupSimC" -overwrite "FIFO" -samplefreq 100',
+	},
+    { --446
+		name = 'Swingup 100Hz, 10k xp, RESERVOIR, Uniform Noise GENR',
+		execute = true,
+		paramstring = '-generalizationrun -noisescale 0.02 -xpmsize 10000 -env "SwingupSimC" -samplefreq 100 -overwrite "RESERVOIR" ',
+	},
+    { --447
+		name = 'Swingup 100Hz, 10k xp, TDE a=1.2, Uniform Noise GENR',
+		execute = true,
+		paramstring = '-generalizationrun -noisescale 0.02 -samplefreq 100 -xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 ',
+	},
+    { --448
+		name = 'Swingup 100Hz, 10k xp, EXPL a=1.2, Uniform Noise GENR',
+		execute = true,
+		paramstring = '-generalizationrun -noisescale 0.02 -samplefreq 100 -xpmsize 10000 -env "SwingupSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 ',
+	},
+    { --449
+		name = 'Magman 100Hz Noise GENR',
+		execute = true,
+		paramstring = '-generalizationrun -noisescale 0.02 -xpmsize 10000 -env "MagmanSimC" -overwrite "FIFO" -samplefreq 100',
+	},
+    { --450
+		name = 'Magman 100Hz, 10k xp, RESERVOIR, Uniform Noise GENR',
+		execute = true,
+		paramstring = '-generalizationrun -noisescale 0.02 -xpmsize 10000 -env "MagmanSimC" -samplefreq 100 -overwrite "RESERVOIR" ',
+	},
+    { --451
+		name = 'Magman 100Hz, 10k xp, TDE a=1.2, Uniform Noise GENR',
+		execute = true,
+		paramstring = '-generalizationrun -noisescale 0.02 -samplefreq 100 -xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_metric "TDE" -overwrite_alpha 1.2 ',
+	},
+    { --452
+		name = 'Magman 100Hz, 10k xp, EXPL a=1.2, Uniform Noise GENR',
+		execute = true,
+		paramstring = '-generalizationrun -noisescale 0.02 -samplefreq 100 -xpmsize 10000 -env "MagmanSimC" -overwrite "STOCHRANK" -overwrite_alpha 1.2 ',
+	},
 
 }
 
